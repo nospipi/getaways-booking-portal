@@ -1,7 +1,7 @@
 "use client";
-import "@/app/globals.css";
 import Button from "@mui/material/Button";
-import { getBooking } from "@/app/api/server_actions";
+import revalidateHome from "@/app/api/server_actions/revalidateHome";
+import Swal from "sweetalert2";
 
 //---------------------------------------------------------
 
@@ -12,13 +12,29 @@ const MuiButton = ({ text }: { text: string }) => {
       variant="contained"
       color="success"
       onClick={async () => {
-        try {
-          const booking = await getBooking("1204566491");
-          const bookingObj = JSON.parse(booking as string);
-          console.log("MuiButton booking", bookingObj);
-        } catch (error: unknown) {
-          console.log("MuiButton error", error);
-        }
+        Swal.fire({
+          title: "Are you sure you want to confirm?",
+          html: "<span style='text-align:left'>Scroll down and review the details of your booking, such as the <b>meeting point and time</b> carefully before confirming.</span>",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonText: "I have read the details, confirm!",
+          confirmButtonColor: "#6A914F",
+          cancelButtonText: "I'll have a look again",
+          cancelButtonColor: "rgb(202,106,106)",
+          //set backdrop class to .backdrop-swal2
+          backdrop: `
+                    rgba(0,0,0,0.4)
+                    url("/images/nybg.jpg")
+                    center
+                    no-repeat
+                  `,
+
+          reverseButtons: true,
+        }).then((result) => {
+          if (result.isConfirmed) {
+            revalidateHome();
+          }
+        });
       }}
     >
       {text}

@@ -1,4 +1,3 @@
-import "@/app/globals.css";
 import { MdOutlinePhoneAndroid } from "react-icons/md";
 import Button from "@mui/material/Button";
 
@@ -11,7 +10,7 @@ const Sim = () => {
         Looking for an e-Sim phone number for your trip ?
       </div>
       <div className="section-content-container">
-        <div className="section-content-item-top-container">
+        <div className="section-content-item-container">
           <div className="section-content-icon-container">
             <MdOutlinePhoneAndroid size={20} />
           </div>
@@ -22,7 +21,7 @@ const Sim = () => {
             <div />
           </div>
         </div>
-        <div className="section-content-item-container">
+        <div className="section-content-item-button-container">
           <Button fullWidth variant="contained" color="success">
             GET YOUR eSIM NOW
           </Button>

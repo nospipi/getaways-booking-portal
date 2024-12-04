@@ -1,4 +1,3 @@
-import "@/app/globals.css";
 import { BsChatFill } from "react-icons/bs";
 import { FaViber } from "react-icons/fa6";
 import { IoLogoWhatsapp } from "react-icons/io";
@@ -12,7 +11,7 @@ const Contact = () => {
     <div className="section-container">
       <div className="section-title-container">Have questions ?</div>
       <div className="section-content-container">
-        <div className="section-content-item-top-container">
+        <div className="section-content-item-container">
           <div className="section-content-icon-container">
             <BsChatFill size={15} />
           </div>
@@ -22,7 +21,7 @@ const Contact = () => {
           </div>
         </div>
 
-        <div className="section-content-item-container">
+        <div className="section-content-item-button-container">
           <Button
             fullWidth
             variant="contained"
@@ -30,6 +29,8 @@ const Contact = () => {
             sx={{
               display: "flex",
               gap: "10px",
+              backgroundColor: "	#22994E",
+              fontSize: "12px",
             }}
           >
             <IoLogoWhatsapp size={15} />
@@ -42,6 +43,8 @@ const Contact = () => {
             sx={{
               display: "flex",
               gap: "10px",
+              backgroundColor: "	#7360f2",
+              fontSize: "12px",
             }}
           >
             <FaViber size={15} />
@@ -54,6 +57,8 @@ const Contact = () => {
             sx={{
               display: "flex",
               gap: "10px",
+              backgroundColor: "	#0077B5",
+              fontSize: "12px",
             }}
           >
             <MdEmail size={15} />

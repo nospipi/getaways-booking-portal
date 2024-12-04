@@ -1,4 +1,3 @@
-import "@/app/globals.css";
 import { FaShoppingCart } from "react-icons/fa";
 import Button from "@mui/material/Button";
 
@@ -11,7 +10,7 @@ const Promo = () => {
         Book your next tour with Getaways !
       </div>
       <div className="section-content-container">
-        <div className="section-content-item-top-container">
+        <div className="section-content-item-container">
           <div className="section-content-icon-container">
             <FaShoppingCart size={15} />
           </div>
@@ -40,8 +39,15 @@ const Promo = () => {
             <div />
           </div>
         </div>
-        <div className="section-content-item-container">
-          <Button fullWidth variant="contained" color="success">
+        <div className="section-content-item-button-container">
+          <Button
+            fullWidth
+            variant="contained"
+            color="success"
+            // sx={{
+            //   background: "linear-gradient(180deg, #2C9646 30%, #255F1A 100%)",
+            // }}
+          >
             VIEW OFFERS
           </Button>
         </div>

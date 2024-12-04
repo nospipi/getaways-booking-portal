@@ -1,4 +1,3 @@
-import "@/app/globals.css";
 import { TbBrandTripadvisor } from "react-icons/tb";
 import MuiButton from "./MuiButton";
 
@@ -11,7 +10,7 @@ const ConfirmStatus = () => {
         Traveller confirmation status
       </div>
       <div className="section-content-container">
-        <div className="section-content-item-top-container">
+        <div className="section-content-item-container">
           <div className="section-content-icon-container">
             <TbBrandTripadvisor size={20} />
           </div>
@@ -21,7 +20,7 @@ const ConfirmStatus = () => {
             <div />
           </div>
         </div>
-        <div className="section-content-item-container">
+        <div className="section-content-item-button-container">
           <MuiButton text="CONFIRM" />
         </div>
       </div>
