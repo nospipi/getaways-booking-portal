@@ -1,9 +1,9 @@
 import styles from "./page.module.css";
-import ConfirmStatus from "./sections/ConfirmStatus";
-import Sim from "./sections/Sim";
-import Review from "./sections/Review";
-import Contact from "./sections/Contact";
-import Promo from "./sections/Promo";
+import ConfirmStatus from "./home/sections/confirm/ConfirmStatus";
+import Sim from "./home/sections/sim/Sim";
+import Review from "./home/sections/review/Review";
+import Contact from "./home/sections/contact/Contact";
+import Promo from "./home/sections/promo/Promo";
 
 //---------------------------------------------------------
 
