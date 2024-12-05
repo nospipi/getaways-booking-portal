@@ -1,5 +1,5 @@
 "use client";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -23,7 +23,7 @@ const PickupInputContainer = ({
   const locationInputHasEnoughChars = locationInputValue.length > 6;
   const locationInputHasTooManyChars = locationInputValue.length > 100;
 
-  const handleAddLocation = async () => {
+  const handleAddLocation = useCallback(async () => {
     try {
       if (!locationInputHasEnoughChars) {
         toast.error("Please enter a location with at least 6 characters");
@@ -42,7 +42,29 @@ const PickupInputContainer = ({
       console.log(e?.toString());
       toast.error(e?.toString() || "An error occurred");
     }
-  };
+  }, [
+    booking_id,
+    locationInputValue,
+    locationInputHasEnoughChars,
+    locationInputHasTooManyChars,
+    togglePickupInputShown,
+  ]);
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === "Enter") {
+        if (isPickupInputShown) {
+          handleAddLocation();
+        }
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [handleAddLocation, isPickupInputShown]);
 
   return (
     <AnimatePresence>
