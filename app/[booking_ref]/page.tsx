@@ -1,10 +1,5 @@
-import styles from "@/app/page.module.css";
-import ConfirmStatus from "@/app/home/sections/confirm/ConfirmStatus";
 import Tour from "@/app/home/sections/tour/Tour";
-import Sim from "@/app/home/sections/sim/Sim";
-import Review from "@/app/home/sections/review/Review";
-import Contact from "@/app/home/sections/contact/Contact";
-import Promo from "@/app/home/sections/promo/Promo";
+import UsefullInfoSegment from "../home/sections/tour/UsefullInfoSegment";
 import getBookingIds from "@/app/api/server_actions/getBookingIds";
 
 //---------------------------------------------------------
@@ -18,16 +13,16 @@ const Page = async ({
   const bookingIds = (await getBookingIds(booking_ref)) as string[];
 
   return (
-    <div className={styles.page}>
-      <div className={styles.container}>
-        {bookingIds.map((bookingId: string) => (
-          <Tour key={bookingId} id={bookingId} />
-        ))}
-        <ConfirmStatus />
-        <Sim />
-        <Review />
-        <Promo />
-        <Contact />
+    <div className="page-container">
+      <div className="content-wrapper">
+        <div className="content-container">
+          <div className="content-container-wrapper">
+            {bookingIds.map((bookingId: string) => (
+              <Tour key={bookingId} id={bookingId} />
+            ))}
+            <UsefullInfoSegment />
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -36,15 +31,3 @@ const Page = async ({
 export default Page;
 
 //---------------------------------------------------------
-
-// const Page = async ({
-//   params,
-// }: {
-//   params: Promise<{ [key: string]: string | string[] | undefined }>;
-// }) => {
-//   const { booking_ref } = await params;
-
-//   return <div>{booking_ref}</div>;
-// };
-
-// export default Page;

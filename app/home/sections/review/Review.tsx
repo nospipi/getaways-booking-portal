@@ -20,7 +20,7 @@ const Review = () => {
         </div>
         <div className="section-content-item-button-container">
           <Button fullWidth variant="contained" color="success">
-            VIEW OFFERS
+            REVIEW US ON TRIPADVISOR
           </Button>
         </div>
       </div>

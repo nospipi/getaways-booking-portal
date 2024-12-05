@@ -1,15 +1,4 @@
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
-}
-
-body {
-  background: #e3eef1;
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+/*           background: #e3eef1;         */
 
 * {
   box-sizing: border-box;
@@ -17,9 +6,92 @@ body {
   margin: 0;
 }
 
+body {
+  max-height: 100dvh;
+  min-height: 100dvh;
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.1px;
+  overflow: hidden;
+  margin: 0;
+  display: flex;
+}
+
 a {
   color: inherit;
   text-decoration: none;
+}
+
+.page-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  /* background: #e3eef1; */
+  background: #dbdbdb;
+}
+
+.segment-header {
+  font-size: 12px;
+  color: black;
+  font-weight: bold;
+  padding: 10px 10px 8px 10px;
+  background-color: #fbe0ff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0px;
+  border-top: 5px solid white;
+  border-bottom: 3px solid #93baf5;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+  z-index: 600;
+  gap: 10px;
+
+  span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+.content-wrapper {
+  flex: 1;
+  display: flex;
+  padding: 5px;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.content-container {
+  flex: 1;
+  overflow-x: hidden;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.content-container-wrapper {
+  width: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  border-radius: 5px;
+  max-width: 500px;
+}
+
+.segment-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 0 5px 5px 5px;
+  background-color: white;
+  box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.1);
 }
 
 .section-container {
@@ -27,16 +99,16 @@ a {
   flex-direction: column;
   justify-content: center;
   gap: 8px;
-  background-color: rgb(240, 240, 240);
+  background-color: whitesmoke;
   padding: 10px;
-  border-radius: 10px;
-  /* box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.1); */
+  /* border-top-right-radius: 15px;
+  border-bottom-left-radius: 15px; */
 }
 
 .section-title-container {
   color: dodgerblue;
   padding: 0 5px;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 600;
   letter-spacing: 0.7px;
 }
@@ -48,6 +120,7 @@ a {
   padding: 10px;
   gap: 10px;
   border-radius: 10px;
+  box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.1);
 }
 
 .section-content-container ul li::marker {
