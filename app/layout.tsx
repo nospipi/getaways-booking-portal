@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
+import { Toaster } from "react-hot-toast";
 import "./globals.css";
+
+//------------------------------------------------------------------------------
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -15,7 +18,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <AppRouterCacheProvider>{children}</AppRouterCacheProvider>
+        <AppRouterCacheProvider>
+          <Toaster position="top-center" />
+          {children}
+        </AppRouterCacheProvider>
       </body>
     </html>
   );
