@@ -1,11 +1,14 @@
 "use client";
 import Button from "@mui/material/Button";
-import revalidateHome from "@/app/api/server_actions/revalidateHome";
+import revalidatePage from "@/app/api/server_actions/revalidatePage";
 import Swal from "sweetalert2";
+import { usePathname } from "next/navigation";
 
 //---------------------------------------------------------
 
 const MuiButton = ({ text }: { text: string }) => {
+  const pathname = usePathname();
+
   return (
     <Button
       fullWidth
@@ -30,9 +33,9 @@ const MuiButton = ({ text }: { text: string }) => {
                   `,
 
           reverseButtons: true,
-        }).then((result) => {
+        }).then((result: any) => {
           if (result.isConfirmed) {
-            revalidateHome();
+            revalidatePage(pathname);
           }
         });
       }}

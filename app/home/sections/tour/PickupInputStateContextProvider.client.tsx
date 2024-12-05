@@ -22,7 +22,6 @@ export default function PickupInputStateContextProvider({
   children,
 }: PickupInputProviderProps) {
   const [isPickupInputShown, setPickupInputShown] = useState(false);
-  console.log("isPickupInputShown from provider", isPickupInputShown);
 
   return (
     <PickupInputStateContext.Provider
