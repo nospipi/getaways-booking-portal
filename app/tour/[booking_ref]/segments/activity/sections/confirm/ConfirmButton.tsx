@@ -1,42 +1,47 @@
 "use client";
 import Button from "@mui/material/Button";
-import Swal from "sweetalert2";
 import confirmBooking from "@/app/server/server_actions/confirmBooking";
 import { toast } from "react-hot-toast";
+//import { useSearchParams } from "next/navigation";
 
 //---------------------------------------------------------
 
 const ConfirmButton = ({ id }: { id: string }) => {
+  //const searchParams = useSearchParams();
+
+  const handleConfirm = async () => {
+    try {
+      // const params = new URLSearchParams(searchParams.toString());
+      // params.set("confirmed", "false");
+      // window.history.pushState(null, "", `?${params.toString()}`);
+      // togglePickupInputShown();
+      toast.loading("Confirming booking...");
+      await confirmBooking(id);
+      toast.dismiss();
+      //toast.success("Your booking details are confirmed, thank you!");
+    } catch (e) {
+      // togglePickupInputShown();
+      // const params = new URLSearchParams(searchParams.toString());
+      // params.delete("confirmed");
+      // window.history.pushState(null, "", `?${params.toString()}`);
+      console.log(e?.toString());
+      toast.error(e?.toString() || "An error occurred");
+    }
+  };
+
   return (
     <Button
       fullWidth
       variant="contained"
       color="success"
-      onClick={async () => {
-        Swal.fire({
-          title: "Are you sure you want to confirm?",
-          html: "<span style='text-align:left'>Scroll down and review the details of your booking, such as the <b>meeting point and time</b> carefully before confirming.</span>",
-          icon: "warning",
-          showCancelButton: true,
-          confirmButtonText: "I have read the details, confirm!",
-          confirmButtonColor: "#6A914F",
-          cancelButtonText: "I'll have a look again",
-          cancelButtonColor: "rgb(202,106,106)",
-          //set backdrop class to .backdrop-swal2
-          backdrop: `
-                    rgba(0,0,0,0.4)
-                    url("/images/nybg.jpg")
-                    center
-                    no-repeat
-                  `,
+      onClick={() => {
+        if (
+          window.confirm(`Are you sure you want to confirm?
 
-          reverseButtons: true,
-        }).then(async (result: any) => {
-          if (result.isConfirmed) {
-            await confirmBooking(id);
-            toast.success("Booking confirmed successfully");
-          }
-        });
+Scroll down and review the details of your booking, such as the meeting point and time carefully before confirming`)
+        ) {
+          handleConfirm();
+        }
       }}
     >
       CONFIRM

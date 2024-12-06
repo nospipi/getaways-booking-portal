@@ -1,5 +1,5 @@
 "use client";
-import { useContext, useState, useEffect, useCallback } from "react";
+import { useContext, useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -16,6 +16,7 @@ const PickupInputContainer = ({
   booking_id: string;
   client_location: string;
 }) => {
+  const inputRef = useRef(null) as any;
   const { isPickupInputShown, togglePickupInputShown } = useContext(
     PickupInputStateContext
   );
@@ -35,8 +36,10 @@ const PickupInputContainer = ({
         return;
       }
 
+      togglePickupInputShown();
+      toast.loading("Updating location...");
       await addLocation(booking_id, locationInputValue);
-      toast.success("Location added successfully");
+      toast.dismiss();
       togglePickupInputShown();
     } catch (e) {
       console.log(e?.toString());
@@ -67,44 +70,58 @@ const PickupInputContainer = ({
   }, [handleAddLocation, isPickupInputShown]);
 
   return (
-    <AnimatePresence>
-      {isPickupInputShown && (
-        <motion.div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: "5px",
-          }}
-          //a little upwards motion when appearing with a little fade in, and the opposite when disappearing
-          initial={{ y: -10, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          exit={{ y: -10, opacity: 0 }}
-          transition={{ duration: 0.2 }}
-        >
-          <TextField
-            label="Hotel name or full address"
-            variant="filled"
-            fullWidth
-            autoFocus
-            autoCorrect="off"
-            autoComplete="off"
-            autoCapitalize="off"
-            spellCheck="false"
-            error={!locationInputHasEnoughChars || locationInputHasTooManyChars}
-            value={locationInputValue}
-            onChange={(e) => setLocationInputValue(e.target.value)}
-          />
+    <AnimatePresence initial={false}>
+      <motion.div
+        key={15}
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "5px",
+          overflow: "hidden",
+          marginTop: isPickupInputShown ? "0" : "-10px",
+        }}
+        initial={{ height: 0, opacity: 0 }}
+        animate={{
+          height: isPickupInputShown ? "auto" : 0,
+          opacity: isPickupInputShown ? 1 : 0,
+        }}
+        exit={{ height: 0, opacity: 0 }}
+        transition={{ duration: 0.3 }}
+        onAnimationComplete={() => {
+          if (isPickupInputShown && inputRef.current) {
+            inputRef.current.focus();
+            // Set cursor to the end of the input
+            const length = inputRef.current.value.length;
+            inputRef.current.setSelectionRange(length, length);
+          }
+        }}
+        layout
+      >
+        <TextField
+          inputRef={inputRef}
+          label="Hotel name or full address"
+          variant="filled"
+          fullWidth
+          autoFocus
+          focused
+          autoCorrect="off"
+          autoComplete="off"
+          autoCapitalize="off"
+          spellCheck="false"
+          error={!locationInputHasEnoughChars || locationInputHasTooManyChars}
+          value={locationInputValue}
+          onChange={(e) => setLocationInputValue(e.target.value)}
+        />
 
-          <Button
-            fullWidth
-            variant="contained"
-            color="success"
-            onClick={handleAddLocation}
-          >
-            SUBMIT
-          </Button>
-        </motion.div>
-      )}
+        <Button
+          fullWidth
+          variant="contained"
+          color="success"
+          onClick={handleAddLocation}
+        >
+          SUBMIT
+        </Button>
+      </motion.div>
     </AnimatePresence>
   );
 };

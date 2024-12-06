@@ -24,6 +24,9 @@ export const addLocation = cache(
 
     await connectDB();
 
+    //throw new Error("simulate error");
+    //await new Promise((resolve) => setTimeout(resolve, 2000)); // simulate delay
+
     const updatedBooking = await BookingModel.findByIdAndUpdate(booking_id, {
       client_location: sanitizedLocation,
     });
