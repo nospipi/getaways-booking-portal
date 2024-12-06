@@ -1,4 +1,5 @@
 import { FaShoppingCart } from "react-icons/fa";
+import { TfiArrowCircleRight } from "react-icons/tfi";
 import Button from "@mui/material/Button";
 
 //---------------------------------------------------------
@@ -42,11 +43,9 @@ const PromoSection = () => {
         <div className="section-content-item-button-container">
           <Button
             fullWidth
-            variant="contained"
+            variant="outlined"
             color="success"
-            // sx={{
-            //   background: "linear-gradient(180deg, #2C9646 30%, #255F1A 100%)",
-            // }}
+            endIcon={<TfiArrowCircleRight size={15} />}
           >
             VIEW OFFERS
           </Button>

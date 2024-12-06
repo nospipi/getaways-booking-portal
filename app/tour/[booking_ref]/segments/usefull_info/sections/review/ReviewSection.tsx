@@ -1,4 +1,5 @@
 import { TbBrandTripadvisor } from "react-icons/tb";
+import { TfiArrowCircleRight } from "react-icons/tfi";
 import Button from "@mui/material/Button";
 
 //---------------------------------------------------------
@@ -19,7 +20,12 @@ const ReviewSection = () => {
           </div>
         </div>
         <div className="section-content-item-button-container">
-          <Button fullWidth variant="contained" color="success">
+          <Button
+            fullWidth
+            variant="outlined"
+            color="success"
+            endIcon={<TfiArrowCircleRight size={15} />}
+          >
             REVIEW US ON TRIPADVISOR
           </Button>
         </div>
