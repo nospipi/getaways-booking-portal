@@ -1,6 +1,5 @@
 "use client";
 import { useState, Children } from "react";
-import { MdOutlineExpandCircleDown } from "react-icons/md";
 import { MdExpandMore } from "react-icons/md";
 import Button from "@mui/material/Button";
 import { motion, AnimatePresence } from "framer-motion";
@@ -35,14 +34,22 @@ const ExpandableSectionItem = ({ children }: { children: React.ReactNode }) => {
           backgroundColor: "transparent",
           borderRadius: "0px",
           boxShadow: "none",
-          zIndex: 600,
           textTransform: "none",
         }}
         disableElevation
         onClick={() => setExpanded(!expanded)}
       >
         {firstChild}
-        <MdExpandMore size={18} />
+        <motion.div
+          animate={{ rotateX: expanded ? 180 : 0 }} // Rotate 180 degrees on the X-axis when expanded
+          transition={{ duration: 0.3 }} // Optional: Adjust the transition duration
+          style={{
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
+          <MdExpandMore size={20} />
+        </motion.div>
       </Button>
       <AnimatePresence initial={false}>
         {expanded && (
