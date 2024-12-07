@@ -9,7 +9,19 @@ import SegmentHeader from "../SegmentHeader";
 const UsefullInfoSegment = () => {
   return (
     <div className="segment-container">
-      <SegmentHeader />
+      <SegmentHeader>
+        <div
+          style={{
+            flex: 1,
+            display: "flex",
+            //justifyContent: "flex-start",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <span>Useful Information</span>
+        </div>
+      </SegmentHeader>
       <SimSection />
       <ReviewSection />
       <PromoSection />

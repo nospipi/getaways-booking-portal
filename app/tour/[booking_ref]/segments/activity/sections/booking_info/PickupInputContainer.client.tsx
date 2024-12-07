@@ -86,7 +86,7 @@ const PickupInputContainer = ({
           opacity: isPickupInputShown ? 1 : 0,
         }}
         exit={{ height: 0, opacity: 0 }}
-        transition={{ duration: 0.3 }}
+        transition={{ duration: 0.15 }}
         onAnimationComplete={() => {
           if (isPickupInputShown && inputRef.current) {
             inputRef.current.focus();

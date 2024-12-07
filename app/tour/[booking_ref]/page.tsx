@@ -17,8 +17,13 @@ const Page = async ({
       <div className="content-wrapper">
         <div className="content-container">
           <div className="content-container-wrapper">
-            {bookingIds.map((bookingId: string) => (
-              <ActivitySegment key={bookingId} id={bookingId} />
+            {bookingIds.map((bookingId: string, index: number) => (
+              <ActivitySegment
+                key={bookingId}
+                id={bookingId}
+                activityIndex={index}
+                numberOfActivities={bookingIds.length}
+              />
             ))}
             <UsefullInfoSegment />
           </div>

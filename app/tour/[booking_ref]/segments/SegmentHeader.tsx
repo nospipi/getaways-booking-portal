@@ -1,6 +1,7 @@
 import Button from "@mui/material/Button";
+import { ReactNode } from "react";
 
-const SegmentHeader = () => {
+const SegmentHeader = ({ children }: { children: ReactNode }) => {
   return (
     <Button
       sx={{
@@ -10,8 +11,6 @@ const SegmentHeader = () => {
         padding: "10px 8px 8px 8px",
         backgroundColor: "#fbe0ff",
         display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
         position: "sticky",
         top: "0px",
         borderTop: "5px solid white",
@@ -26,11 +25,10 @@ const SegmentHeader = () => {
           textOverflow: "ellipsis",
         },
       }}
+      disableElevation
+      disableRipple
     >
-      <div className="activity-header__title">Activity</div>
-      <div className="activity-header__subtitle">
-        View and manage your activity
-      </div>
+      {children}
     </Button>
   );
 };

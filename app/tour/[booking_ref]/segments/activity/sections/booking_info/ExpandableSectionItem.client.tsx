@@ -1,5 +1,11 @@
 "use client";
-import { useState, Children } from "react";
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  Children,
+  ReactElement,
+} from "react";
 import { MdExpandMore } from "react-icons/md";
 import Button from "@mui/material/Button";
 import { motion, AnimatePresence } from "framer-motion";
@@ -11,6 +17,24 @@ const ExpandableSectionItem = ({ children }: { children: React.ReactNode }) => {
 
   const firstChild = Children.toArray(children)[0];
   const remainingChildren = Children.toArray(children).slice(1);
+
+  const firstChildRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (firstChildRef.current) {
+      const sectionContentTextContainer = firstChildRef.current.querySelector(
+        ".section-content-text-container"
+      );
+
+      if (sectionContentTextContainer) {
+        if (expanded) {
+          sectionContentTextContainer.style.borderLeft = "2px solid #d67600";
+        } else {
+          sectionContentTextContainer.style.borderLeft = "2px solid #599cdf";
+        }
+      }
+    }
+  }, [expanded]);
 
   return (
     <div
@@ -39,10 +63,13 @@ const ExpandableSectionItem = ({ children }: { children: React.ReactNode }) => {
         disableElevation
         onClick={() => setExpanded(!expanded)}
       >
-        {firstChild}
+        {React.isValidElement(firstChild) &&
+          React.cloneElement(firstChild as ReactElement, {
+            ref: firstChildRef,
+          })}
         <motion.div
-          animate={{ rotateX: expanded ? 180 : 0 }} // Rotate 180 degrees on the X-axis when expanded
-          transition={{ duration: 0.3 }} // Optional: Adjust the transition duration
+          animate={{ rotateX: expanded ? 180 : 0 }}
+          transition={{ duration: 0.3 }}
           style={{
             display: "flex",
             alignItems: "center",
