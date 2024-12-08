@@ -26,7 +26,7 @@ const BusTracking = async ({ id }: { id: string }) => {
         <div className="section-content-container">
           <div className="section-content-item-container">
             <div className="section-content-icon-container">
-              <FaBus size={20} />
+              <FaBus size={16} />
             </div>
             <div
               className="section-content-text-container"
@@ -35,7 +35,7 @@ const BusTracking = async ({ id }: { id: string }) => {
               }}
             >
               {hasVehicle
-                ? `${booking.task.vehicle.plate} (${booking.task.vehicle.type} / ${booking.task.vehicle.color})`
+                ? `${booking?.task?.vehicle.plate} (${booking?.task?.vehicle.type} / ${booking?.task?.vehicle.color})`
                 : "NOT AVAILABLE"}
             </div>
           </div>
