@@ -1,9 +1,12 @@
-import BookingInfoSection from "./sections/booking_info/BookingInfoSection";
+import BookingInfo from "./sections/booking_info/BookingInfo";
 import SegmentHeader from "../SegmentHeader";
 import ConfirmStatusSection from "./sections/confirm/ConfirmStatusSection";
 import TourInfoSection from "./sections/tour_info/TourInfoSection";
-import MeetingPointSection from "./sections/meeting_point/MeetingPointSection";
+import MeetingPoint from "./sections/meeting_point/MeetingPoint";
+import MeetingTime from "./sections/meeting_point/MeetingTime";
+import TourHosts from "./sections/meeting_point/TourHosts";
 import getBooking from "@/app/server/server_actions/getBooking";
+import BusTracking from "./sections/map/BusTracking";
 //---------------------------------------------------------
 
 const ActivitySegment = async ({
@@ -19,7 +22,6 @@ const ActivitySegment = async ({
   const hasPickupLocationAndTime =
     booking?.pickup_location?.name.length > 0 &&
     booking?.pickup_time.length > 0;
-  const product_title = booking?.product?.platform_product_name;
 
   return (
     <div className="segment-container">
@@ -42,9 +44,12 @@ const ActivitySegment = async ({
         </div>
       </SegmentHeader>
       {hasPickupLocationAndTime && <ConfirmStatusSection id={id} />}
-      <BookingInfoSection id={id} />
+      <BookingInfo id={id} />
       <TourInfoSection id={id} />
-      <MeetingPointSection id={id} />
+      <MeetingPoint id={id} />
+      <MeetingTime id={id} />
+      <TourHosts id={id} />
+      <BusTracking id={id} />
     </div>
   );
 };

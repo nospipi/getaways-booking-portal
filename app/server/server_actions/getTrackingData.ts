@@ -62,6 +62,7 @@ const updateVehiclePosition = async (
 //-----------------------------------------------------------------------------
 
 const getTrackingData = async (booking_id: string) => {
+
   await connectDB();
   const booking = await BookingModel.findById(booking_id);
 
@@ -98,8 +99,7 @@ const getTrackingData = async (booking_id: string) => {
     .format("DD MMM YYYY, hh:mm A");
 
   const tourGroup = await TourGroupModel.findById(booking.tour_group_id);
-  const { task_id } = tourGroup;
-  const task = await TaskModel.findById(task_id);
+  const task = await TaskModel.findById(tourGroup?.task_id);
 
   // HAVING TASK BUT NO MEETING TIME NOT POSSIBLE SO WE CHECK FOR TASK FIRST ANYWAY
   if (!task) {
@@ -134,7 +134,8 @@ const getTrackingData = async (booking_id: string) => {
 
   if (currentDateTimeInGreeceIsAfterAllowedTrackingTime) {
     const error = new Error();
-    error.message = "Tour bus tracking not available";
+    error.message =
+      "Tour bus tracking is available only during the pickup time";
     throw error;
   }
 
@@ -181,9 +182,6 @@ const getTrackingData = async (booking_id: string) => {
     }
   );
 
-  // console.log("distanceFromVehicleToClient", distanceFromVehicleToClient);
-
-  // //console.log("distanceFromVehicleToClient", distanceFromVehicleToClient);
 
   const withinRangeOfOtherPickup = coordinates.some((coordinate: unknown) => {
     const distance = geolib.getPreciseDistance(
@@ -195,10 +193,6 @@ const getTrackingData = async (booking_id: string) => {
   const arrivingInOwnPickup =
     distanceFromVehicleToClient <= 300 && distanceFromVehicleToClient > 80;
   const arrivedAtOwnPickup = distanceFromVehicleToClient <= 80;
-
-  // console.log("withinRangeOfOtherPickup", withinRangeOfOtherPickup);
-  // console.log("arrivingInOwnPickup", arrivingInOwnPickup);
-  // console.log("arrivedAtOwnPickup", arrivedAtOwnPickup);
 
   if (shouldGetNewPosition) {
     const { UserIdGuid, SessionId: CurrentSessionId } =

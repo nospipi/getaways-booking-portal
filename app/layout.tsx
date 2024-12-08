@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import { Inter, Roboto } from "next/font/google";
-import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
-import { Toaster } from "react-hot-toast";
+import { Roboto } from "next/font/google";
+import Providers from "@/utils/Providers.client";
+
 import "./globals.css";
 
 const roboto = Roboto({
@@ -28,10 +28,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={roboto.className}>
-        <AppRouterCacheProvider>
-          <Toaster position="top-center" />
-          {children}
-        </AppRouterCacheProvider>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

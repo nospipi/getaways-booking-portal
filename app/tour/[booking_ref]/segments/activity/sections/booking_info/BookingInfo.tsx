@@ -7,7 +7,7 @@ import PickupPromptText from "@/app/tour/[booking_ref]/segments/activity/section
 
 //---------------------------------------------------------
 
-const BookingInfoSection = async ({ id }: { id: string }) => {
+const BookingInfo = async ({ id }: { id: string }) => {
   const booking = await getBooking(id);
 
   const hasClientLocation = booking?.client_location?.length > 0;
@@ -92,4 +92,4 @@ const BookingInfoSection = async ({ id }: { id: string }) => {
   );
 };
 
-export default BookingInfoSection;
+export default BookingInfo;
