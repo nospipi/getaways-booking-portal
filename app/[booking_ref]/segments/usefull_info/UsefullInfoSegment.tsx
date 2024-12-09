@@ -6,7 +6,7 @@ import SegmentHeader from "../SegmentHeader";
 
 //---------------------------------------------------------
 
-const UsefullInfoSegment = () => {
+const UsefullInfoSegment = ({ id }: { id: string }) => {
   return (
     <div className="segment-container">
       <SegmentHeader>
@@ -23,9 +23,9 @@ const UsefullInfoSegment = () => {
         </div>
       </SegmentHeader>
       <SimSection />
-      <ReviewSection />
+      <ReviewSection id={id} />
       <PromoSection />
-      <ContactSection />
+      <ContactSection id={id} />
     </div>
   );
 };

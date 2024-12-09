@@ -1,6 +1,7 @@
 import { MdOutlinePhoneAndroid } from "react-icons/md";
 import { TfiArrowCircleRight } from "react-icons/tfi";
 import Button from "@mui/material/Button";
+import Link from "next/link";
 
 //---------------------------------------------------------
 
@@ -23,14 +24,21 @@ const SimSection = () => {
           </div>
         </div>
         <div className="section-content-item-button-container">
-          <Button
-            fullWidth
-            variant="outlined"
-            color="success"
-            endIcon={<TfiArrowCircleRight size={15} />}
+          <Link
+            href={"https://connectphone.eu/download-app"}
+            style={{
+              width: "100%",
+            }}
           >
-            GET YOUR eSIM NOW
-          </Button>
+            <Button
+              fullWidth
+              variant="outlined"
+              color="success"
+              endIcon={<TfiArrowCircleRight size={15} />}
+            >
+              GET YOUR eSIM NOW
+            </Button>
+          </Link>
         </div>
       </div>
     </div>

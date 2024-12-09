@@ -30,7 +30,7 @@ export interface IGetBookingReturn extends IBooking {
   isFirstVisit: boolean;
 }
 
-export const getBooking = cache(
+export const getBookingById = cache(
   async (id: string): Promise<IGetBookingReturn> => {
     await connectDB();
 
@@ -81,5 +81,5 @@ export const getBooking = cache(
   }
 );
 
-export default getBooking;
+export default getBookingById;
 //------------------------------------------------------------------------------

@@ -1,10 +1,14 @@
 import { TbBrandTripadvisor } from "react-icons/tb";
 import { TfiArrowCircleRight } from "react-icons/tfi";
+import getBookingById from "@/app/server/server_actions/getBookingById";
 import Button from "@mui/material/Button";
+import Link from "next/link";
 
 //---------------------------------------------------------
 
-const ReviewSection = () => {
+const ReviewSection = async ({ id }: { id: string }) => {
+  const booking = await getBookingById(id);
+
   return (
     <div className="section-container">
       <div className="section-title-container">Leave us a review !</div>
@@ -20,14 +24,21 @@ const ReviewSection = () => {
           </div>
         </div>
         <div className="section-content-item-button-container">
-          <Button
-            fullWidth
-            variant="outlined"
-            color="success"
-            endIcon={<TfiArrowCircleRight size={15} />}
+          <Link
+            href={booking?.product?.review_link || "/"}
+            style={{
+              width: "100%",
+            }}
           >
-            REVIEW US ON TRIPADVISOR
-          </Button>
+            <Button
+              fullWidth
+              variant="outlined"
+              color="success"
+              endIcon={<TfiArrowCircleRight size={15} />}
+            >
+              REVIEW US ON TRIPADVISOR
+            </Button>
+          </Link>
         </div>
       </div>
     </div>

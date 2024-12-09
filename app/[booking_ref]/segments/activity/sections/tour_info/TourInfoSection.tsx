@@ -1,4 +1,4 @@
-import getBooking from "@/app/server/server_actions/getBooking";
+import getBookingById from "@/app/server/server_actions/getBookingById";
 import { BsFillCalendarCheckFill } from "react-icons/bs";
 import { FaCamera } from "react-icons/fa";
 import { MdTour } from "react-icons/md";
@@ -13,7 +13,7 @@ import placeholder from "@/public/elementor-placeholder-image.webp";
 //---------------------------------------------------------
 
 const TourInfoSection = async ({ id }: { id: string }) => {
-  const booking = await getBooking(id);
+  const booking = await getBookingById(id);
   const product_title = booking?.product?.platform_product_name;
 
   return (
@@ -56,7 +56,7 @@ const TourInfoSection = async ({ id }: { id: string }) => {
             }}
           >
             <Image
-              src={booking?.product.product_images[0] || placeholder}
+              src={booking?.product?.product_images[0] || placeholder}
               style={{
                 width: "100%",
                 height: "100%",
@@ -74,7 +74,7 @@ const TourInfoSection = async ({ id }: { id: string }) => {
                 fontSize: "14px",
               }}
             >
-              {booking?.product.product_short_description}
+              {booking?.product?.product_short_description}
             </span>
           </div>
         </ExpandableSectionItem>
@@ -152,14 +152,16 @@ const TourInfoSection = async ({ id }: { id: string }) => {
               borderBottomRightRadius: "10px",
             }}
           >
-            {booking?.product.additional_info.map((additional_info, index) => {
-              return (
-                <div key={additional_info}>
-                  <IoCaretForwardOutline size={11} />{" "}
-                  <span>{additional_info}</span>
-                </div>
-              );
-            })}
+            {booking?.product?.additional_info?.map(
+              (additional_info, index) => {
+                return (
+                  <div key={additional_info}>
+                    <IoCaretForwardOutline size={11} />{" "}
+                    <span>{additional_info}</span>
+                  </div>
+                );
+              }
+            )}
           </div>
         </ExpandableSectionItem>
         <ExpandableSectionItem>
@@ -196,7 +198,7 @@ const TourInfoSection = async ({ id }: { id: string }) => {
               borderBottomRightRadius: "10px",
             }}
           >
-            {booking?.product.special_instructions.map(
+            {booking?.product?.special_instructions?.map(
               (special_instruction, index) => {
                 return (
                   <div key={special_instruction}>

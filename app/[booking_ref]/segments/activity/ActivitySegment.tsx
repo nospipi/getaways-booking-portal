@@ -5,7 +5,7 @@ import TourInfoSection from "./sections/tour_info/TourInfoSection";
 import MeetingPoint from "./sections/meeting_point/MeetingPoint";
 import MeetingTime from "./sections/meeting_point/MeetingTime";
 import TourHosts from "./sections/meeting_point/TourHosts";
-import getBooking from "@/app/server/server_actions/getBooking";
+import getBookingById from "@/app/server/server_actions/getBookingById";
 import BusTracking from "./sections/map/BusTracking";
 //---------------------------------------------------------
 
@@ -18,7 +18,7 @@ const ActivitySegment = async ({
   activityIndex: number;
   numberOfActivities: number;
 }) => {
-  const booking = await getBooking(id);
+  const booking = await getBookingById(id);
   const hasPickupLocationAndTime =
     booking?.pickup_location?.name.length > 0 &&
     booking?.pickup_time.length > 0;

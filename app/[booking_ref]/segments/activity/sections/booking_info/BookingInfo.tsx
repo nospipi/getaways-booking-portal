@@ -1,5 +1,5 @@
 import { FaExclamationCircle } from "react-icons/fa";
-import getBooking from "@/app/server/server_actions/getBooking";
+import getBookingById from "@/app/server/server_actions/getBookingById";
 import PickupInputContainer from "@/app/[booking_ref]/segments/activity/sections/booking_info/PickupInputContainer.client";
 import PickupInputStateContextProvider from "@/app/[booking_ref]/segments/activity/sections/booking_info/PickupInputStateContextProvider.client";
 import EditButton from "@/app/[booking_ref]/segments/activity/sections/booking_info/EditButton.client";
@@ -8,7 +8,7 @@ import PickupPromptText from "@/app/[booking_ref]/segments/activity/sections/boo
 //---------------------------------------------------------
 
 const BookingInfo = async ({ id }: { id: string }) => {
-  const booking = await getBooking(id);
+  const booking = await getBookingById(id);
 
   const hasClientLocation = booking?.client_location?.length > 0;
   const hasPickupLocation =

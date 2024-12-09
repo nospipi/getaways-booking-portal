@@ -2,11 +2,19 @@ import { BsChatFill } from "react-icons/bs";
 import { FaViber } from "react-icons/fa6";
 import { IoLogoWhatsapp } from "react-icons/io";
 import { MdEmail } from "react-icons/md";
+import { FaApple } from "react-icons/fa";
 import Button from "@mui/material/Button";
+import getBookingForContact from "@/app/server/server_actions/getBookingForContact";
+import getBookingById from "@/app/server/server_actions/getBookingById";
+import IMessageButton from "./IMessageButton.client";
+import WhatsAppButton from "./WhatsAppButton.client";
+import ViberButton from "./ViberButton.client";
 
 //---------------------------------------------------------
 
-const ContactSection = () => {
+const ContactSection = async ({ id }: { id: string }) => {
+  const booking = await getBookingById(id);
+
   return (
     <div className="section-container">
       <div className="section-title-container">Have questions ?</div>
@@ -22,48 +30,44 @@ const ContactSection = () => {
         </div>
 
         <div className="section-content-item-button-container">
-          <Button
-            fullWidth
-            variant="contained"
-            color="info"
-            sx={{
-              display: "flex",
-              gap: "10px",
-              backgroundColor: "	#22994E",
-              fontSize: "12px",
+          <IMessageButton
+            booking_ref={booking.ref}
+            client_name={booking.client_name}
+          />
+          <WhatsAppButton
+            booking_ref={booking.ref}
+            client_name={booking.client_name}
+          />
+          <ViberButton
+            booking_ref={booking.ref}
+            client_name={booking.client_name}
+          />
+
+          <a
+            href={`mailto:operations@getawaysgreece.com?subject=${`[${booking.ref}/${booking.client_name}]`}`}
+            target="_blank"
+            style={{
+              width: "100%",
             }}
           >
-            <IoLogoWhatsapp size={15} />
-            <div className="platform-text-container ">WhatsApp</div>
-          </Button>
-          <Button
-            fullWidth
-            variant="contained"
-            color="info"
-            sx={{
-              display: "flex",
-              gap: "10px",
-              backgroundColor: "	#7360f2",
-              fontSize: "12px",
-            }}
-          >
-            <FaViber size={15} />
-            <div className="platform-text-container ">Viber</div>
-          </Button>
-          <Button
-            fullWidth
-            variant="contained"
-            color="info"
-            sx={{
-              display: "flex",
-              gap: "10px",
-              backgroundColor: "	#0077B5",
-              fontSize: "12px",
-            }}
-          >
-            <MdEmail size={15} />
-            <div className="platform-text-container ">Email</div>
-          </Button>
+            <Button
+              fullWidth
+              variant="text"
+              color="success"
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "5px",
+                fontSize: "11px",
+                textTransform: "none",
+                color: "black",
+                borderColor: "rgb(163 163 163) !important",
+              }}
+            >
+              <MdEmail size={15} color="dodgerblue" />
+              <div className="platform-text-container ">Email</div>
+            </Button>
+          </a>
         </div>
       </div>
     </div>

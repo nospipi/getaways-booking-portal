@@ -5,13 +5,13 @@ import {
 } from "@tanstack/react-query";
 import getTrackingData from "@/app/server/server_actions/getTrackingData";
 import BusTrackingClient from "./BusTrackingClient.client";
-import getBooking from "@/app/server/server_actions/getBooking";
+import getBookingById from "@/app/server/server_actions/getBookingById";
 import { FaBus } from "react-icons/fa6";
 
 //---------------------------------------------------------------------------------------------
 
 const BusTracking = async ({ id }: { id: string }) => {
-  const booking = await getBooking(id);
+  const booking = await getBookingById(id);
   const hasVehicle = booking?.task?.vehicle?.plate;
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery({

@@ -1,10 +1,10 @@
 import { FaUserTie } from "react-icons/fa6";
-import getBooking from "@/app/server/server_actions/getBooking";
+import getBookingById from "@/app/server/server_actions/getBookingById";
 
 //---------------------------------------------------------
 
 const TourHosts = async ({ id }: { id: string }) => {
-  const booking = await getBooking(id);
+  const booking = await getBookingById(id);
   const hasCrew = booking?.task?.assignees?.length > 0;
   return (
     <div className="section-container">
