@@ -1,6 +1,7 @@
 import { FaShoppingCart } from "react-icons/fa";
 import { TfiArrowCircleRight } from "react-icons/tfi";
 import Button from "@mui/material/Button";
+import Link from "next/link";
 
 //---------------------------------------------------------
 
@@ -41,14 +42,21 @@ const PromoSection = () => {
           </div>
         </div>
         <div className="section-content-item-button-container">
-          <Button
-            fullWidth
-            variant="outlined"
-            color="success"
-            endIcon={<TfiArrowCircleRight size={15} />}
+          <Link
+            href="/offers"
+            style={{
+              width: "100%",
+            }}
           >
-            VIEW OFFERS
-          </Button>
+            <Button
+              fullWidth
+              variant="outlined"
+              color="success"
+              endIcon={<TfiArrowCircleRight size={15} />}
+            >
+              VIEW OFFERS
+            </Button>
+          </Link>
         </div>
       </div>
     </div>

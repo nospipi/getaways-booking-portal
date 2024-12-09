@@ -26,9 +26,9 @@ export interface IStartTime {
 
 // Interface for Location
 export interface ILocation {
-  address: string;
-  latitude: number;
-  longitude: number;
+  address: string | null;
+  latitude: number | null;
+  longitude: number | null;
 }
 
 // Interface for Product Image
@@ -207,7 +207,9 @@ productsSchema.pre("save", function (next) {
 });
 
 // Pre-update middleware to update the slug when updating platform product name
-productsSchema.pre("findByIdAndUpdate", async function (next) {
+productsSchema.pre("findOneAndUpdate", async function (next) {
+  const initialValues = this.getQuery();
+  const updatedValues = this.getUpdate();
   if (this.platform_product_name) {
     this.slug = _.kebabCase(this.platform_product_name);
   }

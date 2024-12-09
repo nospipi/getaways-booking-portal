@@ -1,4 +1,4 @@
-import { Schema } from "mongoose";
+import { Schema, Document } from "mongoose";
 import mongoosePaginate from "mongoose-paginate-v2";
 import mongoosastic from "mongoosastic";
 import { diff as deepDiff } from "deep-diff";
@@ -6,7 +6,7 @@ import meetingPointSchema from "./meetingPointSchema";
 
 //------------------------------------------------------------------------------
 
-export interface IBooking {
+export interface IBooking extends Document {
   ref?: string;
   order_number?: string;
   parent_booking_id?: string;

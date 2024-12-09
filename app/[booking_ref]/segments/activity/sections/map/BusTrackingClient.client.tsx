@@ -17,10 +17,6 @@ const BusTrackingClient = ({ id }: { id: string }) => {
 
   console.log(data);
 
-  // if (isError || !data) {
-  //   return <div>{error?.message || "An error occured"}</div>;
-  // }
-
   if (isError || !data) {
     return (
       <div
@@ -47,7 +43,6 @@ const BusTrackingClient = ({ id }: { id: string }) => {
           style={{
             position: "absolute",
             top: 0,
-            borderRadius: "2px",
             width: "100%",
             height: "100%",
             background: "rgba(0, 0, 0, 0.5)",

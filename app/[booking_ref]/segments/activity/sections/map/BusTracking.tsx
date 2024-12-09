@@ -35,7 +35,7 @@ const BusTracking = async ({ id }: { id: string }) => {
               }}
             >
               {hasVehicle
-                ? `${booking?.task?.vehicle.plate} (${booking?.task?.vehicle.type} / ${booking?.task?.vehicle.color})`
+                ? `${booking?.task?.vehicle?.plate} (${booking?.task?.vehicle?.type} / ${booking?.task?.vehicle?.color})`
                 : "NOT AVAILABLE"}
             </div>
           </div>
