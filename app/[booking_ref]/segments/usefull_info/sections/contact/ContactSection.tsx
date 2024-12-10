@@ -1,10 +1,6 @@
 import { BsChatFill } from "react-icons/bs";
-import { FaViber } from "react-icons/fa6";
-import { IoLogoWhatsapp } from "react-icons/io";
 import { MdEmail } from "react-icons/md";
-import { FaApple } from "react-icons/fa";
 import Button from "@mui/material/Button";
-import getBookingForContact from "@/app/server/server_actions/getBookingForContact";
 import getBookingById from "@/app/server/server_actions/getBookingById";
 import IMessageButton from "./IMessageButton.client";
 import WhatsAppButton from "./WhatsAppButton.client";

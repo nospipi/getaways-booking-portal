@@ -79,7 +79,7 @@ const ProductCard = ({ product }: { product: IProduct }) => {
           label="Free cancellation"
         />
         <Chip
-          icon={<IoTime size={15} color="darkgreen" />}
+          icon={<IoTime size={18} color="darkgreen" />}
           label={product.tour_duration}
         />
       </div>
