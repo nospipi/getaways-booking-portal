@@ -80,6 +80,7 @@ export interface IProduct extends Document {
   isPublished: boolean | null;
   market_price: number | null;
   isAvailableInPlan: boolean | null;
+  suggested_products: string[] | null;
   isCompleted: boolean | null;
 }
 
@@ -191,6 +192,7 @@ const productsSchema = new Schema<IProduct>(
     isPublished: { type: Boolean, default: null },
     market_price: { type: Number, default: null },
     isAvailableInPlan: { type: Boolean, default: null },
+    suggested_products: { type: [String], default: null },
     isCompleted: { type: Boolean, default: null },
   },
   {
