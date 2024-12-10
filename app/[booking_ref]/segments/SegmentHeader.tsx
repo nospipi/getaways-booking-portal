@@ -19,6 +19,7 @@ const SegmentHeader = ({ children }: { children: ReactNode }) => {
         zIndex: 600,
         gap: "10px",
         textTransform: "none",
+        fontFamily: "inherit",
         span: {
           whiteSpace: "nowrap",
           overflow: "hidden",
@@ -34,3 +35,17 @@ const SegmentHeader = ({ children }: { children: ReactNode }) => {
 };
 
 export default SegmentHeader;
+
+
+      // minHeight: "45px",
+      //     paddingTop: 0,
+      //     paddingBottom: 0,
+      //     paddingLeft: 0,
+      //     paddingRight: "10px",
+      //     width: "100%",
+      //     color: "black",
+      //     backgroundColor: "transparent",
+      //     borderRadius: "0px",
+      //     boxShadow: "none",
+      //     textTransform: "none",
+      //     fontFamily: "inherit",

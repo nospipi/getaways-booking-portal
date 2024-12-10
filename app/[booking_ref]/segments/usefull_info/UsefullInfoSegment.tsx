@@ -22,7 +22,7 @@ const UsefullInfoSegment = ({ id }: { id: string }) => {
           <span>Useful Information</span>
         </div>
       </SegmentHeader>
-      <PromoSection />
+      <PromoSection id={id} />
       <SimSection />
       <ReviewSection id={id} />
       <ContactSection id={id} />

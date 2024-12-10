@@ -5,11 +5,12 @@ import Button from "@mui/material/Button";
 import { FaCheckCircle } from "react-icons/fa";
 import { IoTime } from "react-icons/io5";
 import Chip from "@mui/material/Chip";
+import { IProduct } from "@/app/server/getaways-shared-models/schemas/productsSchema";
 import Image from "next/image";
 
 //---------------------------------------------------------
 
-export default () => {
+const ProductCard = ({ product }: { product: IProduct }) => {
   return (
     <div
       style={{
@@ -18,12 +19,12 @@ export default () => {
         gap: "15px",
         padding: "13px",
         borderRadius: "10px",
-        backgroundColor: "rgb(251 251 251)",
+        backgroundColor: "rgb(246 246 246)",
         borderTop: "4px solid rgb(158 193 229)",
         boxShadow: "0 4px 5px -5px rgba(0, 0, 0, 0.4)",
       }}
     >
-      <div>Athens Private City Tour (Skip the Line in Acropolis)</div>
+      <div>{product.platform_product_name}</div>
       <div
         style={{
           display: "flex",
@@ -61,10 +62,7 @@ export default () => {
               display: "flex",
             }}
           >
-            Discover Athens your way with a 4-hour private tour, featuring
-            tailored itineraries, expert guidance, and skip-the-line access to
-            the Acropolis for a stress-free, enjoyable exploration of the city's
-            top highlights
+            {product.product_short_description}
           </div>
         </div>
       </div>
@@ -80,7 +78,10 @@ export default () => {
           icon={<FaCheckCircle size={15} color="darkgreen" />}
           label="Free cancellation"
         />
-        <Chip icon={<IoTime size={15} color="darkgreen" />} label="4 hours" />
+        <Chip
+          icon={<IoTime size={15} color="darkgreen" />}
+          label={product.tour_duration}
+        />
       </div>
       <div
         style={{
@@ -112,7 +113,7 @@ export default () => {
                 fontWeight: "bold",
               }}
             >
-              €400
+              €{(product?.market_price || 0).toFixed(2)}
             </span>
           </div>
 
@@ -120,17 +121,22 @@ export default () => {
             style={{
               fontWeight: "bold",
               color: "darkgreen",
+              fontSize: "15px",
             }}
           >
-            €320
+            {/* 15% discount */}€
+            {(
+              (product?.market_price || 0) -
+              (product?.market_price || 0) * 0.15
+            ).toFixed(2)}
           </span>
         </div>
         <Button
           variant="contained"
           size="small"
           className="bokunButton"
-          //data-src={`https://widgets.bokun.io/online-sales/db6fd107-983c-4e5e-8d51-b37b123ddd0d/experience-calendar/${774339}?partialView=1`}
-          data-src={`data-src="https://widgets.bokun.io/online-sales/db6fd107-983c-4e5e-8d51-b37b123ddd0d/experience/${774339}?partialView=1"`}
+          //data-src={`https://widgets.bokun.io/online-sales/db6fd107-983c-4e5e-8d51-b37b123ddd0d/experience-calendar/${product.bokun_product_code}?partialView=1`}
+          data-src={`data-src="https://widgets.bokun.io/online-sales/db6fd107-983c-4e5e-8d51-b37b123ddd0d/experience/${product.bokun_product_code}?partialView=1"`}
         >
           Book Now
         </Button>
@@ -138,3 +144,5 @@ export default () => {
     </div>
   );
 };
+
+export default ProductCard;

@@ -42,6 +42,7 @@ export interface IProductImage {
 
 // Main IProduct Interface
 export interface IProduct extends Document {
+  _id: string;
   index: number | null;
   title: string | null;
   options: IOption[] | null;

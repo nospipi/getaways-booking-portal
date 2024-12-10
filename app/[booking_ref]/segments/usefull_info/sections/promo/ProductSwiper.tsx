@@ -5,13 +5,17 @@ import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import IconButton from "@mui/material/IconButton";
 import { PiCaretLeft, PiCaretRight } from "react-icons/pi";
 import ProductCard from "./ProductCard";
+import { IProduct } from "@/app/server/getaways-shared-models/schemas/productsSchema";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 //---------------------------------------------------------
 
-export default () => {
+const ProductSwiper = ({ products }: { products: string }) => {
+  //its passed from a server component, so it comes serialized
+  const parsedProducts: IProduct[] = JSON.parse(products);
+
   return (
     <Swiper
       loop
@@ -32,30 +36,16 @@ export default () => {
       spaceBetween={20}
       slidesPerView={1}
     >
-      <SwiperSlide>
-        <ProductCard />
-      </SwiperSlide>
-      <SwiperSlide>
-        <ProductCard />
-      </SwiperSlide>
-      <SwiperSlide>
-        <ProductCard />
-      </SwiperSlide>
-      <SwiperSlide>
-        <ProductCard />
-      </SwiperSlide>
-      <SwiperSlide>
-        <ProductCard />
-      </SwiperSlide>
-      <SwiperSlide>
-        <ProductCard />
-      </SwiperSlide>
-      <SwiperSlide>
-        <ProductCard />
-      </SwiperSlide>
-      <SwiperSlide>
-        <ProductCard />
-      </SwiperSlide>
+      {parsedProducts.map((product: IProduct) => {
+        return (
+          <SwiperSlide key={product.id}>
+            <ProductCard product={product} />
+          </SwiperSlide>
+        );
+      })}
+
+      {/* Custom pagination */}
+
       <div
         style={{
           display: "flex",
@@ -86,3 +76,5 @@ export default () => {
     </Swiper>
   );
 };
+
+export default ProductSwiper;

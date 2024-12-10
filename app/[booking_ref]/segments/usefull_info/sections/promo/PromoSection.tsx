@@ -4,9 +4,13 @@ import ExpandableSectionItem from "@/app/[booking_ref]/segments/activity/section
 import { FaInfoCircle } from "react-icons/fa";
 import { IoCaretForwardOutline } from "react-icons/io5";
 
+import getBookingById from "@/app/server/server_actions/getBookingById";
+
 //---------------------------------------------------------
 
-const PromoSection = () => {
+const PromoSection = async ({ id }: { id: string }) => {
+  const booking = await getBookingById(id);
+
   return (
     <div className="section-container">
       <div className="section-title-container">
@@ -84,8 +88,8 @@ const PromoSection = () => {
                 }}
               />
               <span>
-                Browse through the variety of guided tours below and click "Book
-                Now" to see more details and make a reservation
+                Browse through the variety of guided tours below and click
+                &quot;Book Now&quot; to see more details and make a reservation
               </span>
             </div>
             <div>
@@ -109,7 +113,7 @@ const PromoSection = () => {
               />
               <span>
                 When you have finished selecting your tours, click on the
-                "Checkout" button to move on to the payment page.
+                &quot;Checkout&quot; button to move on to the payment page.
               </span>
             </div>
             <div>
@@ -120,8 +124,9 @@ const PromoSection = () => {
                 }}
               />
               <span>
-                On the payment page,and after adding the traveller's
-                information, locate the input field labeled "Promo code"
+                On the payment page, and after adding the traveller&apos;s
+                information, locate the input field labeled &quot;Promo
+                code&quot;
               </span>
             </div>
             <div>
@@ -145,14 +150,14 @@ const PromoSection = () => {
               <span>
                 The system will automatically apply a 15% discount on the value
                 of each ordered product once the coupon code is successfully
-                validated,and you can proceed to complete your order.
+                validated, and you can proceed to complete your order.
               </span>
             </div>
           </div>
         </ExpandableSectionItem>
 
         <div>
-          <ProductSwiper />
+          <ProductSwiper products={JSON.stringify(booking.suggestedProducts)} />
         </div>
       </div>
     </div>
