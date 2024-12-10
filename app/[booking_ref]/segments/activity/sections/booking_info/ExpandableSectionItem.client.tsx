@@ -48,7 +48,6 @@ const ExpandableSectionItem = ({ children }: { children: React.ReactNode }) => {
         variant="contained"
         sx={{
           minHeight: "45px",
-          maxHeight: "45px",
           paddingTop: 0,
           paddingBottom: 0,
           paddingLeft: 0,
@@ -59,6 +58,7 @@ const ExpandableSectionItem = ({ children }: { children: React.ReactNode }) => {
           borderRadius: "0px",
           boxShadow: "none",
           textTransform: "none",
+          fontFamily: "inherit",
         }}
         disableElevation
         onClick={() => setExpanded(!expanded)}

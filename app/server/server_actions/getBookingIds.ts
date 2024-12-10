@@ -23,6 +23,8 @@ export const getBookingIds = cache(
 
     const result = bookings.map((booking) => booking.id);
 
+    //await new Promise((resolve) => setTimeout(resolve, 60000)); // simulate delay
+
     return result;
   }
 );

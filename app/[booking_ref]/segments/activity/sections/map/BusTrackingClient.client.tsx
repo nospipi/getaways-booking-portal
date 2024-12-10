@@ -45,7 +45,7 @@ const BusTrackingClient = ({ id }: { id: string }) => {
             top: 0,
             width: "100%",
             height: "100%",
-            background: "rgba(0, 0, 0, 0.5)",
+            background: "rgba(0, 0, 0, 0.4)",
             backdropFilter: "blur(2px)",
             color: "white",
             fontSize: "15px",
@@ -55,7 +55,17 @@ const BusTrackingClient = ({ id }: { id: string }) => {
             borderRadius: "3px",
           }}
         >
-          {error?.message || "An error occured"}
+          <span
+            style={{
+              padding: "5px",
+              textAlign: "center",
+              width: "80%",
+              background: "rgba(0, 0, 0, 0.4)",
+              borderRadius: "3px",
+            }}
+          >
+            {error?.message || "An error occured"}
+          </span>
         </div>
       </div>
     );
