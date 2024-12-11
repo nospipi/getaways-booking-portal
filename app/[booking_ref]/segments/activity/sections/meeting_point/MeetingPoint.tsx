@@ -73,7 +73,7 @@ const MeetingPoint = async ({ id }: { id: string }) => {
               style={{
                 width: "100%",
                 height: "100%",
-                borderRadius: "2px",
+                borderRadius: "10px",
                 objectFit: "cover",
               }}
               width={0}

@@ -43,7 +43,7 @@ const MapboxMap = ({ booking }: { booking: IGetBookingReturn }) => {
         center: [vehicleLon, vehicleLat] as LngLatLike,
         zoom: 14, //default zoom,but we are setting fitbounds later,so zoom is relative to between the vehicle position and the meeting point
         //https://docs.mapbox.com/mapbox-gl-js/api/handlers/
-        dragPan: false,
+        //dragPan: false,
         touchPitch: true,
       });
       setMap(newMap);

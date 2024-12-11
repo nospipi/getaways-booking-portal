@@ -11,7 +11,6 @@ import moment from "moment";
 import placeholder from "@/public/elementor-placeholder-image.webp";
 const FILE_SERVE_BASE_URL = process.env.FILE_SERVE_BASE_URL;
 
-
 //---------------------------------------------------------
 
 const TourInfoSection = async ({ id }: { id: string }) => {
@@ -66,7 +65,7 @@ const TourInfoSection = async ({ id }: { id: string }) => {
               style={{
                 width: "100%",
                 height: "100%",
-                borderRadius: "2px",
+                borderRadius: "10px",
                 objectFit: "cover",
               }}
               width={0}
