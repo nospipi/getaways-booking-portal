@@ -34,7 +34,6 @@ export interface ILocation {
 // Interface for Product Image
 export interface IProductImage {
   file_id: string;
-  url: string;
   caption: string;
   alt: string;
   description: string;
@@ -148,7 +147,6 @@ const productsSchema = new Schema<IProduct>(
       type: [
         {
           file_id: { type: String },
-          url: { type: String },
           caption: { type: String },
           alt: { type: String },
           description: { type: String },

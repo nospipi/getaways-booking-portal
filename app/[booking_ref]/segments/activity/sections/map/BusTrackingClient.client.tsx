@@ -4,18 +4,24 @@ import { useQuery } from "@tanstack/react-query";
 import getTrackingData from "@/app/server/server_actions/getTrackingData";
 import fake_map from "./fake_map.avif";
 import Image from "next/image";
+import { IGetBookingReturn } from "@/app/server/server_actions/getBookingById";
+import MapboxMap from "./MapboxMap";
 
 //---------------------------------------------------------
 
-const BusTrackingClient = ({ id }: { id: string }) => {
-  const { data, error, isError } = useQuery({
-    queryKey: ["TRACKING_DATA", id],
-    queryFn: () => getTrackingData(id),
+const BusTrackingClient = ({ booking }: { booking: string }) => {
+  const parsedBooking: IGetBookingReturn = JSON.parse(booking);
+
+  const {
+    data = "{}",
+    error,
+    isError,
+  } = useQuery({
+    queryKey: ["TRACKING_DATA", parsedBooking._id],
+    queryFn: () => getTrackingData(parsedBooking._id),
     retry: false,
     refetchOnWindowFocus: true,
   });
-
-  console.log(data);
 
   if (isError || !data) {
     return (
@@ -71,7 +77,7 @@ const BusTrackingClient = ({ id }: { id: string }) => {
     );
   }
 
-  return <div>TRACKING DATA</div>;
+  return <MapboxMap booking={parsedBooking} />;
 };
 
 export default BusTrackingClient;

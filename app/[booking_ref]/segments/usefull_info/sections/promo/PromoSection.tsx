@@ -3,7 +3,7 @@ import ProductSwiper from "./ProductSwiper";
 import ExpandableSectionItem from "@/app/[booking_ref]/segments/activity/sections/booking_info/ExpandableSectionItem.client";
 import { FaInfoCircle } from "react-icons/fa";
 import { IoCaretForwardOutline } from "react-icons/io5";
-
+import ProductCard from "./ProductCard";
 import getBookingById from "@/app/server/server_actions/getBookingById";
 
 //---------------------------------------------------------
@@ -157,7 +157,10 @@ const PromoSection = async ({ id }: { id: string }) => {
         </ExpandableSectionItem>
 
         <div>
-          <ProductSwiper products={JSON.stringify(booking.suggestedProducts)} />
+          <ProductSwiper
+            products={JSON.stringify(booking.suggestedProducts)}
+            ProductCard={ProductCard}
+          />
         </div>
       </div>
     </div>

@@ -19,7 +19,6 @@ const Page = async ({
         justifyContent: "center",
         alignItems: "center",
         flex: 1,
-        backgroundColor: "rgb(37, 49, 63)",
       }}
     >
       <div

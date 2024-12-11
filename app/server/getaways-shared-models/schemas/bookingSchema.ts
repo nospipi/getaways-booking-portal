@@ -2,11 +2,13 @@ import { Schema, Document } from "mongoose";
 import mongoosePaginate from "mongoose-paginate-v2";
 import mongoosastic from "mongoosastic";
 import { diff as deepDiff } from "deep-diff";
+import { IMeetingPoint } from "./meetingPointSchema";
 import meetingPointSchema from "./meetingPointSchema";
 
 //------------------------------------------------------------------------------
 
 export interface IBooking extends Document {
+  _id: string;
   ref?: string;
   order_number?: string;
   parent_booking_id?: string;
@@ -28,7 +30,7 @@ export interface IBooking extends Document {
   tickets?: object;
   billing_codes?: unknown[];
   client_location?: string;
-  pickup_location?: typeof meetingPointSchema;
+  pickup_location?: IMeetingPoint;
   pickup_time?: string;
   client_messaged?: boolean;
   client_response_status?: string;

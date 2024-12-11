@@ -49,6 +49,7 @@ export const getBookingById = cache(
         "client_location",
         "pickup_time",
         "client_response_status",
+        "tour_group_id",
       ]);
 
       if (!booking) {

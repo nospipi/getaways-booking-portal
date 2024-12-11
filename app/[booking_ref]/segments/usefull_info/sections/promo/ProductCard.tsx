@@ -1,16 +1,23 @@
 "use client";
-//import placeholder from "@/public/elementor-placeholder-image.webp";
-import placeholder from "@/public/test_image.avif";
+
+import placeholder from "@/public/elementor-placeholder-image.webp";
 import Button from "@mui/material/Button";
 import { FaCheckCircle } from "react-icons/fa";
 import { IoTime } from "react-icons/io5";
 import Chip from "@mui/material/Chip";
 import { IProduct } from "@/app/server/getaways-shared-models/schemas/productsSchema";
 import Image from "next/image";
+const NEXT_PUBLIC_FILE_SERVE_BASE_URL =
+  process.env.NEXT_PUBLIC_FILE_SERVE_BASE_URL;
 
 //---------------------------------------------------------
 
 const ProductCard = ({ product }: { product: IProduct }) => {
+  const hasImage = product.product_pictures[0] ? true : false;
+  const image_url = hasImage
+    ? `${NEXT_PUBLIC_FILE_SERVE_BASE_URL}${product.product_pictures[0].file_id}`
+    : placeholder;
+
   return (
     <div
       style={{
@@ -22,21 +29,34 @@ const ProductCard = ({ product }: { product: IProduct }) => {
         gap: "15px",
         padding: "13px",
         borderRadius: "10px",
-        backgroundColor: "rgb(246 246 246)",
-        borderTop: "4px solid rgb(158 193 229)",
-        boxShadow: "0 4px 5px -5px rgba(0, 0, 0, 0.4)",
+        background: "linear-gradient(to bottom, white, rgb(232 232 232))",
+        borderTop: "4px solid rgb(102 143 184)",
+        boxShadow: "0 4px 5px -5px rgba(0, 0, 0, 0.6)",
       }}
     >
-      <div>{product.platform_product_name}</div>
+      <div
+        style={{
+          color: "dodgerblue",
+          fontWeight: "bold",
+          fontSize: "16px",
+        }}
+      >
+        {product.platform_product_name}
+      </div>
       <div
         style={{
           display: "flex",
           flexDirection: "row",
           gap: "15px",
+          // paddingTop: "10px",
+          // paddingRight: "10px",
+          // paddingBottom: "10px",
+          // borderTopRightRadius: "10px",
+          // borderBottomRightRadius: "10px",
         }}
       >
         <Image
-          src={placeholder}
+          src={image_url}
           style={{
             width: "40%",
             minHeight: "150px",
@@ -47,7 +67,9 @@ const ProductCard = ({ product }: { product: IProduct }) => {
           width={0}
           height={0}
           sizes="(max-width: 800px) 100vw, 800px"
-          alt="No image available"
+          alt={
+            hasImage ? product.product_pictures[0].alt : "No image available"
+          }
           quality={20}
         />
         <div
@@ -62,7 +84,6 @@ const ProductCard = ({ product }: { product: IProduct }) => {
           <div
             style={{
               fontSize: "12px",
-              display: "flex",
             }}
           >
             {product.product_short_description}

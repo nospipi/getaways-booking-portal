@@ -11,7 +11,7 @@ const SkeletonItem = () => {
         display: "flex",
         flexDirection: "column",
         gap: 7,
-        backgroundColor: "rgb(245, 245, 245",
+        backgroundColor: "rgb(201 201 201)",
       }}
     >
       <div

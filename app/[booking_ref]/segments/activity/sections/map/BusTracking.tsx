@@ -39,7 +39,7 @@ const BusTracking = async ({ id }: { id: string }) => {
                 : "NOT AVAILABLE"}
             </div>
           </div>
-          <BusTrackingClient id={id} /> {/* MAP HERE */}
+          <BusTrackingClient booking={JSON.stringify(booking)} />
         </div>
       </div>
     </HydrationBoundary>

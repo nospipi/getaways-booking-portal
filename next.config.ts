@@ -1,9 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
   images: {
     domains: [
+      "getaways-bookings.herokuapp.com",
       "placehold.co",
       "getawaysgreece.com",
       "firebasestorage.googleapis.com",

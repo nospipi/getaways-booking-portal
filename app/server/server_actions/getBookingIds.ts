@@ -3,11 +3,19 @@ import { BookingModel } from "@/app/server/getaways-shared-models/models";
 import { cache } from "react";
 import connectDB from "@/app/server/db.connect";
 import { redirect } from "next/navigation";
+//import { headers } from "next/headers";
+
 //-----------------------------------------------------------------------------
 
 export const getBookingIds = cache(
   async (ref: string | undefined): Promise<unknown> => {
+    // const headersList = await headers();
+    // const ip = headersList.get("request-ip");
+    // console.log("ip", ip);
+
     await connectDB();
+
+    //await new Promise((resolve) => setTimeout(resolve, 60000)); // simulate delay
 
     const bookings = await BookingModel.find({
       ref: ref,
@@ -25,8 +33,6 @@ export const getBookingIds = cache(
     }
 
     const result = bookings.map((booking) => booking.id);
-
-    //await new Promise((resolve) => setTimeout(resolve, 60000)); // simulate delay
 
     return result;
   }

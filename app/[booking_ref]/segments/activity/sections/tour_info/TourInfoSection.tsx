@@ -9,12 +9,18 @@ import ExpandableSectionItem from "../booking_info/ExpandableSectionItem.client"
 import Image from "next/image";
 import moment from "moment";
 import placeholder from "@/public/elementor-placeholder-image.webp";
+const FILE_SERVE_BASE_URL = process.env.FILE_SERVE_BASE_URL;
+
 
 //---------------------------------------------------------
 
 const TourInfoSection = async ({ id }: { id: string }) => {
   const booking = await getBookingById(id);
   const product_title = booking?.product?.platform_product_name;
+  const hasImage = booking.product.product_pictures[0] ? true : false;
+  const image_url = hasImage
+    ? `${FILE_SERVE_BASE_URL}${booking.product.product_pictures[0].file_id}`
+    : placeholder;
 
   return (
     <div className="section-container">
@@ -56,7 +62,7 @@ const TourInfoSection = async ({ id }: { id: string }) => {
             }}
           >
             <Image
-              src={booking?.product?.product_images[0] || placeholder}
+              src={image_url}
               style={{
                 width: "100%",
                 height: "100%",
@@ -66,7 +72,11 @@ const TourInfoSection = async ({ id }: { id: string }) => {
               width={0}
               height={0}
               sizes="(max-width: 800px) 100vw, 800px"
-              alt="No image available"
+              alt={
+                hasImage
+                  ? booking.product.product_pictures[0].alt
+                  : "No image available"
+              }
               quality={20}
             />
             <span
