@@ -35,6 +35,11 @@ const ProductSwiper = ({ products }: { products: string }) => {
       }}
       spaceBetween={20}
       slidesPerView={1}
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "10px",
+      }}
     >
       {parsedProducts.map((product: IProduct) => {
         return (
@@ -44,8 +49,6 @@ const ProductSwiper = ({ products }: { products: string }) => {
         );
       })}
 
-      {/* Custom pagination */}
-
       <div
         style={{
           display: "flex",
@@ -53,7 +56,7 @@ const ProductSwiper = ({ products }: { products: string }) => {
           alignItems: "center",
           flexDirection: "row",
           gap: "10px",
-          marginTop: "10px",
+          //marginTop: "10px",
         }}
       >
         <IconButton className="custom-swiper-button-prev">

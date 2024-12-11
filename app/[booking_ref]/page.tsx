@@ -7,10 +7,13 @@ import TrackPageVisitHandler from "@/utils/TrackPageVisitHandler.client";
 
 const Page = async ({
   params,
+  searchParams,
 }: {
   params: Promise<{ [key: string]: string | undefined }>;
+  searchParams: Promise<{ [key: string]: string | undefined }>;
 }) => {
   const { booking_ref } = await params;
+  //const { error } = await searchParams;
   const bookingIds = (await getBookingIds(booking_ref)) as string[];
 
   return (

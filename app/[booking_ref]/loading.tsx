@@ -9,7 +9,7 @@ const Loading = () => {
         width: "100%",
         display: "flex",
         justifyContent: "center",
-        background: "#dbdbdb",
+        backgroundColor: "rgb(37, 49, 63)",
       }}
     >
       <div

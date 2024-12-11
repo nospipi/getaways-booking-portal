@@ -14,6 +14,9 @@ const ProductCard = ({ product }: { product: IProduct }) => {
   return (
     <div
       style={{
+        flex: 1,
+        height: "100%",
+        minHeight: "350px",
         display: "flex",
         flexDirection: "column",
         gap: "15px",
@@ -72,6 +75,8 @@ const ProductCard = ({ product }: { product: IProduct }) => {
           flexDirection: "row",
           gap: "10px",
           flexWrap: "wrap",
+          flex: 1,
+          //backgroundColor: "rgb(246 246 100)",
         }}
       >
         <Chip
