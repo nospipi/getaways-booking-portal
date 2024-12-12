@@ -14,7 +14,7 @@ const SegmentHeader = ({ children }: { children: ReactNode }) => {
         position: "sticky",
         top: "0px",
         borderTop: "5px solid white",
-        borderBottom: "3px solid #93baf5",
+        borderBottom: "3px solid rgb(84, 116, 155)",
         borderRadius: "0px",
         zIndex: 2,
         gap: "10px",
