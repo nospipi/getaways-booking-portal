@@ -27,16 +27,18 @@ const ProductCard = ({ product }: { product: IProduct }) => {
         display: "flex",
         flexDirection: "column",
         gap: "15px",
+
         padding: "13px",
-        borderRadius: "10px",
+        borderRadius: "9px 9px 10px 10px",
         background: "linear-gradient(to bottom, white, rgb(232 232 232))",
-        borderTop: "4px solid rgb(102 143 184)",
+        borderTop: "7px solid rgb(76, 110, 150)",
         boxShadow: "0 4px 5px -5px rgba(0, 0, 0, 0.6)",
+        position: "relative",
       }}
     >
       <div
         style={{
-          color: "dodgerblue",
+          color: "rgb(50, 75, 104)",
           fontWeight: "bold",
           fontSize: "16px",
         }}

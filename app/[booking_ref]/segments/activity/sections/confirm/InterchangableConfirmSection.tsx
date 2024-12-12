@@ -1,8 +1,8 @@
 "use client";
 
 import { FaThumbsUp } from "react-icons/fa6";
+import { FaHourglassStart } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
-//import { useSearchParams } from "next/navigation";
 
 //---------------------------------------------------------
 
@@ -24,12 +24,12 @@ const InterchangableConfirmSection = ({
           exit={{ y: 10, opacity: 0 }}
         >
           <div className="section-content-icon-container">
-            <FaThumbsUp style={{ color: "#6A914F" }} size={15} />
+            <FaThumbsUp style={{ color: "darkgreen" }} size={15} />
           </div>
           <div
             className="section-content-text-container"
             style={{
-              color: "#6A914F",
+              color: "darkgreen",
             }}
           >
             <span
@@ -61,7 +61,7 @@ const InterchangableConfirmSection = ({
           exit={{ y: 10, opacity: 0 }}
         >
           <div className="section-content-icon-container">
-            <FaThumbsUp style={{ color: "indianred" }} size={15} />
+            <FaHourglassStart style={{ color: "indianred" }} size={15} />
           </div>
           <div
             className="section-content-text-container"
