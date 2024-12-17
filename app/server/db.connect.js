@@ -14,6 +14,8 @@ if (!cached) {
 }
 
 async function connectDB() {
+  //throw new Error("Test error mongodb connection"); //simulate error
+
   if (cached.conn) {
     console.log("🚀 Using cached mongodb connection");
     return cached.conn;

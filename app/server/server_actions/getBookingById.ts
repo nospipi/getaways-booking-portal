@@ -11,7 +11,10 @@ import {
 import { cache } from "react";
 import connectDB from "@/app/server/db.connect";
 import { IBooking } from "@/app/server/getaways-shared-models/schemas/bookingSchema";
-import { IProduct } from "../getaways-shared-models/schemas/productsSchema";
+import {
+  IProduct,
+  IOption,
+} from "../getaways-shared-models/schemas/productsSchema";
 import { ITask, IPickup } from "../getaways-shared-models/schemas/taskSchema";
 import { IVehicle } from "../getaways-shared-models/schemas/vehicleSchema";
 import { redirect } from "next/navigation";
@@ -26,7 +29,8 @@ interface ITaskReturn extends ITask {
 }
 
 export interface IGetBookingReturn extends IBooking {
-  product: IProduct | null;
+  product: IProduct;
+  option: IOption;
   suggestedProducts: IProduct[];
   task: ITaskReturn | null;
   isFirstVisit: boolean;
@@ -40,6 +44,7 @@ export const getBookingById = cache(
       const booking = await BookingModel.findById(id).select([
         "_id",
         "ref",
+        "unique_booking_id",
         "client_name",
         "date",
         "product_id",
@@ -57,6 +62,9 @@ export const getBookingById = cache(
       }
 
       const product = await ProductsModel.findById(booking.product_id);
+      const option = product?.options?.find(
+        (option: IOption) => option._id.toString() === booking.option_id
+      );
       const suggestedProducts = await ProductsModel.find({
         _id: { $in: product?.suggested_products || [] },
       })
@@ -93,6 +101,7 @@ export const getBookingById = cache(
       return {
         ...booking.toObject(),
         product,
+        option,
         suggestedProducts,
         task: {
           _id: task?._id,

@@ -5,6 +5,7 @@ import _ from "lodash";
 
 // Interface for Option
 export interface IOption {
+  _id: string;
   title: string;
   bokun_code: string;
   is_private: boolean;
@@ -52,7 +53,7 @@ export interface IProduct extends Document {
   meeting_point_id: string | null;
   slug: string | null;
   product_images: string[] | null;
-  product_pictures: IProductImage[] | null;
+  product_pictures: IProductImage[];
   guide_assignment_identifier: string | null;
   activity_level: string | null;
   additional_info: string[] | null;
@@ -209,8 +210,8 @@ productsSchema.pre("save", function (next) {
 
 // Pre-update middleware to update the slug when updating platform product name
 productsSchema.pre("findOneAndUpdate", async function (next) {
-  const initialValues = this.getQuery();
-  const updatedValues = this.getUpdate();
+  // const initialValues = this.getQuery();
+  // const updatedValues = this.getUpdate();
   if (this.platform_product_name) {
     this.slug = _.kebabCase(this.platform_product_name);
   }

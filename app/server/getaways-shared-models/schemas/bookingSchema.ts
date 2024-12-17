@@ -12,7 +12,7 @@ export interface IBooking extends Document {
   ref?: string;
   order_number?: string;
   parent_booking_id?: string;
-  unique_booking_id?: string;
+  unique_booking_id: string;
   product_id?: string;
   option_id?: string;
   temp_option_id?: string;

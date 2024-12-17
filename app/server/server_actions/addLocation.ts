@@ -12,6 +12,9 @@ export const addLocation = cache(
     const locationInputHasEnoughChars = location.length > 6;
     const locationInputHasTooManyChars = location.length > 100;
 
+    //throw new Error("simulate error");
+    //await new Promise((resolve) => setTimeout(resolve, 2000)); // simulate delay
+
     if (!locationInputHasEnoughChars) {
       throw new Error("Please enter a location with at least 6 characters");
     }
@@ -23,9 +26,6 @@ export const addLocation = cache(
     const sanitizedLocation = escape(location);
 
     await connectDB();
-
-    //throw new Error("simulate error");
-    //await new Promise((resolve) => setTimeout(resolve, 2000)); // simulate delay
 
     const updatedBooking = await BookingModel.findByIdAndUpdate(booking_id, {
       client_location: sanitizedLocation,

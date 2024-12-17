@@ -19,42 +19,44 @@ const BookingSearchForm = () => {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: "10px",
-      }}
-    >
-      <TextField
-        name="booking_ref"
-        required
-        variant="filled"
-        onKeyDown={(e: React.KeyboardEvent<HTMLDivElement>) => {
-          if (e.key === " ") {
-            e.preventDefault(); // Prevent space from being entered
-          }
-        }}
-        autoFocus
-        autoCapitalize="off"
-        autoCorrect="off"
-        autoComplete="off"
-        label="Booking Ref#"
-      />
-      <Button
-        type="submit"
-        fullWidth
-        variant="contained"
-        sx={{
-          backgroundColor: "#627a96",
-          borderBottomLeftRadius: "5px",
-          borderBottomRightRadius: "5px",
+    <search>
+      <form
+        onSubmit={handleSubmit}
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "10px",
         }}
       >
-        SEARCH BOOKING
-      </Button>
-    </form>
+        <TextField
+          name="booking_ref"
+          required
+          variant="filled"
+          onKeyDown={(e: React.KeyboardEvent<HTMLDivElement>) => {
+            if (e.key === " ") {
+              e.preventDefault(); // Prevent space from being entered
+            }
+          }}
+          autoFocus
+          autoCapitalize="off"
+          autoCorrect="off"
+          autoComplete="off"
+          label="Booking Ref#"
+        />
+        <Button
+          type="submit"
+          fullWidth
+          variant="contained"
+          sx={{
+            backgroundColor: "#627a96",
+            borderBottomLeftRadius: "5px",
+            borderBottomRightRadius: "5px",
+          }}
+        >
+          SEARCH BOOKING
+        </Button>
+      </form>
+    </search>
   );
 };
 

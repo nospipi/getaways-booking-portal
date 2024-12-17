@@ -13,7 +13,7 @@ const Page = async ({
   const { error } = await searchParams;
 
   return (
-    <div
+    <main
       style={{
         display: "flex",
         justifyContent: "center",
@@ -31,6 +31,7 @@ const Page = async ({
           gap: "15px",
           backgroundColor: "rgb(228, 228, 228)",
           borderRadius: "20px",
+          maxWidth: "280px",
           //border: "5px solid #768494",
         }}
       >
@@ -77,7 +78,7 @@ const Page = async ({
 
         <BookingSearchForm />
       </div>
-    </div>
+    </main>
   );
 };
 
