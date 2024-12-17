@@ -1,9 +1,8 @@
 import { FaShoppingCart } from "react-icons/fa";
 import ProductSwiper from "./ProductSwiper";
-import ExpandableSectionItem from "@/app/[booking_ref]/segments/activity/sections/booking_info/ExpandableSectionItem.client";
+import ExpandableSectionItem from "@/app/[...booking_ref]/segments/activity/sections/booking_info/ExpandableSectionItem.client";
 import { FaInfoCircle } from "react-icons/fa";
 import { IoCaretForwardOutline } from "react-icons/io5";
-import ProductCard from "./ProductCard";
 import getBookingById from "@/app/server/server_actions/getBookingById";
 
 //---------------------------------------------------------
@@ -24,24 +23,15 @@ const PromoSection = async ({ id }: { id: string }) => {
           <div className="section-content-text-container">
             <div>
               Use the promo code :{" "}
-              <span
+              <b
                 style={{
-                  fontWeight: "bold",
                   color: "darkgreen",
                 }}
               >
                 PROMO_APP
-              </span>{" "}
-              during the checkout process to get a{" "}
-              <span
-                style={{
-                  fontWeight: "bold",
-                  textDecoration: "underline",
-                }}
-              >
-                15%
-              </span>{" "}
-              discount on your next booking
+              </b>{" "}
+              during the checkout process to get a <b>15%</b> discount on your
+              next booking
             </div>
             <div />
           </div>
@@ -157,10 +147,7 @@ const PromoSection = async ({ id }: { id: string }) => {
         </ExpandableSectionItem>
 
         <div>
-          <ProductSwiper
-            products={JSON.stringify(booking.suggestedProducts)}
-            ProductCard={ProductCard}
-          />
+          <ProductSwiper products={JSON.stringify(booking.suggestedProducts)} />
         </div>
       </div>
     </div>

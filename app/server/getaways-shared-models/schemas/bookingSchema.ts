@@ -27,9 +27,9 @@ export interface IBooking extends Document {
   client_name?: string;
   client_email?: string;
   client_phone?: string;
-  tickets?: object;
+  tickets: object;
   billing_codes?: unknown[];
-  client_location?: string;
+  client_location: string;
   pickup_location?: IMeetingPoint;
   pickup_time?: string;
   client_messaged?: boolean;

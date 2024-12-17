@@ -1,14 +1,15 @@
 import { FaExclamationCircle } from "react-icons/fa";
 import getBookingById from "@/app/server/server_actions/getBookingById";
-import PickupInputContainer from "@/app/[booking_ref]/segments/activity/sections/booking_info/PickupInputContainer.client";
-import PickupInputStateContextProvider from "@/app/[booking_ref]/segments/activity/sections/booking_info/PickupInputStateContextProvider.client";
-import EditButton from "@/app/[booking_ref]/segments/activity/sections/booking_info/EditButton.client";
-import PickupPromptText from "@/app/[booking_ref]/segments/activity/sections/booking_info/PickupPromptText";
+import PickupInputContainer from "@/app/[...booking_ref]/segments/activity/sections/booking_info/PickupInputContainer.client";
+import PickupInputStateContextProvider from "@/app/[...booking_ref]/segments/activity/sections/booking_info/PickupInputStateContextProvider.client";
+import EditButton from "@/app/[...booking_ref]/segments/activity/sections/booking_info/EditButton.client";
+import PickupPromptText from "@/app/[...booking_ref]/segments/activity/sections/booking_info/PickupPromptText";
+import { IGetBookingReturn } from "@/app/server/server_actions/getBookingById";
 
 //---------------------------------------------------------
 
 const BookingInfo = async ({ id }: { id: string }) => {
-  const booking = await getBookingById(id);
+  const booking = (await getBookingById(id)) as IGetBookingReturn;
 
   const hasClientLocation = booking?.client_location?.length > 0;
   const hasPickupLocation =

@@ -59,15 +59,17 @@ export const getBookingById = cache(
       const product = await ProductsModel.findById(booking.product_id);
       const suggestedProducts = await ProductsModel.find({
         _id: { $in: product?.suggested_products || [] },
-      }).select([
-        "_id",
-        "bokun_product_code",
-        "platform_product_name",
-        "product_short_description",
-        "market_price",
-        "tour_duration",
-        "product_pictures",
-      ]);
+      })
+        .select([
+          "_id",
+          "bokun_product_code",
+          "platform_product_name",
+          "product_short_description",
+          "market_price",
+          "tour_duration",
+          "product_pictures",
+        ])
+        .sort({ index: 1 });
 
       const tourGroup = await TourGroupModel.findById(booking.tour_group_id);
       const task =

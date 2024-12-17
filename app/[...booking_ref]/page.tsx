@@ -1,5 +1,5 @@
-import ActivitySegment from "@/app/[booking_ref]/segments/activity/ActivitySegment";
-import UsefullInfoSegment from "@/app/[booking_ref]/segments/usefull_info/UsefullInfoSegment";
+import ActivitySegment from "@/app/[...booking_ref]/segments/activity/ActivitySegment";
+import UsefullInfoSegment from "@/app/[...booking_ref]/segments/usefull_info/UsefullInfoSegment";
 import getBookingIds from "@/app/server/server_actions/getBookingIds";
 import TrackPageVisitHandler from "@/utils/TrackPageVisitHandler.client";
 
@@ -7,18 +7,22 @@ import TrackPageVisitHandler from "@/utils/TrackPageVisitHandler.client";
 
 const Page = async ({
   params,
-  searchParams,
 }: {
-  params: Promise<{ [key: string]: string | undefined }>;
-  searchParams: Promise<{ [key: string]: string | undefined }>;
+  params: Promise<{ booking_ref: string[] }>;
 }) => {
-  const { booking_ref } = await params;
-  //const { error } = await searchParams;
+  const pageParams = await params;
+  const {
+    booking_ref: [booking_ref, confirmFlag],
+  } = pageParams;
+
   const bookingIds = (await getBookingIds(booking_ref)) as string[];
+  if (confirmFlag === "confirm") {
+    console.log("confirmFlag exists");
+  }
 
   return (
     <div className="page-container">
-      <TrackPageVisitHandler booking_ref={booking_ref} />
+      <TrackPageVisitHandler booking_ref={booking_ref[0]} />
       <div className="content-wrapper">
         <div className="content-container">
           <div className="content-container-wrapper">
