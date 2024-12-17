@@ -20,7 +20,7 @@ const Page = async ({
 
   return (
     <div className="page-container">
-      <TrackPageVisitHandler booking_ref={booking_ref[0]} />
+      <TrackPageVisitHandler booking_ref={booking_ref} />
       <div className="content-wrapper">
         <div className="content-container">
           <div className="content-container-wrapper">
