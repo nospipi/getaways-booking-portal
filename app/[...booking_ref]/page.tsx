@@ -10,11 +10,9 @@ const Page = async ({
 }: {
   params: Promise<{ booking_ref: string[] }>;
 }) => {
-  const pageParams = await params;
   const {
     booking_ref: [booking_ref, confirmFlag],
-  } = pageParams;
-
+  } = await params;
   const bookingIds = (await getBookingIds(booking_ref)) as string[];
   if (confirmFlag === "confirm") {
     console.log("confirmFlag exists");
