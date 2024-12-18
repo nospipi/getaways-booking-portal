@@ -1,6 +1,5 @@
 "use client";
 
-import { FaLocationDot } from "react-icons/fa6";
 import Button from "@mui/material/Button";
 import { FaExternalLinkAlt } from "react-icons/fa";
 import { FaMapMarked } from "react-icons/fa";

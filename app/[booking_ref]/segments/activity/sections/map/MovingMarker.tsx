@@ -20,11 +20,6 @@ const MovingMarker = ({
   const [marker, setMarker] = useState<mapboxgl.Marker>();
   const [lngLat, setLngLat] = useState<LngLatLike>([0, 0]);
 
-  const clientPosition = [
-    booking?.pickup_location?.longitude,
-    booking?.pickup_location?.latitude,
-  ];
-
   const { data = "{}", isRefetching } = useQuery({
     queryKey: ["TRACKING_DATA", booking._id],
     queryFn: () => getTrackingData(booking._id),

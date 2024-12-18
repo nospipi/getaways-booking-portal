@@ -143,7 +143,7 @@ const TourInfoSection = async ({ id }: { id: string }) => {
               borderBottomRightRadius: "10px",
             }}
           >
-            {booking?.product.highlights.map((highlight, index) => {
+            {booking?.product.highlights.map((highlight) => {
               return (
                 <div key={highlight}>
                   <IoCaretForwardOutline size={11} /> <span>{highlight}</span>
@@ -186,16 +186,14 @@ const TourInfoSection = async ({ id }: { id: string }) => {
               borderBottomRightRadius: "10px",
             }}
           >
-            {booking?.product?.additional_info?.map(
-              (additional_info, index) => {
-                return (
-                  <div key={additional_info}>
-                    <IoCaretForwardOutline size={11} />{" "}
-                    <span>{additional_info}</span>
-                  </div>
-                );
-              }
-            )}
+            {booking?.product?.additional_info?.map((additional_info) => {
+              return (
+                <div key={additional_info}>
+                  <IoCaretForwardOutline size={11} />{" "}
+                  <span>{additional_info}</span>
+                </div>
+              );
+            })}
           </div>
         </ExpandableSectionItem>
         <ExpandableSectionItem>
@@ -233,7 +231,7 @@ const TourInfoSection = async ({ id }: { id: string }) => {
             }}
           >
             {booking?.product?.special_instructions?.map(
-              (special_instruction, index) => {
+              (special_instruction) => {
                 return (
                   <div key={special_instruction}>
                     <IoCaretForwardOutline size={11} />{" "}
