@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { ipAddress } from "@vercel/edge";
 import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis";
 const UPSTASH_REDIS_REST_URL = process.env.UPSTASH_REDIS_REST_URL;
@@ -40,7 +41,8 @@ const middleware = async (
 ): Promise<Response | undefined> => {
   //------------ DEFINE RATE LIMITING -----------------------
 
-  const ip = req?.ip ?? "127.0.0.1";
+  const ip = ipAddress(req) || "127.0.0.1";
+
   const {
     success,
     //pending,
