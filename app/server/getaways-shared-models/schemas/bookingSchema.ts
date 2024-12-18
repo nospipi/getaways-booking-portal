@@ -1,4 +1,4 @@
-import { Schema, Document } from "mongoose";
+import { Schema, Document, CallbackError } from "mongoose";
 import { diff as deepDiff } from "deep-diff";
 import { IMeetingPoint } from "./meetingPointSchema";
 import meetingPointSchema from "./meetingPointSchema";
@@ -90,74 +90,6 @@ const bookingSchema = new Schema<IBooking>(
     minimize: false, // allows saving empty objects in db
   }
 );
-
-//------------------------------------------------------------------------
-
-bookingSchema.pre("save", async function (next) {
-  try {
-    this.parent_booking_id = this?.order_number;
-    next();
-  } catch (error) {
-    console.log("ERROR FROM PRE MIDDLEWARE IN BOOKING SCHEMA", error);
-    next(error);
-  }
-});
-
-bookingSchema.pre("findOneAndUpdate", async function (next) {
-  console.log("PRE MIDDLEWARE IN BOOKING SCHEMA");
-  try {
-    const initialValues = this.getQuery();
-    const old = await this.model.findOne(initialValues).lean(); // Using lean() to get plain JavaScript object
-    delete old.__v;
-    delete old._id;
-    if (old.pickup_location && old.pickup_location._id) {
-      delete old.pickup_location._id;
-    }
-    delete old.updated_at;
-    delete old.email_history;
-
-    const updatedValues = this.getUpdate();
-    const updatedValuesWithExclusions = Object.keys(updatedValues).reduce(
-      (obj, key) => {
-        if (key !== "__v" && key !== "_id" && key !== "updated_at") {
-          obj[key] = updatedValues[key];
-        }
-        return obj;
-      },
-      {}
-    );
-
-    const differences = deepDiff(old, updatedValuesWithExclusions);
-
-    if (differences) {
-      const changes = differences.map((diff) => ({
-        path: diff.path.join("."),
-        before: diff.lhs,
-        after: diff.rhs,
-      }));
-
-      const filter = [
-        "pickup_location.__v",
-        "pickup_location._id",
-        "pickup_location",
-      ];
-
-      const filteredChanges = changes.filter(
-        (change) => !filter.includes(change.path)
-      );
-
-      if (Array.isArray(updatedValues.updated_at)) {
-        const lastUpdated = updatedValues.updated_at.slice(-1)[0];
-        lastUpdated.changes = filteredChanges;
-      }
-    }
-
-    next();
-  } catch (err) {
-    console.log("ERROR FROM PRE MIDDLEWARE IN BOOKING SCHEMA", err);
-    next(err);
-  }
-});
 
 //------------------------------------------------------------------------
 

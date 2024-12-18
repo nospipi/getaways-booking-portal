@@ -200,22 +200,6 @@ const productsSchema = new Schema<IProduct>(
   }
 );
 
-// Pre-save middleware to generate slug from platform product name
-productsSchema.pre("save", function (next) {
-  if (this.platform_product_name) {
-    this.slug = _.kebabCase(this.platform_product_name);
-  }
-  next();
-});
-
-// Pre-update middleware to update the slug when updating platform product name
-productsSchema.pre("findOneAndUpdate", async function (next) {
-  // const initialValues = this.getQuery();
-  // const updatedValues = this.getUpdate();
-  if (this.platform_product_name) {
-    this.slug = _.kebabCase(this.platform_product_name);
-  }
-  next();
-});
+//-----------------------------------------------------------------------------
 
 export default productsSchema;
