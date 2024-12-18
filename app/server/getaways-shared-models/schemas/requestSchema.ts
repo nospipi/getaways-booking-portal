@@ -37,7 +37,7 @@ const requestSchema = new Schema<IRequest>({
     ],
     required: [true, "You cannot submit an empty request"],
     validate: [
-      (value: any) => value.length > 0,
+      (value: string) => value.length > 0,
       "You cannot submit an empty request",
     ],
   },
