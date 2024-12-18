@@ -58,7 +58,7 @@ export interface IProduct extends Document {
   activity_level: string | null;
   additional_info: string[] | null;
   special_instructions: string[] | null;
-  highlights: string[] | null;
+  highlights: string[];
   product_short_description: string | null;
   product_full_description: string | null;
   inclusions: string[] | null;

@@ -1,6 +1,4 @@
 import { Schema, Document } from "mongoose";
-import mongoosePaginate from "mongoose-paginate-v2";
-import mongoosastic from "mongoosastic";
 import { diff as deepDiff } from "deep-diff";
 import { IMeetingPoint } from "./meetingPointSchema";
 import meetingPointSchema from "./meetingPointSchema";
@@ -31,7 +29,7 @@ export interface IBooking extends Document {
   billing_codes?: unknown[];
   client_location: string;
   pickup_location?: IMeetingPoint;
-  pickup_time?: string;
+  pickup_time: string;
   client_messaged?: boolean;
   client_response_status?: string;
   notes?: string;
@@ -92,9 +90,6 @@ const bookingSchema = new Schema<IBooking>(
     minimize: false, // allows saving empty objects in db
   }
 );
-
-bookingSchema.plugin(mongoosastic);
-bookingSchema.plugin(mongoosePaginate);
 
 //------------------------------------------------------------------------
 

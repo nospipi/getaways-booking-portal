@@ -9,7 +9,7 @@ import connectDB from "@/app/server/db.connect";
 
 export const addLocation = cache(
   async (booking_id: string, location: string): Promise<unknown> => {
-    const locationInputHasEnoughChars = location.length > 6;
+    const locationInputHasEnoughChars = location.length > 5;
     const locationInputHasTooManyChars = location.length > 100;
 
     //throw new Error("simulate error");
