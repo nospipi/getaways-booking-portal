@@ -18,6 +18,7 @@ import {
 import { ITask, IPickup } from "../getaways-shared-models/schemas/taskSchema";
 import { IVehicle } from "../getaways-shared-models/schemas/vehicleSchema";
 import { redirect } from "next/navigation";
+import { headers } from "next/headers";
 
 //-----------------------------------------------------------------------------
 
@@ -36,9 +37,73 @@ export interface IGetBookingReturn extends IBooking {
   isFirstVisit: boolean;
 }
 
+/**
+ * Fetches booking details by its ID and performs various lookups including the product, option,
+ * suggested products, task details, assignees, and vehicle information.
+ *
+ * @async
+ * @param {string} id - The mongo _id of the booking to fetch.
+ * @returns {Promise<IGetBookingReturn>} A promise resolving :
+ *
+ * {
+ *
+ * product: IProduct;
+ *
+ * option: IOption;
+ *
+ * suggestedProducts: IProduct[];
+ *
+ * task: ITaskReturn | null;
+ *
+ * isFirstVisit: boolean;
+ *
+ * } -->
+ *
+ * return {
+ *
+ * ...booking.toObject(),
+ *
+ * product,
+ *
+ * option,
+ *
+ * suggestedProducts,
+ *
+ * task: {
+ *
+ * _id: task?._id,
+ *
+ * assignees: taskAssignees,
+ *
+ * vehicle: vehicle,
+ *
+ * meetingPointCoordinates: coordinates,
+ *
+ * },
+ *
+ * isFirstVisit: !previousVisit,
+ *
+ * };
+ *
+ * - Check headers for `params_from_middleware` and parse the `confirm` url search param value which is a booking.unique_booking_id.
+ * - If it matches this booking's unique_booking_id, the client_response_status is updated to 'CONFIRMED'.
+ *
+ * - Suggested products are fetched based on the main product's suggested_products array of product _id's.
+ * - Task information includes assignees and vehicle details.
+ * - If this is the client's first visit, `isFirstVisit` will be true.
+ *
+ * @throws Will redirect to an error page if any errors occur during the process.
+ */
+
 export const getBookingById = cache(
   async (id: string): Promise<IGetBookingReturn> => {
     try {
+      //throw new Error("getBookingById error"); //simulate error
+      const headerList = await headers();
+      const params = headerList.get("params_from_middleware") as string;
+      const { confirm: uniqueBookingIdtoConfirm } = JSON.parse(params) as {
+        confirm: string;
+      };
       await connectDB();
 
       const booking = await BookingModel.findById(id).select([
@@ -57,8 +122,11 @@ export const getBookingById = cache(
         "tour_group_id",
       ]);
 
-      if (!booking) {
-        redirect("/");
+      // !booking will never happen because this is called immediately after we get the booking ids from getBookingIds
+
+      if (uniqueBookingIdtoConfirm === booking.unique_booking_id) {
+        booking.client_response_status = "CONFIRMED";
+        await booking.save();
       }
 
       const product = await ProductsModel.findById(booking.product_id);
@@ -113,7 +181,12 @@ export const getBookingById = cache(
       };
     } catch (e) {
       console.error(e);
-      throw new Error("Could not find booking");
+      if (typeof e === "object" && e !== null && "message" in e) {
+        const error = e as { message: string };
+        redirect(`/?error=${error.message}`);
+      } else {
+        redirect("/?error=There was an unexpected error");
+      }
     }
   }
 );

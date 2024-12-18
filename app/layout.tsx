@@ -1,14 +1,9 @@
 import type { Metadata } from "next";
-import { Roboto, Montserrat } from "next/font/google";
+import { Montserrat } from "next/font/google";
 import Providers from "@/utils/Providers.client";
 import Script from "next/script";
 import "./globals.css";
 const BOKUN_LOADER = process.env.BOKUN_LOADER;
-
-const roboto = Roboto({
-  weight: "400",
-  subsets: ["latin"],
-});
 
 const montserrat = Montserrat({
   weight: "500",

@@ -1,8 +1,8 @@
 "use client";
 import Button from "@mui/material/Button";
-import confirmBookingByUniqueIdClient from "@/app/server/server_actions/confirmBookingByUniqueIdClient";
+import confirmBookingByUniqueId from "@/app/server/server_actions/confirmBookingByUniqueId";
 import { toast } from "react-hot-toast";
-//import { useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 //---------------------------------------------------------
 
@@ -11,25 +11,17 @@ const ConfirmButton = ({
 }: {
   unique_booking_id: string;
 }) => {
-  //const searchParams = useSearchParams();
-
+  const router = useRouter();
   const handleConfirm = async () => {
+    const toastId = "manual-confirm";
     try {
-      // const params = new URLSearchParams(searchParams.toString());
-      // params.set("confirmed", "false");
-      // window.history.pushState(null, "", `?${params.toString()}`);
-      // togglePickupInputShown();
-      toast.loading("Confirming booking...");
-      await confirmBookingByUniqueIdClient(unique_booking_id);
-      toast.dismiss();
-      //toast.success("Your booking details are confirmed, thank you!");
+      toast.loading("Confirming booking...", { id: toastId });
+      await confirmBookingByUniqueId(unique_booking_id);
+      router.refresh(); // rehydrate
+      toast.dismiss(toastId);
     } catch (e) {
-      // togglePickupInputShown();
-      // const params = new URLSearchParams(searchParams.toString());
-      // params.delete("confirmed");
-      // window.history.pushState(null, "", `?${params.toString()}`);
       console.log(e?.toString());
-      toast.error(e?.toString() || "An error occurred");
+      toast.error(e?.toString() || "An error occurred", { id: toastId });
     }
   };
 

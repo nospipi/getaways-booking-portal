@@ -58,7 +58,7 @@ const Page = async ({
               justifyContent: "center",
               padding: "10px",
               alignItems: "center",
-              gap: "10px",
+              gap: "5px",
               width: "100%",
               backgroundColor: "whitesmoke",
             }}
@@ -67,7 +67,7 @@ const Page = async ({
             <span
               style={{
                 color: "indianred",
-                fontSize: "14px",
+                fontSize: "12px",
                 fontWeight: "bold",
               }}
             >

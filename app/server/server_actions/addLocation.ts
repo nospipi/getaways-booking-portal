@@ -31,7 +31,7 @@ export const addLocation = cache(
       client_location: sanitizedLocation,
     });
 
-    revalidatePath(`/booking/${updatedBooking.ref}`);
+    revalidatePath(`/${updatedBooking.ref}`);
 
     return "success";
   }

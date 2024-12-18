@@ -13,12 +13,10 @@ const ActivitySegment = async ({
   id,
   activityIndex,
   numberOfActivities,
-  confirmErrorMessage,
 }: {
   id: string;
   activityIndex: number;
   numberOfActivities: number;
-  confirmErrorMessage: string | null;
 }) => {
   const booking = await getBookingById(id);
   const hasPickupLocationAndTime =
@@ -45,12 +43,7 @@ const ActivitySegment = async ({
           </span>
         </div>
       </SegmentHeader>
-      {hasPickupLocationAndTime && (
-        <ConfirmStatusSection
-          id={id}
-          confirmErrorMessage={confirmErrorMessage}
-        />
-      )}
+      {hasPickupLocationAndTime && <ConfirmStatusSection id={id} />}
       <BookingInfo id={id} />
       <TourInfoSection id={id} />
       <MeetingPoint id={id} />
