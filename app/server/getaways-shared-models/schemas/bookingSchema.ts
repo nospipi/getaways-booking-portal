@@ -1,5 +1,4 @@
-import { Schema, Document, CallbackError } from "mongoose";
-import { diff as deepDiff } from "deep-diff";
+import { Schema, Document } from "mongoose";
 import { IMeetingPoint } from "./meetingPointSchema";
 import meetingPointSchema from "./meetingPointSchema";
 
