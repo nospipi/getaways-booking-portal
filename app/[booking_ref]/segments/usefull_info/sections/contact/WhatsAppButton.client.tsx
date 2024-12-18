@@ -30,8 +30,13 @@ const WhatsAppButton = ({
         "_blank"
       );
     } catch (err: unknown) {
-      console.log(err);
-      toast.error(err?.message || err.toString());
+      if (err instanceof Error) {
+        console.log(err);
+        toast.error(err.message || err.toString());
+      } else {
+        console.log(err);
+        toast.error("An unexpected error occurred");
+      }
     }
   };
   return (

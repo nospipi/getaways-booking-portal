@@ -33,7 +33,7 @@ export interface IGetBookingReturn extends IBooking {
   product: IProduct;
   option: IOption;
   suggestedProducts: IProduct[];
-  task: ITaskReturn | null;
+  task: ITaskReturn;
   isFirstVisit: boolean;
 }
 

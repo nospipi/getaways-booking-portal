@@ -25,8 +25,13 @@ const IMessageButton = ({
         .join("%0A");
       window.open(`sms:${phone_number}&body=${encodedEmailText}`, "_blank");
     } catch (err: unknown) {
-      console.log(err);
-      toast.error(err?.message || err.toString());
+      if (err instanceof Error) {
+        console.log(err);
+        toast.error(err.message || err.toString());
+      } else {
+        console.log(err);
+        toast.error("An unexpected error occurred");
+      }
     }
   };
 

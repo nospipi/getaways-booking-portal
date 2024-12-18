@@ -62,7 +62,6 @@ const updateVehiclePosition = async (
 //-----------------------------------------------------------------------------
 
 const getTrackingData = async (booking_id: string) => {
-
   await connectDB();
   const booking = await BookingModel.findById(booking_id);
 
@@ -160,7 +159,7 @@ const getTrackingData = async (booking_id: string) => {
   const shouldGetNewPosition = !vehicleHasPosition || vehiclePositionIsOld;
 
   const coordinates = task?.pickups
-    ?.map((pickup: unknown) => {
+    ?.map((pickup: { lat: number; lon: number }) => {
       if (
         pickup.lat !== booking.pickup_location.latitude ||
         pickup.lon !== booking.pickup_location.longitude
@@ -182,14 +181,15 @@ const getTrackingData = async (booking_id: string) => {
     }
   );
 
-
-  const withinRangeOfOtherPickup = coordinates.some((coordinate: unknown) => {
-    const distance = geolib.getPreciseDistance(
-      { latitude, longitude },
-      coordinate
-    );
-    return distance < 100;
-  });
+  const withinRangeOfOtherPickup = coordinates.some(
+    (coordinate: { latitude: number; longitude: number }) => {
+      const distance = geolib.getPreciseDistance(
+        { latitude, longitude },
+        coordinate
+      );
+      return distance < 100;
+    }
+  );
   const arrivingInOwnPickup =
     distanceFromVehicleToClient <= 300 && distanceFromVehicleToClient > 80;
   const arrivedAtOwnPickup = distanceFromVehicleToClient <= 80;

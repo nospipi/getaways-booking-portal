@@ -17,9 +17,9 @@ const MapboxMap = ({ booking }: { booking: IGetBookingReturn }) => {
   const mapContainer = useRef<HTMLDivElement>(null);
   const [map, setMap] = useState<mapboxgl.Map>();
 
-  const clientPosition = [
-    booking?.pickup_location?.longitude,
-    booking?.pickup_location?.latitude,
+  const clientPosition: [number, number] = [
+    parseFloat(booking?.pickup_location?.longitude ?? "0"), // Convert to number, fallback to 0
+    parseFloat(booking?.pickup_location?.latitude ?? "0"), // Convert to number, fallback to 0
   ];
 
   const { data = "{}", isRefetching } = useQuery({
