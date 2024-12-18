@@ -20,8 +20,9 @@ const ActivitySegment = async ({
 }) => {
   const booking = await getBookingById(id);
   const hasPickupLocationAndTime =
-    booking?.pickup_location?.name.length > 0 &&
-    booking?.pickup_time.length > 0;
+    booking?.pickup_location?.name &&
+    booking.pickup_location.name.length > 0 &&
+    booking?.pickup_time?.length > 0;
 
   return (
     <article className="segment-container">
