@@ -24,7 +24,7 @@ const ExpandableSectionItem = ({ children }: { children: React.ReactNode }) => {
     if (firstChildRef.current) {
       const sectionContentTextContainer = firstChildRef.current.querySelector(
         ".section-content-text-container"
-      );
+      ) as HTMLElement;
 
       if (sectionContentTextContainer) {
         if (expanded) {
