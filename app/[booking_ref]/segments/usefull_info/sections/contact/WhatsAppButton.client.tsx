@@ -53,7 +53,7 @@ const WhatsAppButton = ({
       }}
       onClick={handleGetPhoneNumberOnDuty}
     >
-      <IoLogoWhatsapp size={15} color="#22994E" />
+      <IoLogoWhatsapp size={20} color="#22994E" />
       <div className="platform-text-container ">WhatsApp</div>
     </Button>
   );

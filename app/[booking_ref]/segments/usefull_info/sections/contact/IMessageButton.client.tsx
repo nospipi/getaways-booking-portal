@@ -51,7 +51,7 @@ const IMessageButton = ({
       }}
       onClick={handleGetPhoneNumberOnDuty}
     >
-      <FaApple size={15} color="rgb(87 rgb(59 59 59)" />
+      <FaApple size={20} color="rgb(87 rgb(59 59 59)" />
       <div className="platform-text-container ">iMessage</div>
     </Button>
   );

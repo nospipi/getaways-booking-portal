@@ -55,7 +55,7 @@ const ViberButton = ({
       }}
       onClick={handleGetPhoneNumberOnDuty}
     >
-      <FaViber size={15} color="#7360f2" />
+      <FaViber size={20} color="#7360f2" />
       <div className="platform-text-container ">Viber</div>
     </Button>
   );

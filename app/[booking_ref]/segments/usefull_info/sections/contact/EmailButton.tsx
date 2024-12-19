@@ -31,7 +31,7 @@ const EmailButton = ({
         );
       }}
     >
-      <MdEmail size={15} color="dodgerblue" />
+      <MdEmail size={20} color="dodgerblue" />
       <div className="platform-text-container ">Email</div>
     </Button>
   );
