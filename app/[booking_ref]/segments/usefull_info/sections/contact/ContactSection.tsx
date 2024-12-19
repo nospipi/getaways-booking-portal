@@ -25,6 +25,10 @@ const ContactSection = async ({ id }: { id: string }) => {
         </div>
 
         <div className="section-content-item-button-container">
+          <EmailButton
+            booking_ref={booking.ref}
+            client_name={booking.client_name}
+          />
           <IMessageButton
             booking_ref={booking.ref}
             client_name={booking.client_name}
@@ -34,11 +38,6 @@ const ContactSection = async ({ id }: { id: string }) => {
             client_name={booking.client_name}
           />
           <ViberButton
-            booking_ref={booking.ref}
-            client_name={booking.client_name}
-          />
-
-          <EmailButton
             booking_ref={booking.ref}
             client_name={booking.client_name}
           />
