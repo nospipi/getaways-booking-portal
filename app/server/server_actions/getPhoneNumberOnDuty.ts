@@ -9,7 +9,7 @@ import { IServerActionReturn } from "./types";
 export const getPhoneNumberOnDuty = cache(
   async (): Promise<IServerActionReturn> => {
     try {
-      throw new Error("getPhoneNumberOnDuty simulate error"); //simulate error
+      //throw new Error("getPhoneNumberOnDuty simulate error"); //simulate error
 
       await connectDB();
       const onDutyUser = await UserModel.find({ onOfficeDuty: true });
