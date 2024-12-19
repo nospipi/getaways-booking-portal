@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/next";
 import { Montserrat } from "next/font/google";
 import Providers from "@/utils/Providers.client";
 import Script from "next/script";
@@ -33,6 +35,8 @@ export default function RootLayout({
       </head>
       <body className={montserrat.className}>
         <Providers>{children}</Providers>
+        <SpeedInsights />
+        <Analytics />
       </body>
     </html>
   );
