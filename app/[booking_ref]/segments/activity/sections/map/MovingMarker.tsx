@@ -20,7 +20,7 @@ const MovingMarker = ({
   const [marker, setMarker] = useState<mapboxgl.Marker>();
   const [lngLat, setLngLat] = useState<LngLatLike>([0, 0]);
 
-  const { data = "{}", isRefetching } = useQuery({
+  const { data, isRefetching } = useQuery({
     queryKey: ["TRACKING_DATA", booking._id],
     queryFn: () => getTrackingData(booking._id),
     retry: false,
@@ -28,7 +28,7 @@ const MovingMarker = ({
     refetchInterval: 10000,
   });
 
-  const trackingData = JSON.parse(data);
+  const trackingData = data?.data;
   console.log("trackingData", trackingData);
 
   //calculate vehicle position

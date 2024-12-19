@@ -12,18 +12,14 @@ import MapboxMap from "./MapboxMap";
 const BusTrackingClient = ({ booking }: { booking: string }) => {
   const parsedBooking: IGetBookingReturn = JSON.parse(booking);
 
-  const {
-    data = "{}",
-    error,
-    isError,
-  } = useQuery({
+  const { data } = useQuery({
     queryKey: ["TRACKING_DATA", parsedBooking._id],
     queryFn: () => getTrackingData(parsedBooking._id),
     retry: false,
     refetchOnWindowFocus: true,
   });
 
-  if (isError || !data) {
+  if (data?.status === "error" || !data) {
     return (
       <div
         style={{
@@ -70,7 +66,7 @@ const BusTrackingClient = ({ booking }: { booking: string }) => {
               borderRadius: "3px",
             }}
           >
-            {error?.message || "An error occured"}
+            {data?.message || "An error occured"}
           </span>
         </div>
       </div>

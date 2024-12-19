@@ -1,5 +1,5 @@
-export interface IServerActionReturn {
+export interface IServerActionReturn<T = { [key: string]: unknown }> {
   status: "success" | "error";
   message: string;
-  data?: { [key: string]: unknown };
+  data?: T; // Generic type for data, defaults to a generic object
 }

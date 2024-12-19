@@ -9,6 +9,7 @@ import getTrackingData from "@/app/server/server_actions/getTrackingData";
 import { IoIosFlag } from "react-icons/io";
 import { IGetBookingReturn } from "@/app/server/server_actions/getBookingById";
 import "mapbox-gl/dist/mapbox-gl.css";
+import { IExtendedServerActionReturn } from "@/app/server/server_actions/getTrackingData";
 mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN as string;
 
 //---------------------------------------------------------
@@ -22,17 +23,17 @@ const MapboxMap = ({ booking }: { booking: IGetBookingReturn }) => {
     parseFloat(booking?.pickup_location?.latitude ?? "0"), // Convert to number, fallback to 0
   ];
 
-  const { data = "{}", isRefetching } = useQuery({
+  const { data, isRefetching } = useQuery<IExtendedServerActionReturn>({
     queryKey: ["TRACKING_DATA", booking._id],
     queryFn: () => getTrackingData(booking._id),
     retry: false,
     refetchOnWindowFocus: true,
   });
 
-  const trackingData = JSON.parse(data);
+  const trackingData = data?.data;
 
-  const vehicleLon = trackingData?.vehicle_position?.lon || 0;
-  const vehicleLat = trackingData?.vehicle_position?.lat || 0;
+  const vehicleLon = trackingData?.vehicle_position?.lon ?? 0;
+  const vehicleLat = trackingData?.vehicle_position?.lat ?? 0;
   const LngLatValid = vehicleLon !== 0 && vehicleLat !== 0;
 
   useEffect(() => {

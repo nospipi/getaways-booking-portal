@@ -7,8 +7,7 @@ import { IServerActionReturn } from "./types";
 
 export const getPhoneNumberOnDuty = async (): Promise<IServerActionReturn> => {
   try {
-    throw new Error("getPhoneNumberOnDuty simulate error"); //simulate error
-    //dont use throws in Vercel production because it intercepts the error and returns a custom error
+    //throw new Error("getPhoneNumberOnDuty simulate error"); //simulate error
 
     await connectDB();
     const onDutyUser = await UserModel.find({ onOfficeDuty: true });
@@ -34,6 +33,7 @@ export const getPhoneNumberOnDuty = async (): Promise<IServerActionReturn> => {
     };
   } catch (e: unknown) {
     console.log(e);
+    //we cannot throw errors to consumers of a server action in Vercel production because it intercepts the messages and returns a custom one
     if (e instanceof Error) {
       const error = e as { message: string };
       return {
