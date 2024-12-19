@@ -16,7 +16,16 @@ const WhatsAppButton = ({
 }) => {
   const handleGetPhoneNumberOnDuty = async () => {
     try {
-      const phone_number = await getPhoneNumberOnDuty();
+      const {
+        status,
+        message,
+        data: phone_number,
+      } = await getPhoneNumberOnDuty();
+
+      if (status === "error") {
+        toast.error(message);
+        return;
+      }
 
       const encodedEmailText = `
                 [${booking_ref}/${client_name}]
