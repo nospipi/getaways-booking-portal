@@ -13,26 +13,26 @@ const IMessageButton = ({
   client_name: string | undefined;
 }) => {
   const handleGetPhoneNumberOnDuty = async () => {
-    try {
-      const phone_number = await getPhoneNumberOnDuty();
+    const {
+      status,
+      message,
+      data: phone_number,
+    } = await getPhoneNumberOnDuty();
 
-      const encodedEmailText = `
+    if (status === "error") {
+      toast.dismiss();
+      toast.error(message);
+      return;
+    }
+
+    const encodedEmailText = `
             [${booking_ref}/${client_name}]
             --- YOUR MESSAGE BELOW ---
           `
-        .split("\n")
-        .map((line) => encodeURIComponent(line))
-        .join("%0A");
-      window.open(`sms:${phone_number}&body=${encodedEmailText}`, "_blank");
-    } catch (err: unknown) {
-      if (err instanceof Error) {
-        console.log(err);
-        toast.error(err.message || err.toString());
-      } else {
-        console.log(err);
-        toast.error("An unexpected error occurred");
-      }
-    }
+      .split("\n")
+      .map((line) => encodeURIComponent(line))
+      .join("%0A");
+    window.open(`sms:${phone_number}&body=${encodedEmailText}`, "_blank");
   };
 
   return (

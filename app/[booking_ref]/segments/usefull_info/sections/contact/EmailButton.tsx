@@ -2,6 +2,7 @@
 
 import Button from "@mui/material/Button";
 import { MdEmail } from "react-icons/md";
+const BUSINESS_MAIN_EMAIL = process.env.BUSINESS_MAIN_EMAIL as string;
 
 //---------------------------------------------------------
 
@@ -32,7 +33,7 @@ const EmailButton = ({
       }}
       onClick={() => {
         window.open(
-          `mailto:operations@getawaysgreece.com?subject=${`[${booking_ref}/${client_name}]`}`,
+          `mailto:${BUSINESS_MAIN_EMAIL}?subject=${`[${booking_ref}/${client_name}]`}`,
           "_blank"
         );
       }}

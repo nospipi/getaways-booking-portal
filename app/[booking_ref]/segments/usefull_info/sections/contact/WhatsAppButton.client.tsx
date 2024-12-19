@@ -15,38 +15,29 @@ const WhatsAppButton = ({
   client_name: string | undefined;
 }) => {
   const handleGetPhoneNumberOnDuty = async () => {
-    try {
-      const {
-        status,
-        message,
-        data: phone_number,
-      } = await getPhoneNumberOnDuty();
+    const {
+      status,
+      message,
+      data: phone_number,
+    } = await getPhoneNumberOnDuty();
 
-      if (status === "error") {
-        toast.error(message);
-        return;
-      }
+    if (status === "error") {
+      toast.dismiss();
+      toast.error(message);
+      return;
+    }
 
-      const encodedEmailText = `
+    const encodedEmailText = `
                 [${booking_ref}/${client_name}]
                 --- YOUR MESSAGE BELOW ---
               `
-        .split("\n")
-        .map((line) => encodeURIComponent(line))
-        .join("%0A");
-      window.open(
-        `whatsapp://send?&phone=${phone_number}&abid=${phone_number}&text=${encodedEmailText}`,
-        "_blank"
-      );
-    } catch (err: unknown) {
-      if (err instanceof Error) {
-        console.log(err);
-        toast.error(err.message || err.toString());
-      } else {
-        console.log(err);
-        toast.error("An unexpected error occurred");
-      }
-    }
+      .split("\n")
+      .map((line) => encodeURIComponent(line))
+      .join("%0A");
+    window.open(
+      `whatsapp://send?&phone=${phone_number}&abid=${phone_number}&text=${encodedEmailText}`,
+      "_blank"
+    );
   };
   return (
     <Button
