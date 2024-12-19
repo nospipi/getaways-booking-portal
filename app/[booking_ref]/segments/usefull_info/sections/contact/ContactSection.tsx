@@ -45,6 +45,7 @@ const ContactSection = async ({ id }: { id: string }) => {
             style={{
               width: "100%",
             }}
+            prefetch={true}
           >
             <Button
               fullWidth
