@@ -3,7 +3,7 @@ import getBookingById from "@/app/server/server_actions/getBookingById";
 import IMessageButton from "./IMessageButton.client";
 import WhatsAppButton from "./WhatsAppButton.client";
 import ViberButton from "./ViberButton.client";
-import EmailButton from "./EmailButton";
+//import EmailButton from "./EmailButton";
 
 //---------------------------------------------------------
 
