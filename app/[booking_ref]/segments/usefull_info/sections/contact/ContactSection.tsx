@@ -27,25 +27,43 @@ const ContactSection = async ({ id }: { id: string }) => {
         <div
           className="section-content-item-button-container"
           style={{
-            minHeight: "100px",
+            flexDirection: "column",
           }}
         >
-          <IMessageButton
-            booking_ref={booking.ref}
-            client_name={booking.client_name}
-          />
-          <WhatsAppButton
-            booking_ref={booking.ref}
-            client_name={booking.client_name}
-          />
-          <ViberButton
-            booking_ref={booking.ref}
-            client_name={booking.client_name}
-          />
-          <EmailButton
-            booking_ref={booking.ref}
-            client_name={booking.client_name}
-          />
+          <div
+            style={{
+              flex: 1,
+              display: "flex",
+              flexDirection: "row",
+              gap: "10px",
+            }}
+          >
+            <IMessageButton
+              booking_ref={booking.ref}
+              client_name={booking.client_name}
+            />
+            <WhatsAppButton
+              booking_ref={booking.ref}
+              client_name={booking.client_name}
+            />
+          </div>
+          <div
+            style={{
+              flex: 1,
+              display: "flex",
+              flexDirection: "row",
+              gap: "10px",
+            }}
+          >
+            <ViberButton
+              booking_ref={booking.ref}
+              client_name={booking.client_name}
+            />
+            <EmailButton
+              booking_ref={booking.ref}
+              client_name={booking.client_name}
+            />
+          </div>
         </div>
       </div>
     </section>

@@ -12,7 +12,7 @@ const Providers = ({ children }: { children: ReactNode }) => {
   return (
     <QueryClientProvider client={queryClient}>
       <AppRouterCacheProvider>
-        <ReactQueryDevtools />
+        <ReactQueryDevtools position="left" />
         <Toaster position="top-center" />
         {children}
       </AppRouterCacheProvider>

@@ -41,7 +41,6 @@ const WhatsAppButton = ({
   };
   return (
     <Button
-      variant="outlined"
       sx={{
         display: "flex",
         flex: 1,
@@ -50,11 +49,28 @@ const WhatsAppButton = ({
         fontSize: "11px",
         textTransform: "none",
         color: "black",
+        backgroundColor: "rgb(245 245 245)",
+        borderTopLeftRadius: 0,
+        borderBottomLeftRadius: 0,
+        borderTopRightRadius: "10px",
+        borderBottomRightRadius: "10px",
+        padding: "10px",
+        position: "relative",
       }}
       onClick={handleGetPhoneNumberOnDuty}
     >
-      <IoLogoWhatsapp size={20} color="#22994E" />
-      <div className="platform-text-container ">WhatsApp</div>
+      <IoLogoWhatsapp size={19} color="#22994E" />
+      <div>WhatsApp</div>
+      <div
+        style={{
+          position: "absolute",
+          left: 0,
+          top: 0,
+          height: "100%",
+          width: "3px",
+          backgroundColor: "dodgerblue",
+        }}
+      />
     </Button>
   );
 };

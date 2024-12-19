@@ -37,8 +37,6 @@ const IMessageButton = ({
 
   return (
     <Button
-      fullWidth
-      variant="outlined"
       sx={{
         display: "flex",
         flex: 1,
@@ -47,11 +45,28 @@ const IMessageButton = ({
         fontSize: "11px",
         textTransform: "none",
         color: "black",
+        backgroundColor: "rgb(245 245 245)",
+        borderTopLeftRadius: 0,
+        borderBottomLeftRadius: 0,
+        borderTopRightRadius: "10px",
+        borderBottomRightRadius: "10px",
+        padding: "10px",
+        position: "relative",
       }}
       onClick={handleGetPhoneNumberOnDuty}
     >
-      <FaApple size={20} color="rgb(87 rgb(59 59 59)" />
-      <div className="platform-text-container ">iMessage</div>
+      <FaApple size={20} color="black" />
+      <span>iMessage</span>
+      <div
+        style={{
+          position: "absolute",
+          left: 0,
+          top: 0,
+          height: "100%",
+          width: "3px",
+          backgroundColor: "dodgerblue",
+        }}
+      />
     </Button>
   );
 };
