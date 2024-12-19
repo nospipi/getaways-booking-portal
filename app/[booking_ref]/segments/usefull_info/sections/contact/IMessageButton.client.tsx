@@ -13,16 +13,18 @@ const IMessageButton = ({
   client_name: string | undefined;
 }) => {
   const handleGetPhoneNumberOnDuty = async () => {
-    const {
-      status,
-      message,
-      data: phone_number,
-    } = await getPhoneNumberOnDuty();
+    const toastId = "messages-toast";
+    toast.loading("Getting agents on duty ...", { id: toastId });
+    const { status, message, data } = await getPhoneNumberOnDuty();
 
     if (status === "error") {
-      toast.dismiss();
-      toast.error(message);
+      toast.error(message, { id: toastId });
       return;
+    } else {
+      toast.loading(
+        `You are talking with ${data?.agent_name}, opening Messages ...`,
+        { id: toastId }
+      );
     }
 
     const encodedEmailText = `
@@ -32,7 +34,14 @@ const IMessageButton = ({
       .split("\n")
       .map((line) => encodeURIComponent(line))
       .join("%0A");
-    window.open(`sms:${phone_number}&body=${encodedEmailText}`, "_blank");
+
+    setTimeout(() => {
+      toast.dismiss(toastId);
+      window.open(
+        `sms:${data?.phone_number}&body=${encodedEmailText}`,
+        "_blank"
+      );
+    }, 3000);
   };
 
   return (

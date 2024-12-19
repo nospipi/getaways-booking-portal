@@ -15,16 +15,19 @@ const WhatsAppButton = ({
   client_name: string | undefined;
 }) => {
   const handleGetPhoneNumberOnDuty = async () => {
-    const {
-      status,
-      message,
-      data: phone_number,
-    } = await getPhoneNumberOnDuty();
+    const toastId = "messages-toast";
+
+    toast.loading("Getting agents on duty ...", { id: toastId });
+    const { status, message, data } = await getPhoneNumberOnDuty();
 
     if (status === "error") {
-      toast.dismiss();
-      toast.error(message);
+      toast.error(message, { id: toastId });
       return;
+    } else {
+      toast.loading(
+        `You are talking with ${data?.agent_name}, opening WhatsApp ...`,
+        { id: toastId }
+      );
     }
 
     const encodedEmailText = `
@@ -34,11 +37,16 @@ const WhatsAppButton = ({
       .split("\n")
       .map((line) => encodeURIComponent(line))
       .join("%0A");
-    window.open(
-      `whatsapp://send?&phone=${phone_number}&abid=${phone_number}&text=${encodedEmailText}`,
-      "_blank"
-    );
+
+    setTimeout(() => {
+      toast.dismiss(toastId);
+      window.open(
+        `whatsapp://send?&phone=${data?.phone_number}&abid=${data?.phone_number}&text=${encodedEmailText}`,
+        "_blank"
+      );
+    }, 3000);
   };
+
   return (
     <Button
       sx={{

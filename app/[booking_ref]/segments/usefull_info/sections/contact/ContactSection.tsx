@@ -4,6 +4,8 @@ import IMessageButton from "./IMessageButton.client";
 import WhatsAppButton from "./WhatsAppButton.client";
 import ViberButton from "./ViberButton.client";
 import EmailButton from "./EmailButton";
+// import ContactButton from "./ContactButton";
+// import { FaApple } from "react-icons/fa";
 
 //---------------------------------------------------------
 
@@ -42,6 +44,15 @@ const ContactSection = async ({ id }: { id: string }) => {
               booking_ref={booking.ref}
               client_name={booking.client_name}
             />
+            {/* <ContactButton
+              icon={<FaApple size={15} />}
+              buttonText="iMessage"
+              handler={async () => {
+                "use server";
+                console.log("iMessage clicked");
+                return;
+              }}
+            /> */}
             <WhatsAppButton
               booking_ref={booking.ref}
               client_name={booking.client_name}

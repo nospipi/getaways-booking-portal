@@ -15,19 +15,24 @@ const ViberButton = ({
   client_name: string | undefined;
 }) => {
   const handleGetPhoneNumberOnDuty = async () => {
-    const {
-      status,
-      message,
-      data: phone_number,
-    } = await getPhoneNumberOnDuty();
+    const toastId = "messages-toast";
+    toast.loading("Getting agents on duty ...", { id: toastId });
+    const { status, message, data } = await getPhoneNumberOnDuty();
 
     if (status === "error") {
-      toast.dismiss();
-      toast.error(message);
+      toast.error(message, { id: toastId });
       return;
+    } else {
+      toast.loading(
+        `You are talking with ${data?.agent_name}, opening Viber ...`,
+        { id: toastId }
+      );
     }
 
-    const formattedPhoneNumber = (phone_number as string).replace("+", "");
+    const formattedPhoneNumber = (data?.phone_number as string).replace(
+      "+",
+      ""
+    );
 
     const encodedEmailText = `
             [${booking_ref}/${client_name}]
@@ -36,10 +41,14 @@ const ViberButton = ({
       .split("\n")
       .map((line) => encodeURIComponent(line))
       .join("%0A");
-    window.open(
-      `viber://chat?number=%2B${formattedPhoneNumber}&draft=${encodedEmailText}`,
-      "_blank"
-    );
+
+    setTimeout(() => {
+      toast.dismiss(toastId);
+      window.open(
+        `viber://chat?number=%2B${formattedPhoneNumber}&draft=${encodedEmailText}`,
+        "_blank"
+      );
+    }, 3000);
   };
 
   return (
