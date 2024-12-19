@@ -37,10 +37,14 @@ const ContactSection = async ({ id }: { id: string }) => {
             booking_ref={booking.ref}
             client_name={booking.client_name}
           />
-          <EmailButton
+          <ViberButton
             booking_ref={booking.ref}
             client_name={booking.client_name}
           />
+          {/* <EmailButton
+            booking_ref={booking.ref}
+            client_name={booking.client_name}
+          /> */}
         </aside>
       </div>
     </section>
