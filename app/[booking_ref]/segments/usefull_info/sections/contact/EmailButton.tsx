@@ -2,7 +2,8 @@
 
 import Button from "@mui/material/Button";
 import { MdEmail } from "react-icons/md";
-const BUSINESS_MAIN_EMAIL = process.env.BUSINESS_MAIN_EMAIL as string;
+const BUSINESS_MAIN_EMAIL = process.env
+  .NEXT_PUBLIC_BUSINESS_MAIN_EMAIL as string;
 
 //---------------------------------------------------------
 
