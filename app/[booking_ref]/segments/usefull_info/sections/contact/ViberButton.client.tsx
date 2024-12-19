@@ -43,11 +43,10 @@ const ViberButton = ({
 
   return (
     <Button
-      fullWidth
       variant="text"
-      color="success"
       sx={{
         display: "flex",
+        flex: 1,
         flexDirection: "column",
         gap: "5px",
         fontSize: "11px",

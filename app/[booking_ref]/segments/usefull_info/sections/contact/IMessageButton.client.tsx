@@ -42,6 +42,7 @@ const IMessageButton = ({
       color="success"
       sx={{
         display: "flex",
+        flex: 1,
         flexDirection: "column",
         gap: "5px",
         fontSize: "11px",

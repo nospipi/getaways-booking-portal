@@ -3,7 +3,7 @@ import getBookingById from "@/app/server/server_actions/getBookingById";
 import IMessageButton from "./IMessageButton.client";
 import WhatsAppButton from "./WhatsAppButton.client";
 import ViberButton from "./ViberButton.client";
-//import EmailButton from "./EmailButton";
+import EmailButton from "./EmailButton";
 
 //---------------------------------------------------------
 
@@ -24,7 +24,7 @@ const ContactSection = async ({ id }: { id: string }) => {
           </div>
         </div>
 
-        <aside className="section-content-item-button-container">
+        <div className="section-content-item-button-container">
           <IMessageButton
             booking_ref={booking.ref}
             client_name={booking.client_name}
@@ -37,15 +37,12 @@ const ContactSection = async ({ id }: { id: string }) => {
             booking_ref={booking.ref}
             client_name={booking.client_name}
           />
-          <ViberButton
+
+          <EmailButton
             booking_ref={booking.ref}
             client_name={booking.client_name}
           />
-          {/* <EmailButton
-            booking_ref={booking.ref}
-            client_name={booking.client_name}
-          /> */}
-        </aside>
+        </div>
       </div>
     </section>
   );
