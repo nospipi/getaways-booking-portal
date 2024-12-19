@@ -28,8 +28,6 @@ const ContactSection = async ({ id }: { id: string }) => {
           className="section-content-item-button-container"
           style={{
             minHeight: "100px",
-            borderRadius: "5px",
-            border: "1px solid #e0e0e0",
           }}
         >
           <IMessageButton

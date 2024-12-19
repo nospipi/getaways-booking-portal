@@ -38,8 +38,7 @@ const IMessageButton = ({
   return (
     <Button
       fullWidth
-      variant="text"
-      color="success"
+      variant="outlined"
       sx={{
         display: "flex",
         flex: 1,

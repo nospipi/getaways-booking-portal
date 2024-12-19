@@ -14,7 +14,7 @@ const EmailButton = ({
 }) => {
   return (
     <Button
-      variant="text"
+      variant="outlined"
       sx={{
         display: "flex",
         flex: 1,
