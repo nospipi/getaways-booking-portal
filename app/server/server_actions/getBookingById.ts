@@ -7,7 +7,9 @@ import {
   VehicleModel,
   UserModel,
   PortalUserSessionModel,
+  NotificationModel,
 } from "@/app/server/getaways-shared-models/models";
+import moment from "moment";
 import { cache } from "react";
 import connectDB from "@/app/server/db.connect";
 import { IBooking } from "@/app/server/getaways-shared-models/schemas/bookingSchema";
@@ -19,6 +21,8 @@ import { ITask, IPickup } from "../getaways-shared-models/schemas/taskSchema";
 import { IVehicle } from "../getaways-shared-models/schemas/vehicleSchema";
 import { redirect } from "next/navigation";
 import { headers } from "next/headers";
+const REFRESH_NOTIFICATIONS_URL = process.env
+  .REFRESH_NOTIFICATIONS_URL as string;
 
 //-----------------------------------------------------------------------------
 
@@ -87,6 +91,7 @@ export interface IGetBookingReturn extends IBooking {
  *
  * - Check headers for `params_from_middleware` and parse the `confirm` url search param value which is a booking.unique_booking_id.
  * - If it matches this booking's unique_booking_id, the client_response_status is updated to 'CONFIRMED'.
+ * - Writes a notification and calls the socket to inform other consumers of the change.
  *
  * - Suggested products are fetched based on the main product's suggested_products array of product _id's.
  * - Task information includes assignees and vehicle details.
@@ -123,10 +128,29 @@ export const getBookingById = cache(
       ]);
 
       // !booking will never happen because this is called immediately after we get the booking ids from getBookingIds
-
-      if (uniqueBookingIdtoConfirm === booking.unique_booking_id) {
+      const isAlreadyConfirmed =
+        booking?.client_response_status === "CONFIRMED";
+      if (
+        uniqueBookingIdtoConfirm === booking.unique_booking_id &&
+        !isAlreadyConfirmed
+      ) {
+        //update status to confirmed
         booking.client_response_status = "CONFIRMED";
         await booking.save();
+        //create notification and call refresh notifications url
+        const notification = new NotificationModel({
+          title: `${booking.client_name} confirmed via booking portal`,
+          data: {
+            getaways_suite: {
+              isReadBy: [],
+              bookingDate: moment(new Date(booking.date)).format("DD/MM/YYYY"),
+              type: "client_confirmed",
+              id: booking.id,
+            },
+          },
+        });
+        await notification.save();
+        await fetch(REFRESH_NOTIFICATIONS_URL);
       }
 
       const product = await ProductsModel.findById(booking.product_id);

@@ -75,7 +75,6 @@ const Page = async ({
             </span>
           </div>
         )}
-
         <BookingSearchForm />
       </div>
     </main>
@@ -85,6 +84,5 @@ const Page = async ({
 export default Page;
 
 //---------------------------------------------------------
-
 
 //https://stackoverflow.com/questions/76305664/next-js-error-in-production-mode-digest-1782794309

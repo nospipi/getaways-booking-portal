@@ -1,9 +1,16 @@
 "use server";
-import { BookingModel } from "@/app/server/getaways-shared-models/models";
+import {
+  BookingModel,
+  NotificationModel,
+  ProductsModel,
+} from "@/app/server/getaways-shared-models/models";
+import moment from "moment";
 import { escape } from "validator";
 import { cache } from "react";
 import { revalidatePath } from "next/cache";
 import connectDB from "@/app/server/db.connect";
+const REFRESH_NOTIFICATIONS_URL = process.env
+  .REFRESH_NOTIFICATIONS_URL as string;
 
 //-----------------------------------------------------------------------------
 
@@ -24,12 +31,38 @@ export const addLocation = cache(
     }
 
     const sanitizedLocation = escape(location);
-
     await connectDB();
 
-    const updatedBooking = await BookingModel.findByIdAndUpdate(booking_id, {
-      client_location: sanitizedLocation,
+    //update location
+    const updatedBooking = await BookingModel.findByIdAndUpdate(
+      booking_id,
+      {
+        client_location: sanitizedLocation,
+      },
+      {
+        new: true,
+      }
+    );
+    const product = await ProductsModel.findById(updatedBooking.product_id);
+    //create notification and call refresh notifications url
+    const notification = new NotificationModel({
+      title: `${updatedBooking.client_name}: ${
+        updatedBooking.ref
+      } updated location via booking portal ( ${product.title} / ${moment(
+        updatedBooking.date
+      ).format("DD/MM/YYYY")} / ${
+        updatedBooking.client_location || "No client location"
+      } )`,
+      data: {
+        getaways_suite: {
+          isReadBy: [],
+          type: "client_updated_location",
+          id: updatedBooking.id,
+        },
+      },
     });
+    await notification.save();
+    await fetch(REFRESH_NOTIFICATIONS_URL);
 
     revalidatePath(`/${updatedBooking.ref}`);
 

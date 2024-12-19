@@ -1,6 +1,12 @@
 "use server";
-import { BookingModel } from "@/app/server/getaways-shared-models/models";
+import {
+  BookingModel,
+  NotificationModel,
+} from "@/app/server/getaways-shared-models/models";
 import connectDB from "@/app/server/db.connect";
+import moment from "moment";
+const REFRESH_NOTIFICATIONS_URL = process.env
+  .REFRESH_NOTIFICATIONS_URL as string;
 
 //-----------------------------------------------------------------------------
 
@@ -21,8 +27,26 @@ export const confirmBookingByUniqueId = async (
     throw new Error("Booking not found");
   }
 
+  //update booking status
   bookingToUpdate.client_response_status = "CONFIRMED";
   await bookingToUpdate.save();
+
+  //create notification and call refresh notifications url
+  const notification = new NotificationModel({
+    title: `${bookingToUpdate.client_name} confirmed via booking portal`,
+    data: {
+      getaways_suite: {
+        isReadBy: [],
+        bookingDate: moment(new Date(bookingToUpdate.date)).format(
+          "DD/MM/YYYY"
+        ),
+        type: "client_confirmed",
+        id: bookingToUpdate.id,
+      },
+    },
+  });
+  await notification.save();
+  await fetch(REFRESH_NOTIFICATIONS_URL);
 
   return;
 };

@@ -5,6 +5,7 @@ import getBookingById from "@/app/server/server_actions/getBookingById";
 import IMessageButton from "./IMessageButton.client";
 import WhatsAppButton from "./WhatsAppButton.client";
 import ViberButton from "./ViberButton.client";
+import Link from "next/link";
 
 //---------------------------------------------------------
 
@@ -39,9 +40,8 @@ const ContactSection = async ({ id }: { id: string }) => {
             client_name={booking.client_name}
           />
 
-          <a
+          <Link
             href={`mailto:operations@getawaysgreece.com?subject=${`[${booking.ref}/${booking.client_name}]`}`}
-            target="_blank"
             style={{
               width: "100%",
             }}
@@ -63,7 +63,7 @@ const ContactSection = async ({ id }: { id: string }) => {
               <MdEmail size={15} color="dodgerblue" />
               <div className="platform-text-container ">Email</div>
             </Button>
-          </a>
+          </Link>
         </aside>
       </div>
     </section>
