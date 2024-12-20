@@ -4,6 +4,8 @@ import { useRouter } from "next/navigation";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
+//---------------------------------------------------------
+
 const BookingSearchForm = () => {
   const router = useRouter();
 
@@ -21,6 +23,7 @@ const BookingSearchForm = () => {
   return (
     <search>
       <form
+        aria-label="Booking Search Form"
         onSubmit={handleSubmit}
         style={{
           display: "flex",
@@ -41,10 +44,15 @@ const BookingSearchForm = () => {
           autoCapitalize="off"
           autoCorrect="off"
           autoComplete="off"
-          label="Booking Ref#"
+          label="Booking Number"
         />
         <Button
-          type="submit"
+          //type="submit"
+          type="button"
+          onClick={() => {
+            window.dispatchEvent(new CustomEvent("custom_event"));
+            //test("test");
+          }}
           fullWidth
           variant="contained"
           sx={{

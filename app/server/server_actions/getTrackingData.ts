@@ -63,12 +63,17 @@ const updateVehiclePosition = async (
 //-----------------------------------------------------------------------------
 
 interface VehiclePosition {
+  new: boolean;
   lon: number;
   lat: number;
+  heading: number;
 }
 
 interface TrackingData {
   vehicle_position: VehiclePosition;
+  withinRangeOfOtherPickup: boolean;
+  arrivingInOwnPickup: boolean;
+  arrivedAtOwnPickup: boolean;
 }
 
 export type IExtendedServerActionReturn = IServerActionReturn<TrackingData>;
@@ -246,7 +251,7 @@ const getTrackingData = async (
         stats.Position.Heading
       );
 
-      const result = {
+      const result: IExtendedServerActionReturn = {
         status: "success",
         message: "Tracking data retrieved successfully",
         data: {
@@ -262,9 +267,9 @@ const getTrackingData = async (
         },
       };
 
-      return result; //don't stringify if its sent to a server component
+      return result;
     } else {
-      const result = {
+      const result: IExtendedServerActionReturn = {
         status: "success",
         message: "Tracking data retrieved successfully",
         data: {
@@ -280,7 +285,7 @@ const getTrackingData = async (
         },
       };
 
-      return result; //don't stringify if its sent to a server component
+      return result;
     }
   } catch (e: unknown) {
     console.log(e);

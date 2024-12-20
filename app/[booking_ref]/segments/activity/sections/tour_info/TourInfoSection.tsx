@@ -85,7 +85,6 @@ const TourInfoSection = async ({ id }: { id: string }) => {
               style={{
                 position: "absolute",
                 width: "100%",
-                height: "50%",
                 top: "50%",
                 left: "50%",
                 transform: "translate(-50%, -50%)",

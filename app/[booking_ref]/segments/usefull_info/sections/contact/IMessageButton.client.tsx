@@ -4,6 +4,9 @@ import { FaApple } from "react-icons/fa";
 import Button from "@mui/material/Button";
 import getPhoneNumberOnDuty from "@/app/server/server_actions/getPhoneNumberOnDuty";
 import toast from "react-hot-toast";
+import { PiCaretCircleRightFill } from "react-icons/pi";
+
+//---------------------------------------------------------
 
 const IMessageButton = ({
   booking_ref,
@@ -49,33 +52,48 @@ const IMessageButton = ({
       sx={{
         display: "flex",
         flex: 1,
-        flexDirection: "column",
+        flexDirection: "row",
+        justifyContent: "space-between",
         gap: "5px",
         fontSize: "11px",
         textTransform: "none",
         color: "black",
-        backgroundColor: "rgb(245 245 245)",
-        borderTopLeftRadius: 0,
-        borderBottomLeftRadius: 0,
-        borderTopRightRadius: "10px",
-        borderBottomRightRadius: "10px",
+        backgroundColor: "white",
+        borderRadius: "10px",
         padding: "10px",
         position: "relative",
+        boxShadow: "1px 1px 2px 0px rgba(0,0,0,0.25)",
       }}
       onClick={handleGetPhoneNumberOnDuty}
     >
-      <FaApple size={20} color="black" />
-      <span>iMessage</span>
       <div
         style={{
-          position: "absolute",
-          left: 0,
-          top: 0,
-          height: "100%",
-          width: "3px",
-          backgroundColor: "dodgerblue",
+          width: "30px",
+          height: "30px",
+          backgroundColor: "white",
+          boxShadow: "0px 1px 2px 0px rgba(0,0,0,0.25)",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          borderRadius: "50%",
+          position: "relative",
         }}
-      />
+      >
+        <FaApple
+          size={16}
+          color="black"
+          style={{
+            position: "absolute",
+            top: "48%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+          }}
+        />
+      </div>
+
+      <span>iMessage</span>
+
+      <PiCaretCircleRightFill size={18} color="white" />
     </Button>
   );
 };
