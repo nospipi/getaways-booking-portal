@@ -47,12 +47,17 @@ const BookingSearchForm = () => {
           label="Booking Number"
         />
         <Button
-          //type="submit"
-          type="button"
-          onClick={() => {
-            window.dispatchEvent(new CustomEvent("custom_event"));
-            //test("test");
-          }}
+          type="submit"
+          //type="button"
+          // onClick={() => {
+          //   // service worker call
+          //   //window.dispatchEvent(new CustomEvent("custom_event"));
+          //   //test("test");
+          //   console.log("test");
+          //   navigator.sendBeacon(
+          //     `http://localhost:3000/api/modify/page_leave/dsfsdfds/dsfgdfg`
+          //   );
+          // }}
           fullWidth
           variant="contained"
           sx={{

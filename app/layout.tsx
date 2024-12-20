@@ -4,7 +4,8 @@ import { Analytics } from "@vercel/analytics/next";
 import { Montserrat } from "next/font/google";
 import Providers from "@/utils/Providers.client";
 import Script from "next/script";
-import ServiceWorkerClient from "@/utils/ServiceWorkerClient.client";
+import TrackPageVisitHandler from "@/utils/TrackPageVisitHandler.client";
+//import ServiceWorkerClient from "@/utils/ServiceWorkerClient.client";
 import "./globals.css";
 const BOKUN_LOADER = process.env.BOKUN_LOADER;
 
@@ -38,7 +39,8 @@ export default function RootLayout({
         <Providers>{children}</Providers>
         <SpeedInsights />
         <Analytics />
-        <ServiceWorkerClient />
+        <TrackPageVisitHandler />
+        {/* <ServiceWorkerClient /> */}
       </body>
     </html>
   );

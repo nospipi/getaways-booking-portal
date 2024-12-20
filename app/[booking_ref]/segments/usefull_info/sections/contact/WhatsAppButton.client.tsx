@@ -4,6 +4,7 @@ import { IoLogoWhatsapp } from "react-icons/io";
 import Button from "@mui/material/Button";
 import getPhoneNumberOnDuty from "@/app/server/server_actions/getPhoneNumberOnDuty";
 import toast from "react-hot-toast";
+import { FiExternalLink } from "react-icons/fi";
 
 //---------------------------------------------------------
 
@@ -91,7 +92,19 @@ const WhatsAppButton = ({
         />
       </div>
 
-      <div>WhatsApp</div>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          gap: "5px",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <span>WhatsApp</span>
+        <FiExternalLink size={10} color="black" />
+      </div>
+
       <span
         style={{
           opacity: 0,

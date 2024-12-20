@@ -2,6 +2,7 @@
 
 import Button from "@mui/material/Button";
 import { MdEmail } from "react-icons/md";
+import { FiExternalLink } from "react-icons/fi";
 const BUSINESS_MAIN_EMAIL = process.env
   .NEXT_PUBLIC_BUSINESS_MAIN_EMAIL as string;
 
@@ -63,7 +64,19 @@ const EmailButton = ({
         />
       </div>
 
-      <span>Email</span>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          gap: "5px",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <span>Email</span>
+        <FiExternalLink size={10}    />
+      </div>
+
       <span
         style={{
           opacity: 0,

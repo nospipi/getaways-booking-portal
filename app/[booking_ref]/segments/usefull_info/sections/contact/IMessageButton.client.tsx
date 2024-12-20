@@ -4,7 +4,8 @@ import { FaApple } from "react-icons/fa";
 import Button from "@mui/material/Button";
 import getPhoneNumberOnDuty from "@/app/server/server_actions/getPhoneNumberOnDuty";
 import toast from "react-hot-toast";
-import { PiCaretCircleRightFill } from "react-icons/pi";
+import { FaExternalLinkSquareAlt } from "react-icons/fa";
+import { FiExternalLink } from "react-icons/fi";
 
 //---------------------------------------------------------
 
@@ -91,9 +92,26 @@ const IMessageButton = ({
         />
       </div>
 
-      <span>iMessage</span>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          gap: "5px",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <span>iMessage</span>
+        <FiExternalLink size={10} color="black" />
+      </div>
 
-      <PiCaretCircleRightFill size={18} color="white" />
+      <span
+        style={{
+          opacity: 0,
+        }}
+      >
+        FFF
+      </span>
     </Button>
   );
 };
