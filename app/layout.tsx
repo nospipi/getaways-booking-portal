@@ -36,10 +36,12 @@ export default function RootLayout({
         <Script src={BOKUN_LOADER} strategy="lazyOnload" />
       </head>
       <body className={montserrat.className}>
-        <Providers>{children}</Providers>
+        <Providers>
+          <TrackPageVisitHandler />
+          {children}
+        </Providers>
         <SpeedInsights />
         <Analytics />
-        <TrackPageVisitHandler />
         {/* <ServiceWorkerClient /> */}
       </body>
     </html>

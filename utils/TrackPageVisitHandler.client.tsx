@@ -1,7 +1,7 @@
 "use client";
-import { useEffect, useState } from "react";
-import FingerprintJS from "@fingerprintjs/fingerprintjs";
+import { useEffect } from "react";
 import { useParams } from "next/navigation";
+import { useFingerprint } from "./FingerprintProvider.client";
 import {
   isMobile,
   isTablet,
@@ -18,8 +18,8 @@ import {
 //---------------------------------------------------------
 
 const TrackPageVisitHandler = () => {
-  const [fingerprint, setFingerprint] = useState<string | undefined>(undefined);
   const { booking_ref } = useParams();
+  const fingerprint = useFingerprint();
 
   const platform = Object.keys({
     isMobile,
@@ -36,16 +36,6 @@ const TrackPageVisitHandler = () => {
       }[key];
     })[0]
     .replace("is", "");
-
-  useEffect(() => {
-    const loadFingerprint = async () => {
-      const fp = await FingerprintJS.load();
-      const result = await fp.get();
-      const fingerprint = result.visitorId;
-      setFingerprint(fingerprint);
-    };
-    loadFingerprint();
-  }, []);
 
   useEffect(() => {
     if (fingerprint && booking_ref) {

@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { ipAddress } from "@vercel/functions";
 import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis";
+import { redirect } from "next/navigation";
 const UPSTASH_REDIS_REST_URL = process.env.UPSTASH_REDIS_REST_URL;
 const UPSTASH_REDIS_REST_TOKEN = process.env.UPSTASH_REDIS_REST_TOKEN;
 
@@ -73,7 +74,11 @@ const middleware = async (
       },
     });
   } else {
-    return NextResponse.redirect(new URL("/?error=Too many requests", req.url));
+    const redirectUrl = new URL(
+      "/?error=Too many requests",
+      req.nextUrl.origin
+    );
+    return NextResponse.redirect(redirectUrl);
   }
 };
 
