@@ -4,7 +4,6 @@ import { FaApple } from "react-icons/fa";
 import Button from "@mui/material/Button";
 import getPhoneNumberOnDuty from "@/app/server/server_actions/getPhoneNumberOnDuty";
 import toast from "react-hot-toast";
-import { FaExternalLinkSquareAlt } from "react-icons/fa";
 import { FiExternalLink } from "react-icons/fi";
 
 //---------------------------------------------------------
