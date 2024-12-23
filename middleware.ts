@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 import { ipAddress } from "@vercel/functions";
 import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis";
-import { redirect } from "next/navigation";
 const UPSTASH_REDIS_REST_URL = process.env.UPSTASH_REDIS_REST_URL;
 const UPSTASH_REDIS_REST_TOKEN = process.env.UPSTASH_REDIS_REST_TOKEN;
 
@@ -29,8 +28,13 @@ const ratelimit = new Ratelimit({
 // };
 
 export const config = {
-  matcher: ["/:slug"], //matches only the root route, not deeper routes
+  matcher: ["/:slug"], 
 };
+
+// export const config = {
+//   matcher: "/**", // This will apply the middleware to all routes
+// };
+
 
 interface CustomRequest extends NextRequest {
   ip: string; //this comes from vercel

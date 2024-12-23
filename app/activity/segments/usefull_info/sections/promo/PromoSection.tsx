@@ -1,6 +1,6 @@
 import { FaShoppingCart } from "react-icons/fa";
 import ProductSwiper from "./ProductSwiper";
-import ExpandableSectionItem from "@/app/[booking_ref]/segments/activity/sections/booking_info/ExpandableSectionItem.client";
+import ExpandableSectionItem from "@/app/activity/segments/activity/sections/booking_info/ExpandableSectionItem.client";
 import { FaInfoCircle } from "react-icons/fa";
 import { IoCaretForwardOutline } from "react-icons/io5";
 import getBookingById from "@/app/server/server_actions/getBookingById";

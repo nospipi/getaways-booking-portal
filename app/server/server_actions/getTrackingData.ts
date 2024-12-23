@@ -13,6 +13,7 @@ const G4S_TRACKING_CREDENTIALS_DOC_ID =
 import geolib from "geolib";
 import axios from "axios";
 import { IServerActionReturn } from "./types";
+const G4S_TRACKING_URL = process.env.G4S_TRACKING_URL;
 
 //-----------------------------------------------------------------------------
 
@@ -23,7 +24,7 @@ const updateG4sTrackingSessionCredentials = async () => {
     );
 
   const newCredentials = await axios.get(
-    `https://api.3dtracking.net/api/v1.0/Authentication/UserAuthenticate?UserName=${username}&Password=${password}`
+    `${G4S_TRACKING_URL}Authentication/UserAuthenticate?UserName=${username}&Password=${password}`
   );
   const { SessionId: NewSessionId } = newCredentials.data.Result;
   const { SessionId: updatedCredentialsDocSessionId } =
@@ -120,6 +121,13 @@ const getTrackingData = async (
       .subtract(1800, "seconds")
       .format("DD MMM YYYY, hh:mm A");
 
+    const trackingStartingDateTimeIso = moment(
+      pickupDateTimeInGreece,
+      "YYYY-MM-DD HH:mm"
+    )
+      .subtract(1800, "seconds")
+      .toDate();
+
     const tourGroup = await TourGroupModel.findById(booking.tour_group_id);
     const task = await TaskModel.findById(tourGroup?.task_id);
 
@@ -149,8 +157,12 @@ const getTrackingData = async (
     }
 
     if (currentDateTimeInGreeceIsBeforeAllowedTrackingTime) {
-      const error = new Error();
-      error.message = `Tour bus tracking will open on ${trackingStartingDateTime}`;
+      interface CustomError extends Error {
+        targetDate?: string;
+      }
+      const error: CustomError = new Error();
+
+      error.message = `Tour bus tracking will open on ${trackingStartingDateTime}&${trackingStartingDateTimeIso}`;
       throw error;
     }
 
@@ -225,7 +237,7 @@ const getTrackingData = async (
       let stats;
 
       const vehicle_stats = await axios.get(
-        `https://api.3dtracking.net/api/v1.0/Units/${gps_tracker_uid}/PositionAtTime?UserIdGuid=${UserIdGuid}&SessionId=${CurrentSessionId}&PointInTimeDateTimeUTC=${new Date().toISOString()}`
+        `${G4S_TRACKING_URL}Units/${gps_tracker_uid}/PositionAtTime?UserIdGuid=${UserIdGuid}&SessionId=${CurrentSessionId}&PointInTimeDateTimeUTC=${new Date().toISOString()}`
       );
       const sessionIsExpired = vehicle_stats.data.Status.ErrorCode === "50018";
 
@@ -235,7 +247,7 @@ const getTrackingData = async (
         const updatedCredentialsDocSessionId =
           await updateG4sTrackingSessionCredentials();
         const vehicle_stats_after_updating_creds = await axios.get(
-          `https://api.3dtracking.net/api/v1.0/Units/${gps_tracker_uid}/PositionAtTime?UserIdGuid=${UserIdGuid}&SessionId=${updatedCredentialsDocSessionId}&PointInTimeDateTimeUTC=${new Date().toISOString()}`
+          `${G4S_TRACKING_URL}/${gps_tracker_uid}/PositionAtTime?UserIdGuid=${UserIdGuid}&SessionId=${updatedCredentialsDocSessionId}&PointInTimeDateTimeUTC=${new Date().toISOString()}`
         );
 
         stats = vehicle_stats_after_updating_creds.data.Result;

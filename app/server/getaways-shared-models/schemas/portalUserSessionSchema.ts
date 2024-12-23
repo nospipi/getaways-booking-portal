@@ -6,7 +6,25 @@ import mongooseAggregatePaginate from "mongoose-aggregate-paginate-v2";
 
 export interface IUserAction extends Document {
   date_time: Date;
-  user_action: string;
+  device_info: {
+    platform: string;
+    osName: string;
+    osVersion: string;
+    browserName: string;
+    browserVersion: string;
+    mobileVendor: string;
+    mobileModel: string;
+  };
+  user_action:
+    | "SCROLLED_TO_BOTTOM"
+    | "REVIEW_LINK_CLICK"
+    | "PROMO_PRODUCT_CLICK"
+    | "SIM_LINK_CLICK"
+    | "ADDED_LOCATION"
+    | "CONFIRMED_INSTRUCTIONS"
+    | "BUS_TRACKING_MAP_CLICK"
+    | "NAVIGATION_LINK_CLICK"
+    | "CONTACT_BUTTON_CLICK";
 }
 
 export interface IUserSession extends Document {
@@ -17,28 +35,23 @@ export interface IUserSession extends Document {
   client_phone: string;
   product_title: string;
   session_actions: IUserAction[];
-  device_info: object;
-  sessionDurationInSeconds: number;
 }
 
 //------------------------------------------------------------------------------
 
 const portalUserActionSchema = new Schema<IUserAction>({
   date_time: { type: Date, default: Date.now },
+  device_info: Object,
   user_action: String,
 });
 
-// Schema for portal user sessions
 const portalUserSessionSchema = new Schema<IUserSession>({
-  date_time: { type: Date, default: Date.now },
   booking_ref: String,
   booking_date: String,
   client_name: String,
   client_phone: String,
   product_title: String,
   session_actions: { type: [portalUserActionSchema], default: [] },
-  device_info: Object,
-  sessionDurationInSeconds: Number,
 });
 
 // Indexes for performance improvements

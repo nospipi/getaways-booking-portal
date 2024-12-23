@@ -15,7 +15,7 @@ const Providers = ({ children }: { children: ReactNode }) => {
   return (
     <QueryClientProvider client={queryClient}>
       <AppRouterCacheProvider>
-        <ReactQueryDevtools position="left" />
+        <ReactQueryDevtools buttonPosition="bottom-left" />
         <FingerprintProvider>
           <Toaster position="top-center" />
           {children}

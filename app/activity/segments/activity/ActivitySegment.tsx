@@ -3,10 +3,11 @@ import SegmentHeader from "../SegmentHeader";
 import ConfirmStatusSection from "./sections/confirm/ConfirmStatusSection";
 import TourInfoSection from "./sections/tour_info/TourInfoSection";
 import MeetingPoint from "./sections/meeting_point/MeetingPoint";
-import MeetingTime from "./sections/meeting_point/MeetingTime";
-import TourHosts from "./sections/meeting_point/TourHosts";
+import MeetingTime from "./sections/meeting_time/MeetingTime";
+import TourHosts from "./sections/tour_hosts/TourHosts";
+import TourBusInfo from "./sections/tour_bus_info/TourBusInfo";
 import getBookingById from "@/app/server/server_actions/getBookingById";
-import BusTracking from "./sections/map/BusTracking";
+import BusTracking from "./sections/tour_bus_tracking/BusTracking";
 //---------------------------------------------------------
 
 const ActivitySegment = async ({
@@ -50,6 +51,7 @@ const ActivitySegment = async ({
       <MeetingPoint id={id} />
       <MeetingTime id={id} />
       <TourHosts id={id} />
+      <TourBusInfo id={id} />
       <BusTracking id={id} />
     </article>
   );

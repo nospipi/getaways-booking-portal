@@ -16,7 +16,7 @@ const BookingSearchForm = () => {
     const bookingRef = formData.get("booking_ref") as string;
 
     if (bookingRef) {
-      router.push(`/${bookingRef}`);
+      router.push(`/activity/?ref=${bookingRef}`);
     }
   };
 

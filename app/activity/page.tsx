@@ -1,21 +1,20 @@
-import ActivitySegment from "@/app/[booking_ref]/segments/activity/ActivitySegment";
-import UsefullInfoSegment from "@/app/[booking_ref]/segments/usefull_info/UsefullInfoSegment";
+import ActivitySegment from "@/app/activity/segments/activity/ActivitySegment";
+import UsefullInfoSegment from "@/app/activity/segments/usefull_info/UsefullInfoSegment";
 import getBookingIds from "@/app/server/server_actions/getBookingIds";
 //import TrackPageVisitHandler from "@/utils/TrackPageVisitHandler.client";
-
 
 //---------------------------------------------------------
 
 const Page = async ({
-  params,
-}: //searchParams,
-{
-  params: Promise<{ booking_ref: string }>;
-  //searchParams: Promise<{ [key: string]: string | undefined }>;
+  //params,
+  searchParams,
+}: {
+  //params: Promise<{ booking_ref: string }>;
+  searchParams: Promise<{ [key: string]: string | undefined }>;
 }) => {
-  const { booking_ref } = await params;
-  //const { confirm } = await searchParams;
-  const bookingIds = (await getBookingIds(booking_ref)) as string[];
+  //const { booking_ref } = await params;
+  const { ref } = await searchParams;
+  const bookingIds = (await getBookingIds(ref)) as string[];
 
   return (
     <main className="page-container">

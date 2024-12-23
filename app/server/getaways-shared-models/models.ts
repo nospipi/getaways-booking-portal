@@ -37,6 +37,7 @@ import notificationSchema from "./schemas/notificationSchema";
 import PwaPushSubscriptionSchema from "./schemas/PwaPushSubscriptionSchema";
 import g4sTrackingSessionCredentialsSchema from "./schemas/g4sTrackingSessionCredentialsSchema";
 import portalUserSessionSchema from "./schemas/portalUserSessionSchema";
+import portalOpenSessionSchema from "./schemas/portalOpenSessionSchema";
 import vehicleServiceLogEntrySchema from "./schemas/vehicleServiceLogEntrySchema";
 import bokunDataSchema from "./schemas/bokunDataSchema";
 import messageDraftSchema from "./schemas/messageDraftSchema";
@@ -85,6 +86,9 @@ export const G4STrackingSessionCredentialsModel =
 export const PortalUserSessionModel =
   models.portal_user_session ||
   model("portal_user_session", portalUserSessionSchema);
+export const PortalOpenSessionModel =
+  models.portal_open_session ||
+  model("portal_open_session", portalOpenSessionSchema);
 export const VehicleServiceLogEntryModel =
   models.vehicle_service_log_entry ||
   model("vehicle_service_log_entry", vehicleServiceLogEntrySchema);

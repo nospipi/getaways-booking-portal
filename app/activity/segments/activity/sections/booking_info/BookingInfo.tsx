@@ -1,8 +1,8 @@
 import { FaExclamationCircle } from "react-icons/fa";
 import getBookingById from "@/app/server/server_actions/getBookingById";
-import PickupInputContainer from "@/app/[booking_ref]/segments/activity/sections/booking_info/PickupInputContainer.client";
-import PickupInputStateContextProvider from "@/app/[booking_ref]/segments/activity/sections/booking_info/PickupInputStateContextProvider.client";
-import EditButton from "@/app/[booking_ref]/segments/activity/sections/booking_info/EditButton.client";
+import PickupInputContainer from "@/app/activity/segments/activity/sections/booking_info/PickupInputContainer.client";
+import PickupInputStateContextProvider from "@/app/activity/segments/activity/sections/booking_info/PickupInputStateContextProvider.client";
+import EditButton from "@/app/activity/segments/activity/sections/booking_info/EditButton.client";
 import { IGetBookingReturn } from "@/app/server/server_actions/getBookingById";
 
 //---------------------------------------------------------

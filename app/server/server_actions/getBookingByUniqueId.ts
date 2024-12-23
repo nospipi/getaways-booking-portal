@@ -100,7 +100,7 @@ export interface IGetBookingReturn extends IBooking {
  * @throws Will redirect to an error page if any errors occur during the process.
  */
 
-export const getBookingById = cache(
+export const getBookingByUniqueId = cache(
   async (id: string): Promise<IGetBookingReturn> => {
     try {
       //throw new Error("getBookingById error"); //simulate error
@@ -216,5 +216,5 @@ export const getBookingById = cache(
   }
 );
 
-export default getBookingById;
+export default getBookingByUniqueId;
 //------------------------------------------------------------------------------

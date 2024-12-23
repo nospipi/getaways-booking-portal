@@ -36,6 +36,7 @@ const TrackPageVisitHandler = () => {
       }[key];
     })[0]
     .replace("is", "");
+  //returns Desktop | Mobile | Tablet | Browser
 
   useEffect(() => {
     if (fingerprint && booking_ref) {

@@ -70,7 +70,11 @@ const ProductCard = ({ product }: { product: IProduct }) => {
           height={0}
           sizes="(max-width: 800px) 100vw, 800px"
           alt={
-            hasImage ? product?.product_pictures[0]?.alt : "No image available"
+            hasImage
+              ? product?.product_pictures[0]?.alt
+                ? product?.product_pictures[0]?.alt
+                : "No image available"
+              : "No image available"
           }
           quality={20}
         />
