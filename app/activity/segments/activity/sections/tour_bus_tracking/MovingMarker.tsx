@@ -6,7 +6,7 @@ import ReactDOMServer from "react-dom/server";
 import mapboxgl, { LngLatLike } from "mapbox-gl";
 import { useQuery } from "@tanstack/react-query";
 import getTrackingData from "@/app/server/server_actions/getTrackingData";
-import { IGetBookingReturn } from "@/app/server/server_actions/getBookingById";
+import { IGetBookingReturn } from "@/app/server/server_actions/getBookingByUniqueId";
 
 //----------------------------------------------
 

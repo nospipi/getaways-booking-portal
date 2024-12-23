@@ -230,7 +230,6 @@ a {
   transition: background-color 0.3s ease-in-out;
 }
 
-/* PulsingDot.css */
 .pulsing-dot {
   width: 10px;
   height: 10px;
@@ -254,13 +253,26 @@ a {
   }
 }
 
+.countdown-item {
+  display: flex;
+  flex-direction: column;
+  /* gap: 5px; */
+}
 
-:root {
-  /* --swiper-pagination-bullet-inactive-color: white !important;
-  --swiper-pagination-bullet-inactive-opacity: 0.5;
-  --swiper-pagination-color: white; */
-  /* https://swiperjs.com/swiper-api#pagination-css-custom-properties */
+.mapboxgl-popup-content {
+  background: rgba(0, 0, 0, 0.3) !important;
+  padding: 10px !important;
+  border: none !important;
+  box-shadow: 0 0 7px 3px rgba(255, 255, 255, 0.05) !important;
+  border-radius: 15px !important;
+  user-select: none !important;
+  color: white !important;
+}
 
-  /* --swiper-navigation-color: white; */
-  /* https://swiperjs.com/swiper-api#navigation-css-custom-properties */
+.mapboxgl-popup-tip {
+  display: none !important; /* Hide the popup arrow */
+}
+
+.mapboxgl-ctrl {
+  display: none !important;
 }

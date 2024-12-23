@@ -1,4 +1,4 @@
-import getBookingById from "@/app/server/server_actions/getBookingById";
+import getBookingByUniqueId from "@/app/server/server_actions/getBookingByUniqueId";
 import { FaLocationDot } from "react-icons/fa6";
 import { FaInfoCircle } from "react-icons/fa";
 import { FaEye } from "react-icons/fa";
@@ -8,8 +8,8 @@ import NavigateButton from "./NavigateButton";
 
 //---------------------------------------------------------
 
-const MeetingPoint = async ({ id }: { id: string }) => {
-  const booking = await getBookingById(id);
+const MeetingPoint = async ({ uniqueId }: { uniqueId: string }) => {
+  const booking = await getBookingByUniqueId(uniqueId);
   const hasPickupLocation =
     booking?.pickup_location?.latitude && booking?.pickup_location?.longitude;
   const img_url = booking?.pickup_location?.img_url;

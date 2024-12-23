@@ -1,6 +1,7 @@
 import ActivitySegment from "@/app/activity/segments/activity/ActivitySegment";
 import UsefullInfoSegment from "@/app/activity/segments/usefull_info/UsefullInfoSegment";
-import getBookingIds from "@/app/server/server_actions/getBookingIds";
+import getBookingUniqueIds from "@/app/server/server_actions/getBookingUniqueIds";
+import getBookingParentRefByUniqueId from "../server/server_actions/getBookingParentRefByUniqueId";
 //import TrackPageVisitHandler from "@/utils/TrackPageVisitHandler.client";
 
 //---------------------------------------------------------
@@ -13,8 +14,17 @@ const Page = async ({
   searchParams: Promise<{ [key: string]: string | undefined }>;
 }) => {
   //const { booking_ref } = await params;
-  const { ref } = await searchParams;
-  const bookingIds = (await getBookingIds(ref)) as string[];
+  let { ref } = await searchParams;
+  const { uniqueId } = await searchParams;
+  if (uniqueId) {
+    console.log("has uniqueId");
+    const booking_ref = await getBookingParentRefByUniqueId(uniqueId);
+    console.log(booking_ref);
+    if (booking_ref.status === "success") {
+      ref = booking_ref.data;
+    }
+  }
+  const uniqueIds = (await getBookingUniqueIds(ref)) as string[];
 
   return (
     <main className="page-container">
@@ -22,15 +32,15 @@ const Page = async ({
       <div className="content-wrapper">
         <div className="content-container">
           <div className="content-container-wrapper">
-            {bookingIds.map((bookingId: string, index: number) => (
+            {uniqueIds.map((uniqueId: string, index: number) => (
               <ActivitySegment
-                key={bookingId}
-                id={bookingId}
+                key={uniqueId}
+                uniqueId={uniqueId}
                 activityIndex={index}
-                numberOfActivities={bookingIds.length}
+                numberOfActivities={uniqueIds.length}
               />
             ))}
-            <UsefullInfoSegment id={bookingIds[0]} />
+            <UsefullInfoSegment id={uniqueIds[0]} />
           </div>
         </div>
       </div>

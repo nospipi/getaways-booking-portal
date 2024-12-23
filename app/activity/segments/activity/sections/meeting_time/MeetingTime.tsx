@@ -1,11 +1,11 @@
 import { MdOutlineAccessTimeFilled } from "react-icons/md";
 import moment from "moment";
-import getBookingById from "@/app/server/server_actions/getBookingById";
+import getBookingByUniqueId from "@/app/server/server_actions/getBookingByUniqueId";
 
 //---------------------------------------------------------
 
-const MeetingTime = async ({ id }: { id: string }) => {
-  const booking = await getBookingById(id);
+const MeetingTime = async ({ uniqueId }: { uniqueId: string }) => {
+  const booking = await getBookingByUniqueId(uniqueId);
   const hasPickupTime = booking?.pickup_time?.length > 0;
   const time = moment(booking?.pickup_time, "HH:mm").format("h:mm A");
 

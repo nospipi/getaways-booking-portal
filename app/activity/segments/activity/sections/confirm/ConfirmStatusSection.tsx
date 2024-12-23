@@ -1,12 +1,11 @@
 import ConfirmButton from "./ConfirmButton";
-import getBookingById from "@/app/server/server_actions/getBookingById";
+import getBookingByUniqueId from "@/app/server/server_actions/getBookingByUniqueId";
 import InterchangableConfirmSection from "./InterchangableConfirmSection";
 //---------------------------------------------------------
 
-const ConfirmStatusSection = async ({ id }: { id: string }) => {
-  const { unique_booking_id, client_response_status } = await getBookingById(
-    id
-  );
+const ConfirmStatusSection = async ({ uniqueId }: { uniqueId: string }) => {
+  const { unique_booking_id, client_response_status } =
+    await getBookingByUniqueId(uniqueId);
   const isConfirmed = client_response_status === "CONFIRMED";
 
   return (

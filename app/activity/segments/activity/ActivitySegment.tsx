@@ -6,20 +6,20 @@ import MeetingPoint from "./sections/meeting_point/MeetingPoint";
 import MeetingTime from "./sections/meeting_time/MeetingTime";
 import TourHosts from "./sections/tour_hosts/TourHosts";
 import TourBusInfo from "./sections/tour_bus_info/TourBusInfo";
-import getBookingById from "@/app/server/server_actions/getBookingById";
+import getBookingByUniqueId from "@/app/server/server_actions/getBookingByUniqueId";
 import BusTracking from "./sections/tour_bus_tracking/BusTracking";
 //---------------------------------------------------------
 
 const ActivitySegment = async ({
-  id,
+  uniqueId,
   activityIndex,
   numberOfActivities,
 }: {
-  id: string;
+  uniqueId: string;
   activityIndex: number;
   numberOfActivities: number;
 }) => {
-  const booking = await getBookingById(id);
+  const booking = await getBookingByUniqueId(uniqueId);
   const hasPickupLocationAndTime =
     booking?.pickup_location?.name &&
     booking.pickup_location.name.length > 0 &&
@@ -45,14 +45,14 @@ const ActivitySegment = async ({
           </span>
         </div>
       </SegmentHeader>
-      {hasPickupLocationAndTime && <ConfirmStatusSection id={id} />}
-      <BookingInfo id={id} />
-      <TourInfoSection id={id} />
-      <MeetingPoint id={id} />
-      <MeetingTime id={id} />
-      <TourHosts id={id} />
-      <TourBusInfo id={id} />
-      <BusTracking id={id} />
+      {hasPickupLocationAndTime && <ConfirmStatusSection uniqueId={uniqueId} />}
+      <BookingInfo uniqueId={uniqueId} />
+      <TourInfoSection uniqueId={uniqueId} />
+      <MeetingPoint uniqueId={uniqueId} />
+      <MeetingTime uniqueId={uniqueId} />
+      <TourHosts uniqueId={uniqueId} />
+      <TourBusInfo uniqueId={uniqueId} />
+      <BusTracking uniqueId={uniqueId} />
     </article>
   );
 };

@@ -7,7 +7,7 @@ import MovingMarker from "./MovingMarker";
 import { useQuery } from "@tanstack/react-query";
 import getTrackingData from "@/app/server/server_actions/getTrackingData";
 import { IoIosFlag } from "react-icons/io";
-import { IGetBookingReturn } from "@/app/server/server_actions/getBookingById";
+import { IGetBookingReturn } from "@/app/server/server_actions/getBookingByUniqueId";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { IExtendedServerActionReturn } from "@/app/server/server_actions/getTrackingData";
 mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN as string;
@@ -39,6 +39,7 @@ const MapboxMap = ({ booking }: { booking: IGetBookingReturn }) => {
   useEffect(() => {
     if (mapContainer.current && LngLatValid) {
       const newMap = new mapboxgl.Map({
+        attributionControl: false,
         container: mapContainer.current,
         style: "mapbox://styles/mapbox/streets-v11",
         center: [vehicleLon, vehicleLat] as LngLatLike,

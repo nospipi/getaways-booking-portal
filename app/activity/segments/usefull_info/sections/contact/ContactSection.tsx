@@ -1,5 +1,5 @@
 import { BsChatFill } from "react-icons/bs";
-import getBookingById from "@/app/server/server_actions/getBookingById";
+import getBookingByUniqueId from "@/app/server/server_actions/getBookingByUniqueId";
 import IMessageButton from "./IMessageButton.client";
 import WhatsAppButton from "./WhatsAppButton.client";
 import ViberButton from "./ViberButton.client";
@@ -10,7 +10,7 @@ import EmailButton from "./EmailButton";
 //---------------------------------------------------------
 
 const ContactSection = async ({ id }: { id: string }) => {
-  const booking = await getBookingById(id);
+  const booking = await getBookingByUniqueId(id);
 
   return (
     <section className="section-container">

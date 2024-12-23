@@ -1,7 +1,8 @@
 import BackButton from "./BackButton";
 import getTrackingData from "@/app/server/server_actions/getTrackingData";
-import getBookingById from "@/app/server/server_actions/getBookingById";
+import getBookingByUniqueId from "@/app/server/server_actions/getBookingByUniqueId";
 import MapboxMap from "./MapboxMap";
+import { nanoid } from "nanoid";
 import {
   dehydrate,
   HydrationBoundary,
@@ -11,21 +12,23 @@ import {
 //---------------------------------------------------------
 
 const Page = async ({
-  params,
+  //params,
   searchParams,
 }: {
-  params: Promise<{ booking_id: string }>;
+  //params: Promise<{ booking_id: string }>;
   searchParams: Promise<{ [key: string]: string | undefined }>;
 }) => {
-  const { booking_id } = await params;
-  const { ref } = await searchParams;
+  //const { booking_id } = await params;
+  const fallbackId = nanoid();
+  const { uniqueId = fallbackId } = await searchParams;
 
-  const booking = await getBookingById(booking_id);
-  console.log("Booking ID:", booking_id);
+  const booking = await getBookingByUniqueId(uniqueId);
+  const stringifiedBooking = JSON.stringify(booking);
+
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery({
-    queryKey: ["TRACKING_DATA", booking_id],
-    queryFn: () => getTrackingData(booking_id),
+    queryKey: ["TRACKING_DATA", uniqueId],
+    queryFn: () => getTrackingData(uniqueId),
   });
 
   return (
@@ -41,8 +44,9 @@ const Page = async ({
             >
               <BackButton />
             </div>
+
             <HydrationBoundary state={dehydrate(queryClient)}>
-              <MapboxMap booking={booking} />
+              <MapboxMap booking={stringifiedBooking} />
             </HydrationBoundary>
           </div>
         </div>

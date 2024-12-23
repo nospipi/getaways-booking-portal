@@ -1,10 +1,10 @@
 import { FaBus } from "react-icons/fa6";
-import getBookingById from "@/app/server/server_actions/getBookingById";
+import getBookingByUniqueId from "@/app/server/server_actions/getBookingByUniqueId";
 
 //---------------------------------------------------------
 
-const TourBusInfo = async ({ id }: { id: string }) => {
-  const booking = await getBookingById(id);
+const TourBusInfo = async ({ uniqueId }: { uniqueId: string }) => {
+  const booking = await getBookingByUniqueId(uniqueId);
   const hasVehicle = booking?.task?.vehicle?.plate;
 
   return (

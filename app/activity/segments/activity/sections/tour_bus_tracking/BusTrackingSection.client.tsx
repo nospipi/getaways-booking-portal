@@ -10,10 +10,10 @@ import Link from "next/link";
 
 //---------------------------------------------------------------------------------------------
 
-const BusTrackingSection = ({ booking_id }: { booking_id: string }) => {
+const BusTrackingSection = ({ uniqueId }: { uniqueId: string }) => {
   const { data, refetch } = useQuery({
-    queryKey: ["TRACKING_DATA", booking_id],
-    queryFn: () => getTrackingData(booking_id),
+    queryKey: ["TRACKING_DATA", uniqueId],
+    queryFn: () => getTrackingData(uniqueId),
     //refetchInterval: 10000,
     retry: false,
     refetchOnWindowFocus: true,
@@ -59,10 +59,11 @@ const BusTrackingSection = ({ booking_id }: { booking_id: string }) => {
                 justifyContent: "center",
                 alignItems: "flex-start",
                 flexDirection: "column",
-                //padding: "10px",
+                backgroundColor: "whitesmoke",
+                padding: "10px",
                 gap: "10px",
                 //border: "1px solid #ccc",
-                //borderRadius: "10px",
+                borderRadius: "10px",
                 //borderLeft: "3px solid dodgerblue",
               }}
             >
@@ -72,11 +73,11 @@ const BusTrackingSection = ({ booking_id }: { booking_id: string }) => {
                   fontWeight: "bold",
                 }}
               >
-                Bus tracking will open in:
+                Bus tracking will open in
               </span>
               <div
                 style={{
-                  backgroundColor: "#f0f0f0",
+                  backgroundColor: "white",
                   padding: "10px",
                   width: "100%",
                   textAlign: "center",
@@ -101,7 +102,7 @@ const BusTrackingSection = ({ booking_id }: { booking_id: string }) => {
                 {days > 0 && <span>{days} days</span>}
                 {hours > 0 && <span>{hours} hours</span>}
                 {minutes > 0 && <span>{minutes} minutes</span>}
-                {seconds > 0 && <span>{seconds} seconds</span>}
+                {seconds > 0 && days === 0 && <span>{seconds} seconds</span>}
               </div>
             </div>
           )}
@@ -175,7 +176,7 @@ const BusTrackingSection = ({ booking_id }: { booking_id: string }) => {
             </div>
           </div>
         </div>
-        <Link href={`bus-tracking/${booking_id}`} prefetch={true}>
+        <Link href={`bus-tracking/?uniqueId=${uniqueId}`} prefetch={true}>
           <Button variant="contained" color="success" fullWidth>
             View Bus Tracking
           </Button>

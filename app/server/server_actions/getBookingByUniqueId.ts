@@ -101,7 +101,7 @@ export interface IGetBookingReturn extends IBooking {
  */
 
 export const getBookingByUniqueId = cache(
-  async (id: string): Promise<IGetBookingReturn> => {
+  async (unique_id: string): Promise<IGetBookingReturn> => {
     try {
       //throw new Error("getBookingById error"); //simulate error
       const headerList = await headers();
@@ -112,7 +112,9 @@ export const getBookingByUniqueId = cache(
       };
       await connectDB();
 
-      const booking = await BookingModel.findById(id).select([
+      const booking = await BookingModel.findOne({
+        unique_booking_id: unique_id,
+      }).select([
         "_id",
         "ref",
         "unique_booking_id",

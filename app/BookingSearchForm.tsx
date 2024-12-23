@@ -1,13 +1,16 @@
 "use client";
 
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import { RotatingLines } from "react-loader-spinner";
 
 //---------------------------------------------------------
 
 const BookingSearchForm = () => {
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -16,6 +19,7 @@ const BookingSearchForm = () => {
     const bookingRef = formData.get("booking_ref") as string;
 
     if (bookingRef) {
+      setIsLoading(true);
       router.push(`/activity/?ref=${bookingRef}`);
     }
   };
@@ -62,11 +66,14 @@ const BookingSearchForm = () => {
           variant="contained"
           sx={{
             backgroundColor: "#627a96",
-            borderBottomLeftRadius: "5px",
-            borderBottomRightRadius: "5px",
+            minHeight: "40px",
           }}
         >
-          SEARCH BOOKING
+          {isLoading ? (
+            <RotatingLines width="15" strokeColor="white" />
+          ) : (
+            <span>SEARCH BOOKING</span>
+          )}
         </Button>
       </form>
     </search>

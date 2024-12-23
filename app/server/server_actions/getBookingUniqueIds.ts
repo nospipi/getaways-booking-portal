@@ -6,7 +6,7 @@ import { redirect } from "next/navigation";
 
 //-----------------------------------------------------------------------------
 
-export const getBookingIds = cache(
+export const getBookingUniqueIds = cache(
   async (ref: string | undefined): Promise<unknown> => {
     try {
       await connectDB();
@@ -29,7 +29,7 @@ export const getBookingIds = cache(
         throw new Error("Booking is cancelled");
       }
 
-      const result = bookings.map((booking) => booking.id);
+      const result = bookings.map((booking) => booking.unique_booking_id);
 
       return result;
     } catch (e: unknown) {
@@ -44,5 +44,5 @@ export const getBookingIds = cache(
   }
 );
 
-export default getBookingIds;
+export default getBookingUniqueIds;
 //------------------------------------------------------------------------------

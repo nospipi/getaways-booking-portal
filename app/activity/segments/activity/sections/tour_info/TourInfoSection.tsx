@@ -1,4 +1,4 @@
-import getBookingById from "@/app/server/server_actions/getBookingById";
+import getBookingByUniqueId from "@/app/server/server_actions/getBookingByUniqueId";
 import { BsFillCalendarCheckFill } from "react-icons/bs";
 import { FaCamera } from "react-icons/fa";
 import { MdTour } from "react-icons/md";
@@ -13,8 +13,8 @@ const FILE_SERVE_BASE_URL = process.env.FILE_SERVE_BASE_URL;
 
 //---------------------------------------------------------
 
-const TourInfoSection = async ({ id }: { id: string }) => {
-  const booking = await getBookingById(id);
+const TourInfoSection = async ({ uniqueId }: { uniqueId: string }) => {
+  const booking = await getBookingByUniqueId(uniqueId);
   const product_title = booking?.product?.platform_product_name;
   const hasImage = booking?.product.product_pictures[0] ? true : false;
   const image_url = hasImage

@@ -3,12 +3,12 @@ import ProductSwiper from "./ProductSwiper";
 import ExpandableSectionItem from "@/app/activity/segments/activity/sections/booking_info/ExpandableSectionItem.client";
 import { FaInfoCircle } from "react-icons/fa";
 import { IoCaretForwardOutline } from "react-icons/io5";
-import getBookingById from "@/app/server/server_actions/getBookingById";
+import getBookingByUniqueId from "@/app/server/server_actions/getBookingByUniqueId";
 
 //---------------------------------------------------------
 
 const PromoSection = async ({ id }: { id: string }) => {
-  const booking = await getBookingById(id);
+  const booking = await getBookingByUniqueId(id);
 
   return (
     <section className="section-container">

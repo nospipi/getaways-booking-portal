@@ -10,7 +10,7 @@ import moment from "moment-timezone";
 import connectDB from "@/app/server/db.connect";
 const G4S_TRACKING_CREDENTIALS_DOC_ID =
   process.env.G4S_TRACKING_CREDENTIALS_DOC_ID;
-import geolib from "geolib";
+import { getPreciseDistance, convertDistance } from "geolib";
 import axios from "axios";
 import { IServerActionReturn } from "./types";
 const G4S_TRACKING_URL = process.env.G4S_TRACKING_URL;
@@ -75,16 +75,26 @@ interface TrackingData {
   withinRangeOfOtherPickup: boolean;
   arrivingInOwnPickup: boolean;
   arrivedAtOwnPickup: boolean;
+  distanceFromVehicleToClientMeters: string;
+  distanceFromVehicleToClientInKm: string;
+  distanceFromVehicleToClientInMiles: string;
+  distanceFromVehicleToClientInYards: string;
+  vehiclePlate: string;
+  vehicleColor: string;
+  vehicleType: string;
+  meetingPointName: string;
 }
 
 export type IExtendedServerActionReturn = IServerActionReturn<TrackingData>;
 
 const getTrackingData = async (
-  booking_id: string
+  uniqueId: string
 ): Promise<IExtendedServerActionReturn> => {
   try {
     await connectDB();
-    const booking = await BookingModel.findById(booking_id);
+    const booking = await BookingModel.findOne({
+      unique_booking_id: uniqueId,
+    });
 
     const hasMeetingTime = booking.pickup_time.length > 0;
     const hasPickupLocation = booking?.pickup_location?.name?.length > 0;
@@ -134,25 +144,25 @@ const getTrackingData = async (
     // HAVING TASK BUT NO MEETING TIME NOT POSSIBLE SO WE CHECK FOR TASK FIRST ANYWAY
     if (!task) {
       const error = new Error();
-      error.message = "Tour bus tracking not available";
+      error.message = "NOT AVAILABLE";
       throw error;
     }
 
-    if (!task.vehicle_id) {
+    if (!tourGroup.vehicle_id) {
       const error = new Error();
-      error.message = "Tour bus tracking not available";
+      error.message = "NOT AVAILABLE";
       throw error;
     }
 
     if (!hasPickupLocation) {
       const error = new Error();
-      error.message = "Tour bus tracking not available";
+      error.message = "NOT AVAILABLE";
       throw error;
     }
 
     if (!hasMeetingTime) {
       const error = new Error();
-      error.message = "Tour bus tracking not available";
+      error.message = "NOT AVAILABLE";
       throw error;
     }
 
@@ -169,16 +179,19 @@ const getTrackingData = async (
     if (currentDateTimeInGreeceIsAfterAllowedTrackingTime) {
       const error = new Error();
       error.message =
-        "Tour bus tracking is available only during the pickup time";
+        "Tour bus tracking is no longer available for this booking";
       throw error;
     }
 
     //----------------- GETTING TRACKING DATA -------------------
 
     const {
+      plate,
+      color,
+      type,
       gps_tracker_uid,
       position: { latitude, longitude, heading, updated_at },
-    } = await VehicleModel.findById(task.vehicle_id);
+    } = await VehicleModel.findById(tourGroup.vehicle_id);
 
     const vehicleHasGpsTracker = gps_tracker_uid && gps_tracker_uid?.length > 0;
     if (!vehicleHasGpsTracker) {
@@ -208,7 +221,7 @@ const getTrackingData = async (
       })
       .filter((coordinate: unknown) => coordinate !== null);
 
-    const distanceFromVehicleToClient = geolib.getPreciseDistance(
+    const distanceFromVehicleToClientMeters = getPreciseDistance(
       { latitude, longitude },
       {
         latitude: booking.pickup_location.latitude,
@@ -216,9 +229,24 @@ const getTrackingData = async (
       }
     );
 
+    const distanceFromVehicleToClientInKm = convertDistance(
+      distanceFromVehicleToClientMeters,
+      "km"
+    );
+
+    const distanceFromVehicleToClientInMiles = convertDistance(
+      distanceFromVehicleToClientMeters,
+      "mi"
+    );
+
+    const distanceFromVehicleToClientInYards = convertDistance(
+      distanceFromVehicleToClientMeters,
+      "yd"
+    );
+
     const withinRangeOfOtherPickup = coordinates.some(
       (coordinate: { latitude: number; longitude: number }) => {
-        const distance = geolib.getPreciseDistance(
+        const distance = getPreciseDistance(
           { latitude, longitude },
           coordinate
         );
@@ -226,8 +254,9 @@ const getTrackingData = async (
       }
     );
     const arrivingInOwnPickup =
-      distanceFromVehicleToClient <= 300 && distanceFromVehicleToClient > 80;
-    const arrivedAtOwnPickup = distanceFromVehicleToClient <= 80;
+      distanceFromVehicleToClientMeters <= 300 &&
+      distanceFromVehicleToClientMeters > 80;
+    const arrivedAtOwnPickup = distanceFromVehicleToClientMeters <= 80;
 
     if (shouldGetNewPosition) {
       const { UserIdGuid, SessionId: CurrentSessionId } =
@@ -276,6 +305,18 @@ const getTrackingData = async (
           withinRangeOfOtherPickup,
           arrivingInOwnPickup,
           arrivedAtOwnPickup,
+          distanceFromVehicleToClientMeters:
+            distanceFromVehicleToClientMeters.toFixed(2),
+          distanceFromVehicleToClientInKm:
+            distanceFromVehicleToClientInKm.toFixed(2),
+          distanceFromVehicleToClientInMiles:
+            distanceFromVehicleToClientInMiles.toFixed(2),
+          distanceFromVehicleToClientInYards:
+            distanceFromVehicleToClientInYards.toFixed(2),
+          vehiclePlate: plate,
+          vehicleColor: color,
+          vehicleType: type,
+          meetingPointName: booking.pickup_location.name,
         },
       };
 
@@ -294,6 +335,18 @@ const getTrackingData = async (
           withinRangeOfOtherPickup,
           arrivingInOwnPickup,
           arrivedAtOwnPickup,
+          distanceFromVehicleToClientMeters:
+            distanceFromVehicleToClientMeters.toFixed(2),
+          distanceFromVehicleToClientInKm:
+            distanceFromVehicleToClientInKm.toFixed(2),
+          distanceFromVehicleToClientInMiles:
+            distanceFromVehicleToClientInMiles.toFixed(2),
+          distanceFromVehicleToClientInYards:
+            distanceFromVehicleToClientInYards.toFixed(2),
+          vehiclePlate: plate,
+          vehicleColor: color,
+          vehicleType: type,
+          meetingPointName: booking.pickup_location.name,
         },
       };
 

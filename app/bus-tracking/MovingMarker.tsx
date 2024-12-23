@@ -1,12 +1,12 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { FaBusSimple } from "react-icons/fa6";
 import ReactDOMServer from "react-dom/server";
 import mapboxgl, { LngLatLike } from "mapbox-gl";
 import { useQuery } from "@tanstack/react-query";
 import getTrackingData from "@/app/server/server_actions/getTrackingData";
-import { IGetBookingReturn } from "@/app/server/server_actions/getBookingById";
+import { IGetBookingReturn } from "@/app/server/server_actions/getBookingByUniqueId";
 
 //----------------------------------------------
 
@@ -21,20 +21,25 @@ const MovingMarker = ({
   const [lngLat, setLngLat] = useState<LngLatLike>([0, 0]);
 
   const { data, isRefetching } = useQuery({
-    queryKey: ["TRACKING_DATA", booking._id],
-    queryFn: () => getTrackingData(booking._id),
+    queryKey: ["TRACKING_DATA", booking.unique_booking_id],
+    queryFn: () => getTrackingData(booking.unique_booking_id),
     retry: false,
     refetchOnWindowFocus: true,
     refetchInterval: 10000,
   });
 
   const trackingData = data?.data;
-  console.log("trackingData", trackingData);
+
+  const vehiclePlate = trackingData?.vehiclePlate || "N/A";
+  const vehicleType = trackingData?.vehicleType || "N/A";
+  const vehicleColor = trackingData?.vehicleColor || "N/A";
 
   //calculate vehicle position
   const vehicleLon = trackingData?.vehicle_position?.lon || 0;
   const vehicleLat = trackingData?.vehicle_position?.lat || 0;
-  const computedLngLat = [vehicleLon, vehicleLat] as LngLatLike;
+  const computedLngLat = useMemo(() => {
+    return [vehicleLon, vehicleLat] as LngLatLike;
+  }, [vehicleLon, vehicleLat]);
 
   //construct custom marker
   const customVehicleMarker = document.createElement("div");
@@ -54,7 +59,7 @@ const MovingMarker = ({
     if (map) {
       setLngLat(computedLngLat as LngLatLike);
     }
-  }, [isRefetching]);
+  }, [isRefetching, map, computedLngLat]);
 
   //update marker on map at every lngLat change
   useEffect(() => {
@@ -66,23 +71,39 @@ const MovingMarker = ({
         .addTo(map);
 
       //construct popups
+
+      const defaultPopup = new mapboxgl.Popup({
+        offset: 20,
+        closeButton: false,
+        closeOnClick: false,
+        closeOnMove: false,
+      }).setHTML(
+        `
+  <div style="
+    display: flex; 
+    flex-direction: column; 
+    gap: 7px; 
+  ">
+    <span>🚐 Vehicle Type: <strong>${vehicleType}</strong></span>
+    <span>🎫 Plate number: <strong>${vehiclePlate}</strong></span>
+    <span>🎨 Color: <strong>${vehicleColor}</strong></span>
+  </div>
+  `
+      );
+
       const otherPickupPopup = new mapboxgl.Popup({
         offset: 25,
         closeButton: false,
-      }).setHTML(
-        `<div style="padding: 5px 10px;">Picking up passengers...</div>`
-      );
+      }).setHTML(`<div>Picking up passengers...</div>`);
       const ownPickupPopup = new mapboxgl.Popup({
         offset: 25,
         closeButton: false,
-      }).setHTML(
-        `<div style="padding: 5px 10px;">Is very near to you...</div>`
-      );
+      }).setHTML(`<div>Is very near to you...</div>`);
       const arrivedPopup = new mapboxgl.Popup({
         offset: 25,
         closeButton: false,
       }).setHTML(
-        `<b><div style="padding: 5px 10px; color:rgb(49 87 49);">Has arrived at your location !</div></b>`
+        `<b><div style="color:rgb(49 87 49);">Has arrived at your location !</div></b>`
       );
 
       const shouldHidePopup =
@@ -91,7 +112,7 @@ const MovingMarker = ({
         !trackingData?.withinRangeOfOtherPickup;
 
       if (shouldHidePopup) {
-        newMarker.setPopup(undefined);
+        newMarker.setPopup(defaultPopup).togglePopup();
       }
 
       if (trackingData?.arrivedAtOwnPickup) {

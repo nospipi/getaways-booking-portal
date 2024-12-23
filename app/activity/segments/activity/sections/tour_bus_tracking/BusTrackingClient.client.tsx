@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import getTrackingData from "@/app/server/server_actions/getTrackingData";
 import fake_map from "./fake_map.avif";
 import Image from "next/image";
-import { IGetBookingReturn } from "@/app/server/server_actions/getBookingById";
+import { IGetBookingReturn } from "@/app/server/server_actions/getBookingByUniqueId";
 import MapboxMap from "./MapboxMap";
 
 //---------------------------------------------------------

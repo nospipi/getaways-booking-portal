@@ -8,16 +8,16 @@ import BusTrackingSection from "./BusTrackingSection.client";
 
 //---------------------------------------------------------------------------------------------
 
-const BusTracking = async ({ id }: { id: string }) => {
+const BusTracking = async ({ uniqueId }: { uniqueId: string }) => {
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery({
-    queryKey: ["TRACKING_DATA", id],
-    queryFn: () => getTrackingData(id),
+    queryKey: ["TRACKING_DATA", uniqueId],
+    queryFn: () => getTrackingData(uniqueId),
   });
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <BusTrackingSection booking_id={id} />
+      <BusTrackingSection uniqueId={uniqueId} />
     </HydrationBoundary>
   );
 };
