@@ -35,7 +35,12 @@ const Page = async ({
     <main className="page-container">
       <div className="content-wrapper">
         <div className="content-container">
-          <div className="content-container-wrapper">
+          <div
+            className="content-container-wrapper"
+            style={{
+              maxWidth: "100%",
+            }}
+          >
             <div
               style={{
                 display: "flex",

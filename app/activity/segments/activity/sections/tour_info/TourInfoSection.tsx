@@ -16,7 +16,11 @@ const FILE_SERVE_BASE_URL = process.env.FILE_SERVE_BASE_URL;
 const TourInfoSection = async ({ uniqueId }: { uniqueId: string }) => {
   const booking = await getBookingByUniqueId(uniqueId);
   const product_title = booking?.product?.platform_product_name;
-  const hasImage = booking?.product.product_pictures[0] ? true : false;
+  console.log(
+    "booking?.product.product_pictures[0]",
+    booking?.product.product_pictures[0]
+  );
+  const hasImage = booking?.product.product_pictures[0]?.file_id ? true : false;
   const image_url = hasImage
     ? `${FILE_SERVE_BASE_URL}${booking.product.product_pictures[0].file_id}`
     : placeholder;
@@ -68,6 +72,7 @@ const TourInfoSection = async ({ uniqueId }: { uniqueId: string }) => {
               style={{
                 width: "100%",
                 height: "100%",
+                minHeight: "200px",
                 borderRadius: "10px",
                 objectFit: "cover",
               }}

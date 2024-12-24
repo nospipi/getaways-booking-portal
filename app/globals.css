@@ -216,6 +216,18 @@ a {
   justify-content: center;
   align-items: center;
   position: relative;
+  background-color: #109beb;
+  border-radius: 100%;
+  padding: 15px;
+  width: 20px;
+  height: 20px;
+}
+
+.meeting-point-marker-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
   background-color: #157c15;
   border-radius: 100%;
   padding: 15px;
