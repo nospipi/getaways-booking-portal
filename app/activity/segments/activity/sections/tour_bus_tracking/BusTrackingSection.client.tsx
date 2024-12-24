@@ -121,7 +121,6 @@ const BusTrackingSection = ({ uniqueId }: { uniqueId: string }) => {
         renderer={errorRenderer}
         onComplete={() => {
           //when countdown is completed, refetch the tracking data to return success status and render the button
-          console.log("onComplete ran");
           refetch();
         }}
       />

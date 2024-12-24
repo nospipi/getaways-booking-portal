@@ -1,7 +1,6 @@
-import BackButton from "./BackButton";
 import getTrackingData from "@/app/server/server_actions/getTrackingData";
 import getBookingByUniqueId from "@/app/server/server_actions/getBookingByUniqueId";
-import MapboxMap from "./MapboxMap";
+import MapboxMap from "./MapboxMap.client";
 import { nanoid } from "nanoid";
 import {
   dehydrate,
@@ -39,25 +38,8 @@ const Page = async ({
             className="content-container-wrapper"
             style={{
               maxWidth: "100%",
-              position: "relative",
             }}
           >
-            <div
-              style={{
-                position: "absolute",
-                bottom: 0,
-                left: 0,
-                width: "100%",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                zIndex: 100,
-                padding: "10px",
-              }}
-            >
-              <BackButton />
-            </div>
-
             <HydrationBoundary state={dehydrate(queryClient)}>
               <MapboxMap booking={stringifiedBooking} />
             </HydrationBoundary>

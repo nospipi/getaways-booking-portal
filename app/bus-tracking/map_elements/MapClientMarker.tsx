@@ -29,7 +29,7 @@ const generateFakeCoordinates = (
 };
 //----------------------------------------------
 
-const ClientMarker = ({
+const MapClientMarker = ({
   map,
   clientPosition,
   shouldFollowClient,
@@ -107,4 +107,4 @@ const ClientMarker = ({
   return null;
 };
 
-export default ClientMarker;
+export default MapClientMarker;

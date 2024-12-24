@@ -288,3 +288,7 @@ a {
 .mapboxgl-ctrl {
   display: none !important;
 }
+
+.Mui-disabled {
+  color: rgb(100 100 100) !important;
+}

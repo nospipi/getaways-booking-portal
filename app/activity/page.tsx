@@ -17,7 +17,6 @@ const Page = async ({
   let { ref } = await searchParams;
   const { uniqueId } = await searchParams;
   if (uniqueId) {
-    console.log("has uniqueId");
     const booking_ref = await getBookingParentRefByUniqueId(uniqueId);
     console.log(booking_ref);
     if (booking_ref.status === "success") {

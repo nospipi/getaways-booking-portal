@@ -78,7 +78,7 @@ interface TrackingData {
   distanceFromVehicleToClientMeters: string;
   distanceFromVehicleToClientInKm: string;
   distanceFromVehicleToClientInMiles: string;
-  distanceFromVehicleToClientInYards: string;
+  distanceFromVehicleToClientInFeet: string;
   vehiclePlate: string;
   vehicleColor: string;
   vehicleType: string;
@@ -221,44 +221,9 @@ const getTrackingData = async (
       })
       .filter((coordinate: unknown) => coordinate !== null);
 
-    const distanceFromVehicleToClientMeters = getPreciseDistance(
-      { latitude, longitude },
-      {
-        latitude: booking.pickup_location.latitude,
-        longitude: booking.pickup_location.longitude,
-      }
-    );
-
-    const distanceFromVehicleToClientInKm = convertDistance(
-      distanceFromVehicleToClientMeters,
-      "km"
-    );
-
-    const distanceFromVehicleToClientInMiles = convertDistance(
-      distanceFromVehicleToClientMeters,
-      "mi"
-    );
-
-    const distanceFromVehicleToClientInYards = convertDistance(
-      distanceFromVehicleToClientMeters,
-      "yd"
-    );
-
-    const withinRangeOfOtherPickup = coordinates.some(
-      (coordinate: { latitude: number; longitude: number }) => {
-        const distance = getPreciseDistance(
-          { latitude, longitude },
-          coordinate
-        );
-        return distance < 100;
-      }
-    );
-    const arrivingInOwnPickup =
-      distanceFromVehicleToClientMeters <= 300 &&
-      distanceFromVehicleToClientMeters > 80;
-    const arrivedAtOwnPickup = distanceFromVehicleToClientMeters <= 80;
-
     if (shouldGetNewPosition) {
+      //get new position
+
       const { UserIdGuid, SessionId: CurrentSessionId } =
         await G4STrackingSessionCredentialsModel.findById(
           G4S_TRACKING_CREDENTIALS_DOC_ID
@@ -285,12 +250,55 @@ const getTrackingData = async (
       }
 
       await updateVehiclePosition(
-        task.vehicle_id,
+        tourGroup.vehicle_id,
         stats.Position.Latitude,
         stats.Position.Longitude,
         stats.Position.Speed,
         stats.Position.Heading
       );
+
+      const distanceFromVehicleToClientMeters = getPreciseDistance(
+        {
+          latitude: stats.Position.Latitude,
+          longitude: stats.Position.Longitude,
+        },
+        {
+          latitude: booking.pickup_location.latitude,
+          longitude: booking.pickup_location.longitude,
+        }
+      );
+
+      const distanceFromVehicleToClientInKm = convertDistance(
+        distanceFromVehicleToClientMeters,
+        "km"
+      );
+
+      const distanceFromVehicleToClientInMiles = convertDistance(
+        distanceFromVehicleToClientMeters,
+        "mi"
+      );
+
+      const distanceFromVehicleToClientInFeet = convertDistance(
+        distanceFromVehicleToClientMeters,
+        "ft"
+      );
+
+      const withinRangeOfOtherPickup = coordinates.some(
+        (coordinate: { latitude: number; longitude: number }) => {
+          const distance = getPreciseDistance(
+            {
+              latitude: stats.Position.Latitude,
+              longitude: stats.Position.Longitude,
+            },
+            coordinate
+          );
+          return distance < 100;
+        }
+      );
+      const arrivingInOwnPickup =
+        distanceFromVehicleToClientMeters <= 300 &&
+        distanceFromVehicleToClientMeters > 80;
+      const arrivedAtOwnPickup = distanceFromVehicleToClientMeters <= 80;
 
       const result: IExtendedServerActionReturn = {
         status: "success",
@@ -311,8 +319,8 @@ const getTrackingData = async (
             distanceFromVehicleToClientInKm.toFixed(2),
           distanceFromVehicleToClientInMiles:
             distanceFromVehicleToClientInMiles.toFixed(2),
-          distanceFromVehicleToClientInYards:
-            distanceFromVehicleToClientInYards.toFixed(2),
+          distanceFromVehicleToClientInFeet:
+            distanceFromVehicleToClientInFeet.toFixed(2),
           vehiclePlate: plate,
           vehicleColor: color,
           vehicleType: type,
@@ -322,6 +330,45 @@ const getTrackingData = async (
 
       return result;
     } else {
+      //return stored position
+
+      const distanceFromVehicleToClientMeters = getPreciseDistance(
+        { latitude, longitude },
+        {
+          latitude: booking.pickup_location.latitude,
+          longitude: booking.pickup_location.longitude,
+        }
+      );
+
+      const distanceFromVehicleToClientInKm = convertDistance(
+        distanceFromVehicleToClientMeters,
+        "km"
+      );
+
+      const distanceFromVehicleToClientInMiles = convertDistance(
+        distanceFromVehicleToClientMeters,
+        "mi"
+      );
+
+      const distanceFromVehicleToClientInFeet = convertDistance(
+        distanceFromVehicleToClientMeters,
+        "ft"
+      );
+
+      const withinRangeOfOtherPickup = coordinates.some(
+        (coordinate: { latitude: number; longitude: number }) => {
+          const distance = getPreciseDistance(
+            { latitude, longitude },
+            coordinate
+          );
+          return distance < 100;
+        }
+      );
+      const arrivingInOwnPickup =
+        distanceFromVehicleToClientMeters <= 300 &&
+        distanceFromVehicleToClientMeters > 80;
+      const arrivedAtOwnPickup = distanceFromVehicleToClientMeters <= 80;
+
       const result: IExtendedServerActionReturn = {
         status: "success",
         message: "Tracking data retrieved successfully",
@@ -341,8 +388,8 @@ const getTrackingData = async (
             distanceFromVehicleToClientInKm.toFixed(2),
           distanceFromVehicleToClientInMiles:
             distanceFromVehicleToClientInMiles.toFixed(2),
-          distanceFromVehicleToClientInYards:
-            distanceFromVehicleToClientInYards.toFixed(2),
+          distanceFromVehicleToClientInFeet:
+            distanceFromVehicleToClientInFeet.toFixed(2),
           vehiclePlate: plate,
           vehicleColor: color,
           vehicleType: type,

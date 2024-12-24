@@ -10,7 +10,7 @@ import { IGetBookingReturn } from "@/app/server/server_actions/getBookingByUniqu
 
 //----------------------------------------------
 
-const VehicleMovingMarker = ({
+const MapVehicleMovingMarker = ({
   shouldFollowVehicle,
   booking,
   map,
@@ -142,4 +142,4 @@ const VehicleMovingMarker = ({
   return null;
 };
 
-export default VehicleMovingMarker;
+export default MapVehicleMovingMarker;
