@@ -248,11 +248,15 @@ const MapboxMap = ({ booking }: { booking: string }) => {
       <MapClientMarker
         map={map}
         clientPosition={devicePosition}
+        setClientPosition={setDevicePosition}
         shouldFollowClient={shouldFollowClient}
         shouldWatchDevicePosition={shouldWatchDevicePosition}
       />
 
       <MapDistancesStats
+        meetingPointPosition={meetingPointPosition}
+        shouldRenderClientDistances={true}
+        clientPosition={devicePosition}
         shouldRender={map !== null}
         unique_booking_id={parsedBooking.unique_booking_id}
       />

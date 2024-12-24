@@ -10,7 +10,7 @@ import moment from "moment-timezone";
 import connectDB from "@/app/server/db.connect";
 const G4S_TRACKING_CREDENTIALS_DOC_ID =
   process.env.G4S_TRACKING_CREDENTIALS_DOC_ID;
-import { getPreciseDistance, convertDistance } from "geolib";
+import { getPreciseDistance } from "geolib";
 import axios from "axios";
 import { IServerActionReturn } from "./types";
 const G4S_TRACKING_URL = process.env.G4S_TRACKING_URL;
@@ -75,10 +75,6 @@ interface TrackingData {
   withinRangeOfOtherPickup: boolean;
   arrivingInOwnPickup: boolean;
   arrivedAtOwnPickup: boolean;
-  distanceFromVehicleToClientMeters: string;
-  distanceFromVehicleToClientInKm: string;
-  distanceFromVehicleToClientInMiles: string;
-  distanceFromVehicleToClientInFeet: string;
   vehiclePlate: string;
   vehicleColor: string;
   vehicleType: string;
@@ -268,21 +264,6 @@ const getTrackingData = async (
         }
       );
 
-      const distanceFromVehicleToClientInKm = convertDistance(
-        distanceFromVehicleToClientMeters,
-        "km"
-      );
-
-      const distanceFromVehicleToClientInMiles = convertDistance(
-        distanceFromVehicleToClientMeters,
-        "mi"
-      );
-
-      const distanceFromVehicleToClientInFeet = convertDistance(
-        distanceFromVehicleToClientMeters,
-        "ft"
-      );
-
       const withinRangeOfOtherPickup = coordinates.some(
         (coordinate: { latitude: number; longitude: number }) => {
           const distance = getPreciseDistance(
@@ -313,14 +294,6 @@ const getTrackingData = async (
           withinRangeOfOtherPickup,
           arrivingInOwnPickup,
           arrivedAtOwnPickup,
-          distanceFromVehicleToClientMeters:
-            distanceFromVehicleToClientMeters.toFixed(2),
-          distanceFromVehicleToClientInKm:
-            distanceFromVehicleToClientInKm.toFixed(2),
-          distanceFromVehicleToClientInMiles:
-            distanceFromVehicleToClientInMiles.toFixed(2),
-          distanceFromVehicleToClientInFeet:
-            distanceFromVehicleToClientInFeet.toFixed(2),
           vehiclePlate: plate,
           vehicleColor: color,
           vehicleType: type,
@@ -338,21 +311,6 @@ const getTrackingData = async (
           latitude: booking.pickup_location.latitude,
           longitude: booking.pickup_location.longitude,
         }
-      );
-
-      const distanceFromVehicleToClientInKm = convertDistance(
-        distanceFromVehicleToClientMeters,
-        "km"
-      );
-
-      const distanceFromVehicleToClientInMiles = convertDistance(
-        distanceFromVehicleToClientMeters,
-        "mi"
-      );
-
-      const distanceFromVehicleToClientInFeet = convertDistance(
-        distanceFromVehicleToClientMeters,
-        "ft"
       );
 
       const withinRangeOfOtherPickup = coordinates.some(
@@ -382,14 +340,6 @@ const getTrackingData = async (
           withinRangeOfOtherPickup,
           arrivingInOwnPickup,
           arrivedAtOwnPickup,
-          distanceFromVehicleToClientMeters:
-            distanceFromVehicleToClientMeters.toFixed(2),
-          distanceFromVehicleToClientInKm:
-            distanceFromVehicleToClientInKm.toFixed(2),
-          distanceFromVehicleToClientInMiles:
-            distanceFromVehicleToClientInMiles.toFixed(2),
-          distanceFromVehicleToClientInFeet:
-            distanceFromVehicleToClientInFeet.toFixed(2),
           vehiclePlate: plate,
           vehicleColor: color,
           vehicleType: type,

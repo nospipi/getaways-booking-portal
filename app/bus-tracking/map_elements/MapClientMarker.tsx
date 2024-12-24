@@ -32,29 +32,31 @@ const generateFakeCoordinates = (
 const MapClientMarker = ({
   map,
   clientPosition,
+  setClientPosition,
   shouldFollowClient,
   shouldWatchDevicePosition,
 }: {
   map: mapboxgl.Map | null;
   clientPosition: [number, number];
+  setClientPosition: (value: [number, number]) => void;
   shouldFollowClient: boolean;
   shouldWatchDevicePosition: boolean;
 }) => {
   const [marker, setMarker] = useState<mapboxgl.Marker | null>();
-  const [fakePosition, setFakePosition] = useState<[number, number]>([0, 0]);
+  //const [fakePosition, setFakePosition] = useState<[number, number]>([0, 0]);
 
   useEffect(() => {
     let intervalId: NodeJS.Timeout | null = null;
 
     if (shouldWatchDevicePosition) {
-      intervalId = generateFakeCoordinates(setFakePosition);
+      intervalId = generateFakeCoordinates(setClientPosition);
     }
     return () => {
       if (intervalId) {
         clearInterval(intervalId);
       }
     };
-  }, [shouldWatchDevicePosition]);
+  }, [shouldWatchDevicePosition, setClientPosition]);
 
   const hasClientPosition = clientPosition[0] !== 0 && clientPosition[1] !== 0;
   const shouldCreateMarker =
@@ -84,7 +86,7 @@ const MapClientMarker = ({
       }).setText("You are here");
 
       const newMarker = new mapboxgl.Marker(customClientMarker)
-        .setLngLat(fakePosition as LngLatLike)
+        .setLngLat(clientPosition as LngLatLike)
         .setPopup(popup)
         .addTo(map)
         .togglePopup();
@@ -92,7 +94,7 @@ const MapClientMarker = ({
       setMarker(newMarker);
       if (shouldFollowClient) {
         map.flyTo({
-          center: fakePosition as LngLatLike,
+          center: clientPosition as LngLatLike,
           essential: true,
         });
       }
@@ -102,7 +104,7 @@ const MapClientMarker = ({
         setMarker(null);
       }
     }
-  }, [shouldCreateMarker, fakePosition, shouldFollowClient]);
+  }, [shouldCreateMarker, clientPosition, shouldFollowClient]);
 
   return null;
 };

@@ -1,14 +1,21 @@
 import { useQuery } from "@tanstack/react-query";
 import { IExtendedServerActionReturn } from "../../server/server_actions/getTrackingData";
+import { getPreciseDistance, convertDistance } from "geolib";
 import getTrackingData from "@/app/server/server_actions/getTrackingData";
 
 //---------------------------------------------------------
 
 const MapDistancesStats = ({
+  meetingPointPosition,
+  clientPosition,
   shouldRender,
+  shouldRenderClientDistances,
   unique_booking_id,
 }: {
+  meetingPointPosition: [number, number]; //longitude, latitude
+  clientPosition: [number, number]; //longitude, latitude
   shouldRender: boolean;
+  shouldRenderClientDistances: boolean;
   unique_booking_id: string;
 }) => {
   const { data } = useQuery<IExtendedServerActionReturn>({
@@ -19,16 +26,74 @@ const MapDistancesStats = ({
     // refetchInterval: 10000,
     enabled: shouldRender,
   });
+  console.log("shouldRenderClientDistances", shouldRenderClientDistances); //temp for ts
 
   const trackingData = data?.data;
-  const distanceFromVehicleToClientMeters =
-    trackingData?.distanceFromVehicleToClientMeters ?? 0;
-  const distanceFromVehicleToClientInKm =
-    trackingData?.distanceFromVehicleToClientInKm ?? 0;
-  const distanceFromVehicleToClientInMiles =
-    trackingData?.distanceFromVehicleToClientInMiles ?? 0;
-  const distanceFromVehicleToClientInFeet =
-    trackingData?.distanceFromVehicleToClientInFeet ?? 0;
+
+  const distanceFromVehicleToMeetingPointInMeters = getPreciseDistance(
+    {
+      lat: meetingPointPosition[1] ?? 0,
+      lng: meetingPointPosition[0] ?? 0,
+    },
+    {
+      lat: trackingData?.vehicle_position.lat ?? 0,
+      lng: trackingData?.vehicle_position.lon ?? 0,
+    }
+  );
+
+  const distanceFromVehicleToClientInMeters = getPreciseDistance(
+    {
+      lat: clientPosition[1] ?? 0,
+      lng: clientPosition[0] ?? 0,
+    },
+    {
+      lat: trackingData?.vehicle_position.lat ?? 0,
+      lng: trackingData?.vehicle_position.lon ?? 0,
+    }
+  );
+
+  console.log(
+    "clientPosition",
+    clientPosition,
+    "distanceFromVehicleToMeetingPointInMeters",
+    distanceFromVehicleToMeetingPointInMeters
+  );
+
+  //---------------------------------------------------------
+
+  const distanceFromVehicleToMeetingPointInKm = convertDistance(
+    distanceFromVehicleToMeetingPointInMeters,
+    "km"
+  );
+
+  const distanceFromVehicleToMeetingPointInMiles = convertDistance(
+    distanceFromVehicleToMeetingPointInMeters,
+    "mi"
+  );
+
+  const distanceFromVehicleToMeetingPointInFeet = convertDistance(
+    distanceFromVehicleToMeetingPointInMeters,
+    "ft"
+  );
+
+  //------
+
+  const distanceFromVehicleToClientInKm = convertDistance(
+    distanceFromVehicleToClientInMeters,
+    "km"
+  );
+
+  const distanceFromVehicleToClientInMiles = convertDistance(
+    distanceFromVehicleToClientInMeters,
+    "mi"
+  );
+
+  const distanceFromVehicleToClientInFeet = convertDistance(
+    distanceFromVehicleToClientInMeters,
+    "ft"
+  );
+
+  //---------------------------------------------------------
 
   if (!shouldRender) {
     return null;
@@ -39,37 +104,83 @@ const MapDistancesStats = ({
       style={{
         display: "flex",
         flexDirection: "column",
-        fontSize: "10px",
+        gap: "5px",
         paddingTop: "7px",
         paddingLeft: "5px",
+        fontSize: "10px",
         color: "whitesmoke",
-        gap: "1px",
         position: "absolute",
         top: 0,
         left: 0,
         width: "100%",
-        padding: "10px",
         zIndex: 1,
       }}
     >
-      <span
+      <div
         style={{
-          color: "dodgerblue",
-          fontWeight: "bold",
+          display: "flex",
+          flexDirection: "column",
+          gap: "1px",
         }}
-      >{`Vehicle ↔ Meeting Point`}</span>
+      >
+        <span
+          style={{
+            color: "dodgerblue",
+            fontWeight: "bold",
+          }}
+        >{`Vehicle ↔ Meeting Point`}</span>
 
-      <div>
-        <span>{`${distanceFromVehicleToClientInKm} km`}</span>
+        <div>
+          <span>{`${distanceFromVehicleToMeetingPointInKm.toFixed(
+            2
+          )} km`}</span>
+        </div>
+        <div>
+          <span>{`${distanceFromVehicleToMeetingPointInMeters.toFixed(
+            2
+          )} meters`}</span>
+        </div>
+        <div>
+          <span>{`${distanceFromVehicleToMeetingPointInMiles.toFixed(
+            2
+          )} miles`}</span>
+        </div>
+        <div>
+          <span>{`${distanceFromVehicleToMeetingPointInFeet.toFixed(
+            2
+          )} feet`}</span>
+        </div>
       </div>
-      <div>
-        <span>{`${distanceFromVehicleToClientMeters} meters`}</span>
-      </div>
-      <div>
-        <span>{`${distanceFromVehicleToClientInMiles} miles`}</span>
-      </div>
-      <div>
-        <span>{`${distanceFromVehicleToClientInFeet} feet`}</span>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "1px",
+        }}
+      >
+        <span
+          style={{
+            color: "dodgerblue",
+            fontWeight: "bold",
+          }}
+        >{`Vehicle ↔ Your position`}</span>
+
+        <div>
+          <span>{`${distanceFromVehicleToClientInKm.toFixed(2)} km`}</span>
+        </div>
+        <div>
+          <span>{`${distanceFromVehicleToClientInMeters.toFixed(
+            2
+          )} meters`}</span>
+        </div>
+        <div>
+          <span>{`${distanceFromVehicleToClientInMiles.toFixed(
+            2
+          )} miles`}</span>
+        </div>
+        <div>
+          <span>{`${distanceFromVehicleToClientInFeet.toFixed(2)} feet`}</span>
+        </div>
       </div>
     </div>
   );
