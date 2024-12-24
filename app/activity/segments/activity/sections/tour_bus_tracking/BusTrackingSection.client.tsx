@@ -1,16 +1,19 @@
 "use client";
 
+import { useState } from "react";
 import { FaRoute } from "react-icons/fa";
 import { PiClockCountdownFill } from "react-icons/pi";
 import getTrackingData from "@/app/server/server_actions/getTrackingData";
 import Countdown, { CountdownRenderProps } from "react-countdown";
 import Button from "@mui/material/Button";
+import { RotatingLines } from "react-loader-spinner";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 
 //---------------------------------------------------------------------------------------------
 
 const BusTrackingSection = ({ uniqueId }: { uniqueId: string }) => {
+  const [isNavigatingToTracking, setIsNavigatingToTracking] = useState(false);
   const { data, refetch } = useQuery({
     queryKey: ["TRACKING_DATA", uniqueId],
     queryFn: () => getTrackingData(uniqueId),
@@ -177,8 +180,20 @@ const BusTrackingSection = ({ uniqueId }: { uniqueId: string }) => {
           </div>
         </div>
         <Link href={`bus-tracking/?uniqueId=${uniqueId}`} prefetch={true}>
-          <Button variant="contained" color="success" fullWidth>
-            View Bus Tracking
+          <Button
+            variant="contained"
+            color="success"
+            fullWidth
+            onClick={() => setIsNavigatingToTracking(true)}
+            sx={{
+              minHeight: "40px",
+            }}
+          >
+            {isNavigatingToTracking ? (
+              <RotatingLines width="15" strokeColor="white" />
+            ) : (
+              <span>VIEW BUS TRACKING</span>
+            )}
           </Button>
         </Link>
       </div>

@@ -11,9 +11,11 @@ import { IGetBookingReturn } from "@/app/server/server_actions/getBookingByUniqu
 //----------------------------------------------
 
 const VehicleMovingMarker = ({
+  shouldFollowVehicle,
   booking,
   map,
 }: {
+  shouldFollowVehicle: boolean;
   booking: IGetBookingReturn;
   map: mapboxgl.Map;
 }) => {
@@ -47,19 +49,25 @@ const VehicleMovingMarker = ({
   customVehicleMarker.innerHTML = ReactDOMServer.renderToString(
     <FaBusSimple
       style={{
-        fontSize: "18px",
+        fontSize: "16px",
         color: "white",
         position: "absolute",
       }}
     />
   );
 
-  //update marker position at every refetch
+  //update lngLat position at every refetch
   useEffect(() => {
     if (map) {
       setLngLat(computedLngLat as LngLatLike);
+      if (shouldFollowVehicle) {
+        map.flyTo({
+          center: computedLngLat as LngLatLike,
+          essential: true,
+        });
+      }
     }
-  }, [isRefetching, map, computedLngLat]);
+  }, [isRefetching, map, computedLngLat, shouldFollowVehicle]);
 
   //update marker on map at every lngLat change
   useEffect(() => {

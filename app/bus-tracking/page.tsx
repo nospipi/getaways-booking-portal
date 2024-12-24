@@ -39,12 +39,20 @@ const Page = async ({
             className="content-container-wrapper"
             style={{
               maxWidth: "100%",
+              position: "relative",
             }}
           >
             <div
               style={{
+                position: "absolute",
+                bottom: 0,
+                left: 0,
+                width: "100%",
                 display: "flex",
-                justifyContent: "flex-start",
+                justifyContent: "center",
+                alignItems: "center",
+                zIndex: 100,
+                padding: "10px",
               }}
             >
               <BackButton />

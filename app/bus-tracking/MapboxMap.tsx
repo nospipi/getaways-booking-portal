@@ -96,6 +96,8 @@ const MapboxMap = ({ booking }: { booking: string }) => {
   const [watchId, setWatchId] = useState<number | null>(null);
   const [shouldFollowVehicle, setShouldFollowVehicle] =
     useState<boolean>(false);
+  const [shouldFollowClient, setShouldFollowClient] = useState<boolean>(false);
+  const [mapIsLoading, setMapIsLoading] = useState<boolean>(false);
   const mapContainer = useRef<HTMLDivElement>(null);
   const [map, setMap] = useState<mapboxgl.Map | null>(null);
 
@@ -165,6 +167,14 @@ const MapboxMap = ({ booking }: { booking: string }) => {
   </div>
   `;
   }, [meetingPointName]);
+
+  useEffect(() => {
+    return () => {
+      if (map) {
+        setMapIsLoading(false);
+      }
+    };
+  }, [map]);
 
   //only for cleanup
   useEffect(() => {
@@ -248,7 +258,7 @@ const MapboxMap = ({ booking }: { booking: string }) => {
       customClientMarker.innerHTML = ReactDOMServer.renderToString(
         <IoIosFlag
           style={{
-            fontSize: "20px",
+            fontSize: "16px",
             color: "white",
             position: "absolute",
           }}
@@ -295,6 +305,7 @@ const MapboxMap = ({ booking }: { booking: string }) => {
           renderer={countdownRenderer}
           onComplete={() => {
             //when countdown is completed, refetch the tracking data to return success status and render the map
+            setMapIsLoading(true);
             refetch();
           }}
         />
@@ -323,9 +334,39 @@ const MapboxMap = ({ booking }: { booking: string }) => {
             style={{
               color: "indianred",
               width: "70%",
+              textAlign: "center",
             }}
           >
             {errorText}
+          </span>
+        </div>
+      )}
+
+      {mapIsLoading && (
+        <div
+          style={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            background: "rgba(0, 0, 0, 0.4)",
+            width: "100%",
+            paddingTop: "30px",
+            paddingBottom: "30px",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            gap: "10px",
+          }}
+        >
+          <RotatingLines width="30" strokeColor="white" />
+          <span
+            style={{
+              color: "white",
+            }}
+          >
+            Loading map
           </span>
         </div>
       )}
@@ -357,6 +398,7 @@ const MapboxMap = ({ booking }: { booking: string }) => {
       )}
 
       <VehicleMovingMarker
+        shouldFollowVehicle={shouldFollowVehicle}
         booking={parsedBooking as IGetBookingReturn}
         map={map as mapboxgl.Map}
       />
@@ -364,6 +406,7 @@ const MapboxMap = ({ booking }: { booking: string }) => {
       <ClientMarker
         map={map}
         clientPosition={devicePosition}
+        shouldFollowClient={shouldFollowClient}
         shouldWatchDevicePosition={shouldWatchDevicePosition}
       />
 
@@ -380,7 +423,7 @@ const MapboxMap = ({ booking }: { booking: string }) => {
         <div
           style={{
             position: "absolute",
-            bottom: 0,
+            top: 0,
             left: 0,
             width: "100%",
             padding: "10px",
@@ -438,6 +481,7 @@ const MapboxMap = ({ booking }: { booking: string }) => {
                         setWatchId(id);
                       } else {
                         setShouldWatchDevicePosition(false);
+                        setShouldFollowClient(false);
                         if (watchId) {
                           navigator.geolocation.clearWatch(watchId);
                           setWatchId(null);
@@ -453,9 +497,29 @@ const MapboxMap = ({ booking }: { booking: string }) => {
                 sx={{ "& .MuiFormControlLabel-label": { fontSize: "12px" } }}
                 control={
                   <Switch
+                    checked={shouldFollowClient}
+                    disabled={!shouldWatchDevicePosition}
+                    onChange={(value) => {
+                      setShouldFollowClient(value.target.checked);
+                      if (value.target.checked) {
+                        setShouldFollowVehicle(false);
+                      }
+                    }}
+                  />
+                }
+                label="Follow your position"
+                labelPlacement="start"
+              />
+              <FormControlLabel
+                sx={{ "& .MuiFormControlLabel-label": { fontSize: "12px" } }}
+                control={
+                  <Switch
                     checked={shouldFollowVehicle}
                     onChange={(value) => {
                       setShouldFollowVehicle(value.target.checked);
+                      if (value.target.checked) {
+                        setShouldFollowClient(false);
+                      }
                     }}
                   />
                 }
