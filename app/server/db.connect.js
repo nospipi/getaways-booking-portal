@@ -1,7 +1,11 @@
 import mongoose, { connect } from "mongoose";
 mongoose.set("strictQuery", true);
+const ENV = process.env.NODE_ENV;
 
-const MONGODB_URI = process.env.MONGO_CONNECTION_PROD;
+const MONGODB_URI =
+  ENV === "PRODUCTION"
+    ? process.env.MONGO_CONNECTION_PROD
+    : process.env.MONGO_CONNECTION_DEV;
 
 if (!MONGODB_URI || MONGODB_URI.length === 0) {
   throw new Error("Please add your MongoDB URI to .env");
@@ -17,7 +21,7 @@ async function connectDB() {
   //throw new Error("Test error mongodb connection"); //simulate error
 
   if (cached.conn) {
-    console.log("🚀 Using cached mongodb connection");
+    console.log(`🚀 Using cached mongodb connection (${ENV})`);
     return cached.conn;
   }
 
@@ -28,7 +32,7 @@ async function connectDB() {
 
     cached.promise = connect(MONGODB_URI, opts)
       .then((mongoose) => {
-        console.log("✅ New connection to mongodb established");
+        console.log(`✅ New connection to mongodb established (${ENV})`);
         return mongoose;
       })
       .catch((error) => {
