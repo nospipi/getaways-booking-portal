@@ -5,7 +5,12 @@ import { IServerActionReturn } from "./types";
 
 //-----------------------------------------------------------------------------
 
-export const getPhoneNumberOnDuty = async (): Promise<IServerActionReturn> => {
+export const getPhoneNumberOnDuty = async (): Promise<
+  IServerActionReturn<{
+    agent_name: string;
+    phone_number: string;
+  }>
+> => {
   try {
     //throw new Error("getPhoneNumberOnDuty simulate error"); //simulate error
 
