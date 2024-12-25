@@ -6,6 +6,8 @@ import { FaWalking } from "react-icons/fa";
 import { computeDestinationPoint } from "geolib";
 
 const startingPosition = [37.98258, 23.72087];
+
+
 const generateFakeCoordinates = (
   callback: (coords: [number, number]) => void
 ) => {
@@ -43,7 +45,6 @@ const MapClientMarker = ({
   shouldWatchDevicePosition: boolean;
 }) => {
   const [marker, setMarker] = useState<mapboxgl.Marker | null>();
-  //const [fakePosition, setFakePosition] = useState<[number, number]>([0, 0]);
 
   useEffect(() => {
     let intervalId: NodeJS.Timeout | null = null;
