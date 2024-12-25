@@ -1,7 +1,7 @@
 "use server";
 import {
   NotificationModel,
-  BookingModel,
+  //BookingModel,
 } from "@/app/server/getaways-shared-models/models";
 import connectDB from "@/app/server/db.connect";
 

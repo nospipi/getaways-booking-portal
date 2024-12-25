@@ -26,7 +26,6 @@ const MapDistancesStats = ({
     // refetchInterval: 10000,
     enabled: shouldRender,
   });
-  console.log("shouldRenderClientDistances", shouldRenderClientDistances); //temp for ts
 
   const trackingData = data?.data;
 
@@ -50,13 +49,6 @@ const MapDistancesStats = ({
       lat: trackingData?.vehicle_position.lat ?? 0,
       lng: trackingData?.vehicle_position.lon ?? 0,
     }
-  );
-
-  console.log(
-    "clientPosition",
-    clientPosition,
-    "distanceFromVehicleToMeetingPointInMeters",
-    distanceFromVehicleToMeetingPointInMeters
   );
 
   //---------------------------------------------------------
@@ -151,37 +143,41 @@ const MapDistancesStats = ({
           )} feet`}</span>
         </div>
       </div>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "1px",
-        }}
-      >
-        <span
+      {shouldRenderClientDistances && (
+        <div
           style={{
-            color: "dodgerblue",
-            fontWeight: "bold",
+            display: "flex",
+            flexDirection: "column",
+            gap: "1px",
           }}
-        >{`Vehicle ↔ Your position`}</span>
+        >
+          <span
+            style={{
+              color: "dodgerblue",
+              fontWeight: "bold",
+            }}
+          >{`Vehicle ↔ Your position`}</span>
 
-        <div>
-          <span>{`${distanceFromVehicleToClientInKm.toFixed(2)} km`}</span>
+          <div>
+            <span>{`${distanceFromVehicleToClientInKm.toFixed(2)} km`}</span>
+          </div>
+          <div>
+            <span>{`${distanceFromVehicleToClientInMeters.toFixed(
+              2
+            )} meters`}</span>
+          </div>
+          <div>
+            <span>{`${distanceFromVehicleToClientInMiles.toFixed(
+              2
+            )} miles`}</span>
+          </div>
+          <div>
+            <span>{`${distanceFromVehicleToClientInFeet.toFixed(
+              2
+            )} feet`}</span>
+          </div>
         </div>
-        <div>
-          <span>{`${distanceFromVehicleToClientInMeters.toFixed(
-            2
-          )} meters`}</span>
-        </div>
-        <div>
-          <span>{`${distanceFromVehicleToClientInMiles.toFixed(
-            2
-          )} miles`}</span>
-        </div>
-        <div>
-          <span>{`${distanceFromVehicleToClientInFeet.toFixed(2)} feet`}</span>
-        </div>
-      </div>
+      )}
     </div>
   );
 };

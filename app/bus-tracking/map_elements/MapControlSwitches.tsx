@@ -11,6 +11,8 @@ const MapControlSwitches = ({
   setShouldWatchDevicePosition,
   setShouldFollowClient,
   setShouldFollowVehicle,
+  shouldShowDistances,
+  setShouldShowDistances,
   setDevicePosition,
   setWatchId,
   watchId,
@@ -22,6 +24,8 @@ const MapControlSwitches = ({
   setShouldWatchDevicePosition: (value: boolean) => void;
   setShouldFollowClient: (value: boolean) => void;
   setShouldFollowVehicle: (value: boolean) => void;
+  shouldShowDistances: boolean;
+  setShouldShowDistances: (value: boolean) => void;
   setDevicePosition: (value: [number, number]) => void;
   setWatchId: (value: number | null) => void;
   watchId: number | null;
@@ -38,9 +42,9 @@ const MapControlSwitches = ({
         position: "absolute",
         top: 0,
         right: 0,
-        width: "100%",
-        padding: "10px",
+        padding: "7px 12px 0 0",
         color: "whitesmoke",
+        //background: "rgba(0, 0, 0, 0.5)",
       }}
     >
       <FormGroup
@@ -128,22 +132,20 @@ const MapControlSwitches = ({
           label="Follow vehicle"
           labelPlacement="start"
         />
-        {/* <FormControlLabel
-                sx={{ "& .MuiFormControlLabel-label": { fontSize: "12px" } }}
-                control={
-                  <Switch
-                    checked={shouldFollowVehicle}
-                    onChange={(value) => {
-                      setShouldFollowVehicle(value.target.checked);
-                      if (value.target.checked) {
-                        setShouldFollowClient(false);
-                      }
-                    }}
-                  />
-                }
-                label="Show vehicle distance to meeting point"
-                labelPlacement="start"
-              /> */}
+        <FormControlLabel
+          sx={{ "& .MuiFormControlLabel-label": { fontSize: "11px" } }}
+          control={
+            <Switch
+              size="small"
+              checked={shouldShowDistances}
+              onChange={(value) => {
+                setShouldShowDistances(value.target.checked);
+              }}
+            />
+          }
+          label="Show distances"
+          labelPlacement="start"
+        />
       </FormGroup>
     </div>
   );

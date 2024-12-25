@@ -2,8 +2,8 @@
 import {
   BookingModel,
   ProductsModel,
-  PortalUserSessionModel,
-  PortalOpenSessionModel,
+  // PortalUserSessionModel,
+  // PortalOpenSessionModel,
 } from "@/app/server/getaways-shared-models/models";
 import connectDB from "@/app/server/db.connect";
 
@@ -30,9 +30,9 @@ export const addUserAction = async (data: UserActionData): Promise<boolean> => {
 
   const booking = await BookingModel.findOne({ ref: data.booking_ref });
   const product = await ProductsModel.findById(booking.product_id);
-  const session = await PortalUserSessionModel.findOne({
-    booking_ref: data.booking_ref,
-  });
+  // const session = await PortalUserSessionModel.findOne({
+  //   booking_ref: data.booking_ref,
+  // });
 
   if (booking && product) {
   }

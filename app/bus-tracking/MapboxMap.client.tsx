@@ -33,6 +33,7 @@ const MapboxMap = ({ booking }: { booking: string }) => {
   const [shouldFollowVehicle, setShouldFollowVehicle] =
     useState<boolean>(false);
   const [shouldFollowClient, setShouldFollowClient] = useState<boolean>(false);
+  const [shouldShowDistances, setShouldShowDistances] = useState<boolean>(true);
   const [mapIsLoading, setMapIsLoading] = useState<boolean>(false);
   const mapContainer = useRef<HTMLDivElement>(null);
   const [map, setMap] = useState<mapboxgl.Map | null>(null);
@@ -255,9 +256,9 @@ const MapboxMap = ({ booking }: { booking: string }) => {
 
       <MapDistancesStats
         meetingPointPosition={meetingPointPosition}
-        shouldRenderClientDistances={true}
+        shouldRenderClientDistances={shouldWatchDevicePosition}
         clientPosition={devicePosition}
-        shouldRender={map !== null}
+        shouldRender={map !== null && shouldShowDistances}
         unique_booking_id={parsedBooking.unique_booking_id}
       />
       <MapControlSwitches
@@ -267,6 +268,8 @@ const MapboxMap = ({ booking }: { booking: string }) => {
         setShouldFollowClient={setShouldFollowClient}
         setShouldFollowVehicle={setShouldFollowVehicle}
         setDevicePosition={setDevicePosition}
+        shouldShowDistances={shouldShowDistances}
+        setShouldShowDistances={setShouldShowDistances}
         setWatchId={setWatchId}
         watchId={watchId}
         shouldFollowClient={shouldFollowClient}
