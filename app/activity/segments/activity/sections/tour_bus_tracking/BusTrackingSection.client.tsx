@@ -25,7 +25,6 @@ const BusTrackingSection = ({ uniqueId }: { uniqueId: string }) => {
   const isError = data?.status === "error";
   const errorText = isError && data?.message;
   const targetDate = data?.data?.targetDate;
-  console.log("targetDate", targetDate);
   const shouldCountdown = isError && targetDate;
   const errorWithoutCountdown = isError && !targetDate;
 
