@@ -1,34 +1,32 @@
 "use client";
 import { useEffect, useState } from "react";
-import ReactDOMServer from "react-dom/server";
 import mapboxgl, { LngLatLike } from "mapbox-gl";
-import { FaWalking } from "react-icons/fa";
-import { computeDestinationPoint } from "geolib";
+//import { computeDestinationPoint } from "geolib";
 
-const startingPosition = [37.98258, 23.72087];
+//const startingPosition = [37.98258, 23.72087];
 
+// const generateFakeCoordinates = (
+//   callback: (coords: [number, number]) => void
+// ) => {
+//   let currentPosition = {
+//     latitude: startingPosition[1],
+//     longitude: startingPosition[0],
+//   };
 
-const generateFakeCoordinates = (
-  callback: (coords: [number, number]) => void
-) => {
-  let currentPosition = {
-    latitude: startingPosition[1],
-    longitude: startingPosition[0],
-  };
+//   const intervalId = setInterval(() => {
+//     // Move 5 meters north (0 degrees bearing)
+//     currentPosition = computeDestinationPoint(currentPosition, 5, 0);
 
-  const intervalId = setInterval(() => {
-    // Move 5 meters north (0 degrees bearing)
-    currentPosition = computeDestinationPoint(currentPosition, 5, 0);
+//     const newPosition: [number, number] = [
+//       currentPosition.latitude,
+//       currentPosition.longitude,
+//     ];
+//     callback(newPosition);
+//   }, 1000);
 
-    const newPosition: [number, number] = [
-      currentPosition.latitude,
-      currentPosition.longitude,
-    ];
-    callback(newPosition);
-  }, 1000);
+//   return intervalId; // Return the interval ID so it can be cleared later
+// };
 
-  return intervalId; // Return the interval ID so it can be cleared later
-};
 //----------------------------------------------
 
 const MapClientMarker = ({
@@ -70,19 +68,12 @@ const MapClientMarker = ({
       }
 
       const customClientMarker = document.createElement("div");
-      customClientMarker.className = "client-marker-container";
-      customClientMarker.innerHTML = ReactDOMServer.renderToString(
-        <FaWalking
-          style={{
-            fontSize: "14px",
-            color: "white",
-            position: "absolute",
-          }}
-        />
-      );
+      const customClientMarkerIcon = document.createElement("div");
+      customClientMarkerIcon.className = "client-pulsing-dot";
+      customClientMarker.appendChild(customClientMarkerIcon);
 
       const popup = new mapboxgl.Popup({
-        offset: 25,
+        offset: 18,
         closeButton: false,
       }).setText("You are here");
 
