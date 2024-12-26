@@ -46,18 +46,18 @@ const MapClientMarker = ({
 }) => {
   const [marker, setMarker] = useState<mapboxgl.Marker | null>();
 
-  useEffect(() => {
-    let intervalId: NodeJS.Timeout | null = null;
+  // useEffect(() => {
+  //   let intervalId: NodeJS.Timeout | null = null;
 
-    if (shouldWatchDevicePosition) {
-      intervalId = generateFakeCoordinates(setClientPosition);
-    }
-    return () => {
-      if (intervalId) {
-        clearInterval(intervalId);
-      }
-    };
-  }, [shouldWatchDevicePosition, setClientPosition]);
+  //   if (shouldWatchDevicePosition) {
+  //     intervalId = generateFakeCoordinates(setClientPosition);
+  //   }
+  //   return () => {
+  //     if (intervalId) {
+  //       clearInterval(intervalId);
+  //     }
+  //   };
+  // }, [shouldWatchDevicePosition, setClientPosition]);
 
   const hasClientPosition = clientPosition[0] !== 0 && clientPosition[1] !== 0;
   const shouldCreateMarker =

@@ -17,15 +17,15 @@ const BusTrackingSection = ({ uniqueId }: { uniqueId: string }) => {
   const { data, refetch } = useQuery({
     queryKey: ["TRACKING_DATA", uniqueId],
     queryFn: () => getTrackingData(uniqueId),
-    //refetchInterval: 10000,
+    refetchInterval: 10000,
     retry: false,
     refetchOnWindowFocus: true,
   });
 
   const isError = data?.status === "error";
-  const errorText =
-    isError && data?.message ? data.message.split("&")[0] : undefined;
-  const targetDate = data?.message ? data.message.split("&")[1] : undefined;
+  const errorText = isError && data?.message;
+  const targetDate = data?.data?.targetDate;
+  console.log("targetDate", targetDate);
   const shouldCountdown = isError && targetDate;
   const errorWithoutCountdown = isError && !targetDate;
 

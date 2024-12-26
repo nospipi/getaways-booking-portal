@@ -17,6 +17,16 @@ const G4S_TRACKING_URL = process.env.G4S_TRACKING_URL;
 
 //-----------------------------------------------------------------------------
 
+class CustomError extends Error {
+  targetDate?: string;
+
+  constructor() {
+    super(); // Call the parent constructor to initialize the `message` and other Error properties.
+  }
+}
+
+//-----------------------------------------------------------------------------
+
 const updateG4sTrackingSessionCredentials = async () => {
   const { username, password } =
     await G4STrackingSessionCredentialsModel.findById(
@@ -71,14 +81,15 @@ interface VehiclePosition {
 }
 
 interface TrackingData {
-  vehicle_position: VehiclePosition;
-  withinRangeOfOtherPickup: boolean;
-  arrivingInOwnPickup: boolean;
-  arrivedAtOwnPickup: boolean;
-  vehiclePlate: string;
-  vehicleColor: string;
-  vehicleType: string;
-  meetingPointName: string;
+  targetDate?: string | null;
+  vehicle_position?: VehiclePosition;
+  withinRangeOfOtherPickup?: boolean;
+  arrivingInOwnPickup?: boolean;
+  arrivedAtOwnPickup?: boolean;
+  vehiclePlate?: string;
+  vehicleColor?: string;
+  vehicleType?: string;
+  meetingPointName?: string;
 }
 
 export type IExtendedServerActionReturn = IServerActionReturn<TrackingData>;
@@ -139,41 +150,39 @@ const getTrackingData = async (
 
     // HAVING TASK BUT NO MEETING TIME NOT POSSIBLE SO WE CHECK FOR TASK FIRST ANYWAY
     if (!task) {
-      const error = new Error();
+      const error = new CustomError();
       error.message = "NOT AVAILABLE";
       throw error;
     }
 
     if (!tourGroup.vehicle_id) {
-      const error = new Error();
+      const error = new CustomError();
       error.message = "NOT AVAILABLE";
       throw error;
     }
 
     if (!hasPickupLocation) {
-      const error = new Error();
+      const error = new CustomError();
       error.message = "NOT AVAILABLE";
       throw error;
     }
 
     if (!hasMeetingTime) {
-      const error = new Error();
+      const error = new CustomError();
       error.message = "NOT AVAILABLE";
       throw error;
     }
 
     if (currentDateTimeInGreeceIsBeforeAllowedTrackingTime) {
-      interface CustomError extends Error {
-        targetDate?: string;
-      }
-      const error: CustomError = new Error();
+      const error = new CustomError();
 
-      error.message = `Tour bus tracking will open on ${trackingStartingDateTime}&${trackingStartingDateTimeIso}`;
+      error.message = `Tour bus tracking will open on ${trackingStartingDateTime}`;
+      error.targetDate = trackingStartingDateTime;
       throw error;
     }
 
     if (currentDateTimeInGreeceIsAfterAllowedTrackingTime) {
-      const error = new Error();
+      const error = new CustomError();
       error.message =
         "Tour bus tracking is no longer available for this booking";
       throw error;
@@ -350,13 +359,15 @@ const getTrackingData = async (
       return result;
     }
   } catch (e: unknown) {
-    console.log(e);
+    console.log("ERROR FROM SERVER ACTION", e);
     //we cannot throw errors to consumers of a server action in Vercel production because it intercepts the messages and returns a custom one
-    if (e instanceof Error) {
-      const error = e as { message: string };
+    if (e instanceof CustomError) {
       return {
         status: "error",
-        message: error.message,
+        message: e.message,
+        data: {
+          targetDate: e?.targetDate || null,
+        },
       };
     } else {
       return {
