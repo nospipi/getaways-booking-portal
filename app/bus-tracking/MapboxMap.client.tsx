@@ -60,10 +60,9 @@ const MapboxMap = ({ booking }: { booking: string }) => {
 
   const isError = data?.status === "error";
 
-  const errorText =
-    isError && data?.message ? data.message.split("&")[0] : undefined;
-  const targetDate = data?.message ? data.message.split("&")[1] : undefined;
-  const shouldCountdown = isError && typeof targetDate === "string";
+  const errorText = isError && data?.message;
+  const targetDate = data?.data?.targetDate ?? undefined;
+  const shouldCountdown = Boolean(isError && targetDate);
   const errorWithoutCountdown = isError && !targetDate;
 
   const trackingData = data?.data;
@@ -235,10 +234,10 @@ const MapboxMap = ({ booking }: { booking: string }) => {
 
       <MapLoadingIndicator mapIsLoading={mapIsLoading} />
 
-      <MapRefetchingIndicator
+      {/* <MapRefetchingIndicator
         shouldRender={map !== null}
         isRefetching={isRefetching}
-      />
+      /> */}
 
       <MapVehicleMovingMarker
         shouldFollowVehicle={shouldFollowVehicle}

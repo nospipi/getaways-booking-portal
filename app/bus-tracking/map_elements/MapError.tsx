@@ -6,7 +6,7 @@ const MapError = ({
   errorText = "An error occurred",
   errorWithoutCountdown,
 }: {
-  errorText: string | undefined;
+  errorText: string | undefined | null | false;
   errorWithoutCountdown: boolean;
 }) => {
   if (!errorWithoutCountdown) {
