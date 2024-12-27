@@ -105,10 +105,33 @@ const MapControlSwitches = ({
               //disabled={!shouldWatchDevicePosition}
               onChange={(value) => {
                 setShouldFollowClient(value.target.checked);
+
                 if (value.target.checked) {
                   setShouldWatchDevicePosition(true);
                   setShouldFollowVehicle(false);
+                  setShouldFollowClient(true);
+                  const id = navigator.geolocation.watchPosition(
+                    (position) => {
+                      setDevicePosition([
+                        position.coords.longitude,
+                        position.coords.latitude,
+                      ]);
+                    },
+                    (err) => {
+                      toast.error(`${err.message}`);
+                      setWatchId(null);
+                      setShouldWatchDevicePosition(false);
+                    },
+                    {
+                      enableHighAccuracy: true,
+                      timeout: 10000,
+                      maximumAge: 0,
+                    }
+                  );
+
+                  setWatchId(id);
                 }
+
               }}
             />
           }
