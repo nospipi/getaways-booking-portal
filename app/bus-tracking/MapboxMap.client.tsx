@@ -30,8 +30,7 @@ const MapboxMap = ({ booking }: { booking: string }) => {
   const [shouldWatchDevicePosition, setShouldWatchDevicePosition] =
     useState<boolean>(false);
   const [watchId, setWatchId] = useState<number | null>(null);
-  const [shouldFollowVehicle, setShouldFollowVehicle] =
-    useState<boolean>(false);
+  const [shouldFollowVehicle, setShouldFollowVehicle] = useState<boolean>(true);
   const [shouldFollowClient, setShouldFollowClient] = useState<boolean>(false);
   const [shouldShowDistances, setShouldShowDistances] = useState<boolean>(true);
   const [mapIsLoading, setMapIsLoading] = useState<boolean>(false);
