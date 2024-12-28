@@ -1,6 +1,6 @@
 import mongoose, { connect } from "mongoose";
 mongoose.set("strictQuery", true);
-const ENV = process.env.NODE_ENV;
+const ENV = process.env.ENV;
 
 const MONGODB_URI =
   ENV === "PRODUCTION"

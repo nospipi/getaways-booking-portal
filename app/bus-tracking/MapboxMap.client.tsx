@@ -53,7 +53,7 @@ const MapboxMap = ({ booking }: { booking: string }) => {
       queryFn: () => getTrackingData(parsedBooking.unique_booking_id),
       retry: false,
       refetchOnWindowFocus: true,
-      refetchInterval: 10000,
+      refetchInterval: 3000,
     }
   );
 

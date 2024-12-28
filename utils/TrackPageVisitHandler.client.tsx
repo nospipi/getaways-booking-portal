@@ -2,6 +2,7 @@
 import { useEffect } from "react";
 import { useParams } from "next/navigation";
 import { useFingerprint } from "./FingerprintProvider.client";
+import addOpenSession from "@/app/server/server_actions/addOpenSession";
 import {
   isMobile,
   isTablet,
@@ -66,11 +67,9 @@ const TrackPageVisitHandler = () => {
       //    const handlePageHide = () => {
       //      closeSessionToDb(ref as string);
       //    };
-
       //    const handleBeforeUnload = () => {
       //      closeSessionToDb(ref as string);
       //    };
-
       //    const handleUnload = () => {
       //      closeSessionToDb(ref as string);
       //    };
@@ -92,7 +91,7 @@ const TrackPageVisitHandler = () => {
         //  document.removeEventListener("unload", handleUnload);
       };
     }
-  }, [booking_ref, fingerprint, booking_ref]);
+  }, [booking_ref, fingerprint]);
   return null;
 };
 

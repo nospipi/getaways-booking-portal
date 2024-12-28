@@ -110,9 +110,7 @@ const MapVehicleMovingMarker = ({
       const arrivedPopup = new mapboxgl.Popup({
         offset: 25,
         closeButton: false,
-      }).setHTML(
-        `<b><div style="color:rgb(49 87 49);">Has arrived at your location !</div></b>`
-      );
+      }).setHTML(`<b><div>Has arrived at your location !</div></b>`);
 
       const shouldHidePopup =
         !trackingData?.arrivedAtOwnPickup &&

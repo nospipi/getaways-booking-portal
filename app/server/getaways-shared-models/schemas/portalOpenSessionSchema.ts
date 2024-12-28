@@ -3,14 +3,14 @@ import { Document, Schema } from "mongoose";
 //------------------------------------------------------------------------------
 
 export interface IOpenSession extends Document {
-  id: string;
+  booking_id: string;
   createdAt: Date;
 }
 
 //------------------------------------------------------------------------------
 
 const portalOpenSessionSchema = new Schema<IOpenSession>({
-  id: { type: String, required: true },
+  booking_id: { type: String, required: true },
   createdAt: {
     type: Date,
     default: Date.now,
