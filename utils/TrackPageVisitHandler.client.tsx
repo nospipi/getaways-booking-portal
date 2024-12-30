@@ -1,7 +1,7 @@
 "use client";
-import { useEffect } from "react";
-import { useSearchParams, useParams, useRouter } from "next/navigation";
-import { useFingerprint } from "./FingerprintProvider.client";
+import { useEffect, useMemo } from "react";
+import { useSearchParams } from "next/navigation";
+//import { useFingerprint } from "./FingerprintProvider.client";
 import {
   isMobile,
   isTablet,
@@ -24,12 +24,8 @@ const TrackPageVisitHandler = () => {
   const uniqueId = searchParams.get("uniqueId") ?? "";
 
   console.log("Ref client:", ref, "Unique ID client:", uniqueId);
-  const fingerprint = useFingerprint();
 
   //we construct formData object to send along with the beacon request as it does not support objects
-  const formData = new FormData();
-  formData.append("ref", ref);
-  formData.append("uniqueId", uniqueId);
 
   const platform = Object.keys({
     isMobile,
@@ -48,64 +44,41 @@ const TrackPageVisitHandler = () => {
     .replace("is", "");
   //returns Desktop | Mobile | Tablet | Browser
 
+  const formData = useMemo(() => {
+    const data = new FormData();
+    data.append("ref", ref);
+    data.append("uniqueId", uniqueId);
+    data.append("platform", platform);
+    data.append("osName", osName);
+    data.append("osVersion", osVersion);
+    data.append("browserName", browserName);
+    data.append("browserVersion", browserVersion);
+    data.append("mobileVendor", mobileVendor);
+    data.append("mobileModel", mobileModel);
+    return data;
+  }, [ref, uniqueId, platform]);
+
   useEffect(() => {
     if (uniqueId || ref) {
-      console.log("Fingerprint:", fingerprint, "param:", uniqueId);
       const handleVisibilityChange = () => {
-        //console.log(document.visibilityState, ref);
         if (document.visibilityState === "visible") {
-          console.log("Visible");
           navigator.sendBeacon(`/server/api/open_session`, formData);
-
-          //  navigator.sendBeacon(`/server/api/open_session`, {
-          //    ref,
-          //    uniqueId,
-          //  });
-
-          //  openSessionToDb(ref, {
-          //    platform,
-          //    osName,
-          //    osVersion,
-          //    browserName,
-          //    browserVersion,
-          //    mobileVendor,
-          //    mobileModel,
-          //  });
         } else {
-          console.log("Hidden");
-          // closeSessionToDb(ref as string);
           navigator.sendBeacon(`/server/api/close_session`, formData);
         }
       };
 
-      //    const handlePageHide = () => {
-      //      closeSessionToDb(ref as string);
-      //    };
-      //    const handleBeforeUnload = () => {
-      //      closeSessionToDb(ref as string);
-      //    };
-      //    const handleUnload = () => {
-      //      closeSessionToDb(ref as string);
-      //    };
-
-      // Invoke the visibility change handler immediately is needed to trigger if (document.visibilityState === "visible") on page load
       handleVisibilityChange();
       document.addEventListener("visibilitychange", handleVisibilityChange);
-      //    document.addEventListener("pagehide", handlePageHide);
-      //    document.addEventListener("beforeunload", handleBeforeUnload);
-      //    document.addEventListener("unload", handleUnload);
 
       return () => {
         document.removeEventListener(
           "visibilitychange",
           handleVisibilityChange
         );
-        //  document.removeEventListener("pagehide", handlePageHide);
-        //  document.removeEventListener("beforeunload", handleBeforeUnload);
-        //  document.removeEventListener("unload", handleUnload);
       };
     }
-  }, [uniqueId, ref, fingerprint]);
+  }, [uniqueId, ref, formData]);
   return null;
 };
 

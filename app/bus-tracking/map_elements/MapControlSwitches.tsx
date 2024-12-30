@@ -131,7 +131,6 @@ const MapControlSwitches = ({
 
                   setWatchId(id);
                 }
-
               }}
             />
           }

@@ -1,4 +1,6 @@
 import mongoose, { model, models } from "mongoose";
+const REFRESH_ONLINE_SESSIONS_URL = process.env
+  .REFRESH_ONLINE_SESSIONS_URL as string;
 
 // the below modifies the response when is passed to the client (converted to json by default) or converted to json explicitly in the BE
 mongoose.set("toJSON", {
@@ -88,10 +90,16 @@ export const PortalUserSessionModel =
   models.portal_user_session ||
   model("portal_user_session", portalUserSessionSchema);
 export const PortalSessionModel =
-  models.portal_session || model("portal_session", portalSessionSchema);  
+  models.portal_session || model("portal_session", portalSessionSchema);
+//-----------------------------------------------------------------
 export const PortalOpenSessionModel =
   models.portal_open_session ||
   model("portal_open_session", portalOpenSessionSchema);
+const portalOpenSessionChangeStream = PortalOpenSessionModel.watch();
+portalOpenSessionChangeStream.on("change", async () => {
+  await fetch(REFRESH_ONLINE_SESSIONS_URL);
+});
+//-----------------------------------------------------------------
 export const VehicleServiceLogEntryModel =
   models.vehicle_service_log_entry ||
   model("vehicle_service_log_entry", vehicleServiceLogEntrySchema);

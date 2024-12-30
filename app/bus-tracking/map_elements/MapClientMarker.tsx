@@ -32,30 +32,15 @@ import mapboxgl, { LngLatLike } from "mapbox-gl";
 const MapClientMarker = ({
   map,
   clientPosition,
-  setClientPosition,
   shouldFollowClient,
   shouldWatchDevicePosition,
 }: {
   map: mapboxgl.Map | null;
   clientPosition: [number, number];
-  setClientPosition: (value: [number, number]) => void;
   shouldFollowClient: boolean;
   shouldWatchDevicePosition: boolean;
 }) => {
   const [marker, setMarker] = useState<mapboxgl.Marker | null>();
-
-  // useEffect(() => {
-  //   let intervalId: NodeJS.Timeout | null = null;
-
-  //   if (shouldWatchDevicePosition) {
-  //     intervalId = generateFakeCoordinates(setClientPosition);
-  //   }
-  //   return () => {
-  //     if (intervalId) {
-  //       clearInterval(intervalId);
-  //     }
-  //   };
-  // }, [shouldWatchDevicePosition, setClientPosition]);
 
   const hasClientPosition = clientPosition[0] !== 0 && clientPosition[1] !== 0;
   const shouldCreateMarker =

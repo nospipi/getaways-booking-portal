@@ -37,8 +37,8 @@ const MapVehicleMovingMarker = ({
   const vehicleColor = trackingData?.vehicleColor || "N/A";
 
   //calculate vehicle position
-  const vehicleLon = trackingData?.vehicle_position?.lon || 0;
-  const vehicleLat = trackingData?.vehicle_position?.lat || 0;
+  const vehicleLon = trackingData?.vehiclePosition?.lon || 0;
+  const vehicleLat = trackingData?.vehiclePosition?.lat || 0;
   const computedLngLat = useMemo(() => {
     return [vehicleLon, vehicleLat] as LngLatLike;
   }, [vehicleLon, vehicleLat]);

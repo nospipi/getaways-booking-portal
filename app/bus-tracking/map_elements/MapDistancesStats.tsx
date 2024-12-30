@@ -35,8 +35,8 @@ const MapDistancesStats = ({
       lng: meetingPointPosition[0] ?? 0,
     },
     {
-      lat: trackingData?.vehicle_position?.lat ?? 0,
-      lng: trackingData?.vehicle_position?.lon ?? 0,
+      lat: trackingData?.vehiclePosition?.lat ?? 0,
+      lng: trackingData?.vehiclePosition?.lon ?? 0,
     }
   );
 
@@ -46,8 +46,8 @@ const MapDistancesStats = ({
       lng: clientPosition[0] ?? 0,
     },
     {
-      lat: trackingData?.vehicle_position?.lat ?? 0,
-      lng: trackingData?.vehicle_position?.lon ?? 0,
+      lat: trackingData?.vehiclePosition?.lat ?? 0,
+      lng: trackingData?.vehiclePosition?.lon ?? 0,
     }
   );
 

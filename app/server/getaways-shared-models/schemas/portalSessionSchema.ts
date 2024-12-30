@@ -6,16 +6,15 @@ import mongooseAggregatePaginate from "mongoose-aggregate-paginate-v2";
 
 export interface IPortalAction extends Document {
   date_time: Date;
-  device_info: {
-    platform: string;
-    osName: string;
-    osVersion: string;
-    browserName: string;
-    browserVersion: string;
-    mobileVendor: string;
-    mobileModel: string;
-  };
+  platform: string;
+  osName: string;
+  osVersion: string;
+  browserName: string;
+  browserVersion: string;
+  mobileVendor: string;
+  mobileModel: string;
   user_action:
+    | "INITIAL_VISIT"
     | "SCROLLED_TO_BOTTOM"
     | "REVIEW_LINK_CLICK"
     | "PROMO_PRODUCT_CLICK"
@@ -27,13 +26,25 @@ export interface IPortalAction extends Document {
     | "CONTACT_BUTTON_CLICK";
 }
 
-export interface IPortalSession extends Document {
-  date_time: Date;
-  booking_ref: string;
+export interface IPortalSessionBooking {
+  unique_booking_id: string;
   booking_date: string;
   client_name: string;
-  client_phone: string;
   product_title: string;
+}
+
+export interface IPortalSession extends Document {
+  booking_ref: string;
+  bookings: IPortalSessionBooking[];
+  has_scrolled_to_bottom: boolean;
+  has_clicked_review_link: boolean;
+  has_clicked_promo_product: boolean;
+  has_clicked_sim_link: boolean;
+  has_added_location: boolean;
+  has_confirmed_instructions: boolean;
+  has_clicked_bus_tracking_map: boolean;
+  has_clicked_navigation_link: boolean;
+  has_clicked_contact_button: boolean;
   session_actions: IPortalAction[];
 }
 
@@ -41,16 +52,35 @@ export interface IPortalSession extends Document {
 
 const portalActionSchema = new Schema<IPortalAction>({
   date_time: { type: Date, default: Date.now },
-  device_info: Object,
+  platform: String,
+  osName: String,
+  osVersion: String,
+  browserName: String,
+  browserVersion: String,
+  mobileVendor: String,
+  mobileModel: String,
   user_action: String,
 });
 
+const portalSessionBookingSchema = new Schema<IPortalSessionBooking>({
+  unique_booking_id: { type: String, required: true },
+  booking_date: { type: String, required: true },
+  client_name: { type: String, required: true },
+  product_title: { type: String, required: true },
+});
+
 const portalSessionSchema = new Schema<IPortalSession>({
-  booking_ref: String,
-  booking_date: String,
-  client_name: String,
-  client_phone: String,
-  product_title: String,
+  booking_ref: { type: String, required: true },
+  bookings: { type: [portalSessionBookingSchema], default: [] },
+  has_scrolled_to_bottom: { type: Boolean, default: false },
+  has_clicked_review_link: { type: Boolean, default: false },
+  has_clicked_promo_product: { type: Boolean, default: false },
+  has_clicked_sim_link: { type: Boolean, default: false },
+  has_added_location: { type: Boolean, default: false },
+  has_confirmed_instructions: { type: Boolean, default: false },
+  has_clicked_bus_tracking_map: { type: Boolean, default: false },
+  has_clicked_navigation_link: { type: Boolean, default: false },
+  has_clicked_contact_button: { type: Boolean, default: false },
   session_actions: { type: [portalActionSchema], default: [] },
 });
 

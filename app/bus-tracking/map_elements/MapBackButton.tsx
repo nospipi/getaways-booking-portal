@@ -8,7 +8,11 @@ import Link from "next/link";
 
 //---------------------------------------------------------
 
-const MapBackButton = () => {
+const MapBackButton = ({
+  shouldShowDisclaimer,
+}: {
+  shouldShowDisclaimer: boolean;
+}) => {
   const searchParams = useSearchParams();
   const uniqueId = searchParams.get("uniqueId");
   const [isLoading, setIsLoading] = useState(false);
@@ -21,12 +25,25 @@ const MapBackButton = () => {
         left: 0,
         width: "100%",
         display: "flex",
+        flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
         zIndex: 100,
         padding: "10px",
+        gap: "5px",
       }}
     >
+      {shouldShowDisclaimer && (
+        <span
+          style={{
+            fontSize: "9px",
+            textAlign: "right",
+            color: "gray",
+          }}
+        >
+          * The blue line does not represent the actual route of the vehicle.
+        </span>
+      )}
       <Link href={`/activity/?uniqueId=${uniqueId}`}>
         <Button
           onClick={() => setIsLoading(true)}

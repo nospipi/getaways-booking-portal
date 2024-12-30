@@ -4,13 +4,14 @@ import { useEffect, useRef, useState, useMemo } from "react";
 import ReactDOMServer from "react-dom/server";
 import mapboxgl, { LngLatLike } from "mapbox-gl";
 import MapClientMarker from "./map_elements/MapClientMarker";
+import MapOtherPickupMarkers from "./map_elements/MapOtherPickupMarkers";
 import MapVehicleMovingMarker from "./map_elements/MapVehicleMovingMarker";
 import { useQuery } from "@tanstack/react-query";
 import getTrackingData from "@/app/server/server_actions/getTrackingData";
 import MapDistancesStats from "./map_elements/MapDistancesStats";
 import MapControlSwitches from "./map_elements/MapControlSwitches";
 import MapLoadingIndicator from "./map_elements/MapLoadingIndicator";
-import MapRefetchingIndicator from "./map_elements/MapRefetchingIndicator";
+// import MapRefetchingIndicator from "./map_elements/MapRefetchingIndicator";
 import MapCountdown from "./map_elements/MapCountdown";
 import MapBackButton from "./map_elements/MapBackButton";
 import MapError from "./map_elements/MapError";
@@ -67,13 +68,31 @@ const MapboxMap = ({ booking }: { booking: string }) => {
   const trackingData = data?.data;
   const meetingPointName = trackingData?.meetingPointName ?? "N/A";
 
-  const vehicleLon = trackingData?.vehicle_position?.lon ?? 0;
-  const vehicleLat = trackingData?.vehicle_position?.lat ?? 0;
+  const vehicleLon = trackingData?.vehiclePosition?.lon ?? 0;
+  const vehicleLat = trackingData?.vehiclePosition?.lat ?? 0;
   const LngLatValid = vehicleLon !== 0 && vehicleLat !== 0;
 
+  const otherPickupsCoords: [number, number][] = useMemo(() => {
+    const allPickupsCoords = trackingData?.otherPickupsCoords ?? [];
+    const coordsParsed: [number, number][] = allPickupsCoords.map(
+      (coords: { longitude: string; latitude: string }) => [
+        parseFloat(coords.longitude),
+        parseFloat(coords.latitude),
+      ]
+    );
+    return coordsParsed;
+  }, [trackingData?.otherPickupsCoords]);
+
   const coordinates: [number, number][] = useMemo(() => {
-    return [[vehicleLon, vehicleLat], meetingPointPosition];
-  }, [vehicleLon, vehicleLat, meetingPointPosition]);
+    const allPickupsCoords = trackingData?.pickupCoords ?? [];
+    const coordsParsed: [number, number][] = allPickupsCoords.map(
+      (coords: { longitude: string; latitude: string }) => [
+        parseFloat(coords.longitude),
+        parseFloat(coords.latitude),
+      ]
+    );
+    return coordsParsed;
+  }, [trackingData?.pickupCoords]);
 
   const meetingPointHTML = useMemo(() => {
     return `<div style="
@@ -82,7 +101,7 @@ const MapboxMap = ({ booking }: { booking: string }) => {
     gap: 7px; 
     color: white; 
   ">
-    <span>📍 Meeting Point</span>
+    <span>📍Your Meeting Point</span>
     <span><strong>${meetingPointName}</strong></span>
   </div>
   `;
@@ -247,10 +266,11 @@ const MapboxMap = ({ booking }: { booking: string }) => {
       <MapClientMarker
         map={map}
         clientPosition={devicePosition}
-        setClientPosition={setDevicePosition}
         shouldFollowClient={shouldFollowClient}
         shouldWatchDevicePosition={shouldWatchDevicePosition}
       />
+
+      <MapOtherPickupMarkers map={map} pickupCoordinates={otherPickupsCoords} />
 
       <MapDistancesStats
         meetingPointPosition={meetingPointPosition}
@@ -274,7 +294,7 @@ const MapboxMap = ({ booking }: { booking: string }) => {
         shouldFollowVehicle={shouldFollowVehicle}
       />
 
-      <MapBackButton />
+      <MapBackButton shouldShowDisclaimer={!isError} />
 
       <div
         ref={mapContainer}

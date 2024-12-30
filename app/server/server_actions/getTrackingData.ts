@@ -82,7 +82,9 @@ interface VehiclePosition {
 
 interface TrackingData {
   targetDate?: string | null;
-  vehicle_position?: VehiclePosition;
+  vehiclePosition?: VehiclePosition;
+  otherPickupsCoords?: { latitude: string; longitude: string }[];
+  pickupCoords?: { latitude: string; longitude: string }[];
   withinRangeOfOtherPickup?: boolean;
   arrivingInOwnPickup?: boolean;
   arrivedAtOwnPickup?: boolean;
@@ -137,13 +139,6 @@ const getTrackingData = async (
     )
       .subtract(1800, "seconds")
       .format("DD MMM YYYY, hh:mm A");
-
-    const trackingStartingDateTimeIso = moment(
-      pickupDateTimeInGreece,
-      "YYYY-MM-DD HH:mm"
-    )
-      .subtract(1800, "seconds")
-      .toDate();
 
     const tourGroup = await TourGroupModel.findById(booking.tour_group_id);
     const task = await TaskModel.findById(tourGroup?.task_id);
@@ -211,7 +206,7 @@ const getTrackingData = async (
     );
     const shouldGetNewPosition = !vehicleHasPosition || vehiclePositionIsOld;
 
-    const coordinates = task?.pickups
+    const otherPickupsCoords = task?.pickups
       ?.map((pickup: { lat: number; lon: number }) => {
         if (
           pickup.lat !== booking.pickup_location.latitude ||
@@ -225,6 +220,15 @@ const getTrackingData = async (
         return null; // Return null for coordinates to be filtered out
       })
       .filter((coordinate: unknown) => coordinate !== null);
+
+    const pickupCoords = task?.pickups?.map(
+      (pickup: { lat: number; lon: number }) => {
+        return {
+          latitude: pickup.lat,
+          longitude: pickup.lon,
+        };
+      }
+    );
 
     if (shouldGetNewPosition) {
       //get new position
@@ -273,7 +277,7 @@ const getTrackingData = async (
         }
       );
 
-      const withinRangeOfOtherPickup = coordinates.some(
+      const withinRangeOfOtherPickup = otherPickupsCoords.some(
         (coordinate: { latitude: number; longitude: number }) => {
           const distance = getPreciseDistance(
             {
@@ -294,12 +298,14 @@ const getTrackingData = async (
         status: "success",
         message: "Tracking data retrieved successfully",
         data: {
-          vehicle_position: {
+          vehiclePosition: {
             new: true,
             lat: stats.Position.Latitude,
             lon: stats.Position.Longitude,
             heading: stats.Position.Heading,
           },
+          otherPickupsCoords,
+          pickupCoords: pickupCoords,
           withinRangeOfOtherPickup,
           arrivingInOwnPickup,
           arrivedAtOwnPickup,
@@ -322,7 +328,7 @@ const getTrackingData = async (
         }
       );
 
-      const withinRangeOfOtherPickup = coordinates.some(
+      const withinRangeOfOtherPickup = otherPickupsCoords.some(
         (coordinate: { latitude: number; longitude: number }) => {
           const distance = getPreciseDistance(
             { latitude, longitude },
@@ -340,12 +346,14 @@ const getTrackingData = async (
         status: "success",
         message: "Tracking data retrieved successfully",
         data: {
-          vehicle_position: {
+          vehiclePosition: {
             new: false,
             lat: latitude,
             lon: longitude,
             heading,
           },
+          otherPickupsCoords,
+          pickupCoords: pickupCoords,
           withinRangeOfOtherPickup,
           arrivingInOwnPickup,
           arrivedAtOwnPickup,

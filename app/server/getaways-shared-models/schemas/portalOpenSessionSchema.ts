@@ -15,6 +15,7 @@ const portalOpenSessionSchema = new Schema<IOpenSession>({
     type: Date,
     default: Date.now,
     expires: 300, //this will delete the document after 5 minutes (300s) if it still exists
+    //the change stream in the model declaration will call the refresh endpoint to refresh the session in all consumers when a document is created or deleted
   },
 });
 

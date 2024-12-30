@@ -209,7 +209,6 @@ a {
   padding: 15px;
   width: 20px;
   height: 20px;
-  
 }
 
 .client-marker-container {
@@ -294,9 +293,8 @@ a {
   color: rgb(100 100 100) !important;
 }
 
-
 .client-pulsing-dot {
-    display: flex;
+  display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
@@ -306,6 +304,17 @@ a {
   border-radius: 50%;
   z-index: 1000;
   animation: cpulse 1.2s infinite; /* Pulse animation */
+}
+
+.custom-pickup-marker {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  background-color: #dbc046;
+  border-radius: 100%;
+  width: 12px;
+  height: 12px;
 }
 
 @keyframes cpulse {
