@@ -4,7 +4,7 @@ import mongooseAggregatePaginate from "mongoose-aggregate-paginate-v2";
 
 //------------------------------------------------------------------------------
 
-export interface IUserAction extends Document {
+export interface IPortalAction extends Document {
   date_time: Date;
   device_info: {
     platform: string;
@@ -34,27 +34,27 @@ export interface IPortalSession extends Document {
   client_name: string;
   client_phone: string;
   product_title: string;
-  session_actions: IUserAction[];
+  session_actions: IPortalAction[];
 }
 
 //------------------------------------------------------------------------------
 
-const portalUserActionSchema = new Schema<IUserAction>({
+const portalActionSchema = new Schema<IPortalAction>({
   date_time: { type: Date, default: Date.now },
   device_info: Object,
   user_action: String,
 });
 
-const portalUserSessionSchema = new Schema<IPortalSession>({
+const portalSessionSchema = new Schema<IPortalSession>({
   booking_ref: String,
   booking_date: String,
   client_name: String,
   client_phone: String,
   product_title: String,
-  session_actions: { type: [portalUserActionSchema], default: [] },
+  session_actions: { type: [portalActionSchema], default: [] },
 });
 
-portalUserSessionSchema.plugin(mongoosePaginate);
-portalUserSessionSchema.plugin(mongooseAggregatePaginate);
+portalSessionSchema.plugin(mongoosePaginate);
+portalSessionSchema.plugin(mongooseAggregatePaginate);
 
-export default portalUserSessionSchema;
+export default portalSessionSchema;

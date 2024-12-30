@@ -1,8 +1,7 @@
 "use client";
 import { useEffect } from "react";
-import { useParams } from "next/navigation";
+import { useSearchParams, useParams, useRouter } from "next/navigation";
 import { useFingerprint } from "./FingerprintProvider.client";
-import addOpenSession from "@/app/server/server_actions/addOpenSession";
 import {
   isMobile,
   isTablet,
@@ -19,8 +18,18 @@ import {
 //---------------------------------------------------------
 
 const TrackPageVisitHandler = () => {
-  const { booking_ref } = useParams();
+  const searchParams = useSearchParams();
+
+  const ref = searchParams.get("ref") ?? "";
+  const uniqueId = searchParams.get("uniqueId") ?? "";
+
+  console.log("Ref client:", ref, "Unique ID client:", uniqueId);
   const fingerprint = useFingerprint();
+
+  //we construct formData object to send along with the beacon request as it does not support objects
+  const formData = new FormData();
+  formData.append("ref", ref);
+  formData.append("uniqueId", uniqueId);
 
   const platform = Object.keys({
     isMobile,
@@ -40,14 +49,19 @@ const TrackPageVisitHandler = () => {
   //returns Desktop | Mobile | Tablet | Browser
 
   useEffect(() => {
-    if (fingerprint && booking_ref) {
-      console.log("Fingerprint:", fingerprint, "Booking ref:", booking_ref);
+    if (uniqueId || ref) {
+      console.log("Fingerprint:", fingerprint, "param:", uniqueId);
       const handleVisibilityChange = () => {
         //console.log(document.visibilityState, ref);
         if (document.visibilityState === "visible") {
-          navigator.sendBeacon(
-            `http://localhost:3000/api/modify/page_visit/${fingerprint}/${booking_ref}`
-          );
+          console.log("Visible");
+          navigator.sendBeacon(`/server/api/open_session`, formData);
+
+          //  navigator.sendBeacon(`/server/api/open_session`, {
+          //    ref,
+          //    uniqueId,
+          //  });
+
           //  openSessionToDb(ref, {
           //    platform,
           //    osName,
@@ -58,12 +72,12 @@ const TrackPageVisitHandler = () => {
           //    mobileModel,
           //  });
         } else {
+          console.log("Hidden");
           // closeSessionToDb(ref as string);
-          navigator.sendBeacon(
-            `http://localhost:3000/api/modify/page_leave/${fingerprint}/${booking_ref}`
-          );
+          navigator.sendBeacon(`/server/api/close_session`, formData);
         }
       };
+
       //    const handlePageHide = () => {
       //      closeSessionToDb(ref as string);
       //    };
@@ -91,7 +105,7 @@ const TrackPageVisitHandler = () => {
         //  document.removeEventListener("unload", handleUnload);
       };
     }
-  }, [booking_ref, fingerprint]);
+  }, [uniqueId, ref, fingerprint]);
   return null;
 };
 

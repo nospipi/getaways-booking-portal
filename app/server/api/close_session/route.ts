@@ -1,19 +1,19 @@
 import { NextRequest, NextResponse } from "next/server";
-import openSession from "../utils/openSession";
+import closeSession from "../utils/closeSession";
 
 //---------------------------------------------------------
 
 //beacon request
 export const POST = async (req: NextRequest) => {
-  const body = await req.formData();
-  const ref = body.get("ref");
-  const uniqueId = body.get("uniqueId");
+  const data = await req.formData();
+  const ref = data.get("ref");
+  const uniqueId = data.get("uniqueId");
 
   const refString = typeof ref === "string" ? ref : null;
   const uniqueIdString = typeof uniqueId === "string" ? uniqueId : null;
 
   try {
-    await openSession(refString, uniqueIdString);
+    await closeSession(refString, uniqueIdString);
 
     return NextResponse.json({
       message: "This message will not be received by the client",
