@@ -18,6 +18,8 @@ import addOpenSession from "@/app/server/server_actions/addOpenSession";
 
 //---------------------------------------------------------
 
+//wrapped in Suspense because it accesses useSearchParams hook
+//https://nextjs.org/docs/messages/missing-suspense-with-csr-bailout
 const TrackPageVisitHandler = () => {
   const searchParams = useSearchParams();
 
