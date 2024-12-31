@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import Button from "@mui/material/Button";
+import { useSearchParams } from "next/navigation";
 import { FaArrowAltCircleLeft } from "react-icons/fa";
 import { RotatingLines } from "react-loader-spinner";
 import Link from "next/link";
@@ -12,8 +13,8 @@ const MapBackButton = ({
 }: {
   shouldShowDisclaimer: boolean;
 }) => {
-  const uniqueId =
-    new URLSearchParams(window.location.search).get("uniqueId") ?? null;
+  const searchParams = useSearchParams();
+  const uniqueId = searchParams.get("uniqueId");
   const [isLoading, setIsLoading] = useState(false);
 
   return (
