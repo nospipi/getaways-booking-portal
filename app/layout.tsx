@@ -5,6 +5,8 @@ import { Montserrat } from "next/font/google";
 import Providers from "@/utils/Providers.client";
 import Script from "next/script";
 import TrackPageVisitHandler from "@/utils/TrackPageVisitHandler.client";
+import { Suspense } from "react";
+
 import "./globals.css";
 const BOKUN_LOADER = process.env.BOKUN_LOADER;
 
@@ -36,7 +38,10 @@ export default function RootLayout({
       </head>
       <body className={montserrat.className}>
         <Providers>
-          <TrackPageVisitHandler />
+          <Suspense>
+            <TrackPageVisitHandler />
+          </Suspense>
+
           {children}
         </Providers>
         <SpeedInsights />
