@@ -7,7 +7,7 @@ import { IoTime } from "react-icons/io5";
 import Chip from "@mui/material/Chip";
 import { IProduct } from "@/app/server/getaways-shared-models/schemas/productsSchema";
 import Image from "next/image";
-import useAddUserAction from "@/hooks/useAddUserAction";
+import useAddUserAction from "@/app/useAddUserAction";
 const NEXT_PUBLIC_FILE_SERVE_BASE_URL =
   process.env.NEXT_PUBLIC_FILE_SERVE_BASE_URL;
 
