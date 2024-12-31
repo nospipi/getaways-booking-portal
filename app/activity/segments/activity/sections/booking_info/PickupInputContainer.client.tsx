@@ -150,7 +150,7 @@ const PickupInputContainer = ({
           color="success"
           onClick={handleAddLocation}
         >
-          SUBMIT
+          UPDATE
         </Button>
       </motion.div>
     </AnimatePresence>

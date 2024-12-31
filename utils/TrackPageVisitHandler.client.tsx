@@ -14,6 +14,7 @@ import {
   mobileVendor,
   mobileModel,
 } from "react-device-detect";
+import addOpenSession from "@/app/server/server_actions/addOpenSession";
 
 //---------------------------------------------------------
 
@@ -26,7 +27,6 @@ const TrackPageVisitHandler = () => {
   console.log("Ref client:", ref, "Unique ID client:", uniqueId);
 
   //we construct formData object to send along with the beacon request as it does not support objects
-
   const platform = Object.keys({
     isMobile,
     isTablet,
@@ -48,29 +48,43 @@ const TrackPageVisitHandler = () => {
     const data = new FormData();
     data.append("ref", ref);
     data.append("uniqueId", uniqueId);
-    data.append("platform", platform);
-    data.append("osName", osName);
-    data.append("osVersion", osVersion);
-    data.append("browserName", browserName);
-    data.append("browserVersion", browserVersion);
-    data.append("mobileVendor", mobileVendor);
-    data.append("mobileModel", mobileModel);
     return data;
-  }, [ref, uniqueId, platform]);
+  }, [ref, uniqueId]);
 
   useEffect(() => {
+    const handleAddOpenSession = async () => {
+      try {
+        await addOpenSession(
+          ref,
+          uniqueId,
+          platform,
+          osName,
+          osVersion,
+          browserName,
+          browserVersion,
+          mobileVendor,
+          mobileModel
+        );
+      } catch (e) {
+        console.log(e);
+      }
+    };
+
     if (uniqueId || ref) {
-      const handleVisibilityChange = () => {
+      const handleVisibilityChange = async () => {
         if (document.visibilityState === "visible") {
-          navigator.sendBeacon(`/server/api/open_session`, formData);
+          await handleAddOpenSession();
         } else {
+          //server action does not work here because
+          //it does not have enough time to execute before the page is closed
+          //beacon guarantees that the request will be sent before the page is fully unloaded
+          //so we sent a beacon to a route in our own server that closes the session on our behalf in the backend
           navigator.sendBeacon(`/server/api/close_session`, formData);
         }
       };
 
       handleVisibilityChange();
       document.addEventListener("visibilitychange", handleVisibilityChange);
-
       return () => {
         document.removeEventListener(
           "visibilitychange",
@@ -78,7 +92,7 @@ const TrackPageVisitHandler = () => {
         );
       };
     }
-  }, [uniqueId, ref, formData]);
+  }, [uniqueId, ref, formData, platform]);
   return null;
 };
 

@@ -2,6 +2,7 @@ import ActivitySegment from "@/app/activity/segments/activity/ActivitySegment";
 import UsefullInfoSegment from "@/app/activity/segments/usefull_info/UsefullInfoSegment";
 import getBookingUniqueIds from "@/app/server/server_actions/getBookingUniqueIds";
 import getBookingParentRefByUniqueId from "../server/server_actions/getBookingParentRefByUniqueId";
+import BottomViewTarget from "./BottomViewTarget";
 //import TrackPageVisitHandler from "@/utils/TrackPageVisitHandler.client";
 
 //---------------------------------------------------------
@@ -38,6 +39,7 @@ const Page = async ({
               />
             ))}
             <UsefullInfoSegment id={uniqueIds[0]} />
+            <BottomViewTarget />
           </div>
         </div>
       </div>

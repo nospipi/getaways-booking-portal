@@ -1,43 +1,72 @@
 "use server";
 import {
+  PortalSessionModel,
   BookingModel,
-  ProductsModel,
-  // PortalUserSessionModel,
-  // PortalOpenSessionModel,
 } from "@/app/server/getaways-shared-models/models";
+import { UserActionType } from "../getaways-shared-models/schemas/portalSessionSchema";
 import connectDB from "@/app/server/db.connect";
 
 //-----------------------------------------------------------------------------
 
-type UserActionData = {
-  booking_ref: string;
-  device_info: {
-    platform: string;
-    osName: string;
-    osVersion: string;
-    browserName: string;
-    browserVersion: string;
-    mobileVendor: string;
-    mobileModel: string;
-  };
-};
-
-export const addUserAction = async (data: UserActionData): Promise<boolean> => {
-  //throw new Error("addNotification simulate error");
-  //await new Promise((resolve) => setTimeout(resolve, 2000)); // simulate delay
+export const addUserAction = async (
+  ref: string | null = null,
+  uniqueId: string | null = null,
+  action: UserActionType,
+  platform: string,
+  osName: string,
+  osVersion: string,
+  browserName: string,
+  browserVersion: string,
+  mobileVendor: string,
+  mobileModel: string
+): Promise<void> => {
+  //throw new Error("addUserAction simulate error");
+  //await new Promise((resolve) => setTimeout(resolve, 5000)); // simulate delay
 
   await connectDB();
 
-  const booking = await BookingModel.findOne({ ref: data.booking_ref });
-  const product = await ProductsModel.findById(booking.product_id);
-  // const session = await PortalUserSessionModel.findOne({
-  //   booking_ref: data.booking_ref,
-  // });
+  let booking_ref = null;
 
-  if (booking && product) {
+  //if we receive ref, proceed with this
+  if (ref) {
+    booking_ref = ref;
   }
 
-  return true;
+  //if we receive uniqueId, get ref first
+  if (uniqueId) {
+    const booking = await BookingModel.findOne({
+      unique_booking_id: uniqueId,
+    }).select("ref");
+
+    if (booking) {
+      booking_ref = booking.ref;
+    }
+  }
+
+  //if booking_ref is still null, we have not received ref or uniqueId, do nothing
+  if (!booking_ref) {
+    return;
+  }
+
+  const session = await PortalSessionModel.findOne({
+    booking_ref: booking_ref,
+  });
+
+  if (session) {
+    session.session_actions.push({
+      user_action: action,
+      platform,
+      osName,
+      osVersion,
+      browserName,
+      browserVersion,
+      mobileVendor,
+      mobileModel,
+    });
+    await session.save();
+  }
+
+  return;
 };
 
 export default addUserAction;

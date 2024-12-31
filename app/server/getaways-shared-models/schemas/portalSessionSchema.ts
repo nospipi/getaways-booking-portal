@@ -4,6 +4,19 @@ import mongooseAggregatePaginate from "mongoose-aggregate-paginate-v2";
 
 //------------------------------------------------------------------------------
 
+export type UserActionType =
+  | "PAGE_VISIT"
+  | "PAGE_LEAVE"
+  | "SCROLLED_TO_BOTTOM"
+  | "REVIEW_LINK_CLICK"
+  | "PROMO_PRODUCT_CLICK"
+  | "SIM_LINK_CLICK"
+  | "ADDED_LOCATION"
+  | "CONFIRMED_INSTRUCTIONS"
+  | "BUS_TRACKING_MAP_CLICK"
+  | "NAVIGATION_LINK_CLICK"
+  | "CONTACT_BUTTON_CLICK";
+
 export interface IPortalAction extends Document {
   date_time: Date;
   platform: string;
@@ -13,18 +26,7 @@ export interface IPortalAction extends Document {
   browserVersion: string;
   mobileVendor: string;
   mobileModel: string;
-  user_action:
-    | "PAGE_VISIT"
-    | "PAGE_LEAVE"
-    | "SCROLLED_TO_BOTTOM"
-    | "REVIEW_LINK_CLICK"
-    | "PROMO_PRODUCT_CLICK"
-    | "SIM_LINK_CLICK"
-    | "ADDED_LOCATION"
-    | "CONFIRMED_INSTRUCTIONS"
-    | "BUS_TRACKING_MAP_CLICK"
-    | "NAVIGATION_LINK_CLICK"
-    | "CONTACT_BUTTON_CLICK";
+  user_action: UserActionType;
 }
 
 export interface IPortalSessionBooking {
