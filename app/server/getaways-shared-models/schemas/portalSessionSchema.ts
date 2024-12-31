@@ -14,7 +14,8 @@ export interface IPortalAction extends Document {
   mobileVendor: string;
   mobileModel: string;
   user_action:
-    | "INITIAL_VISIT"
+    | "PAGE_VISIT"
+    | "PAGE_LEAVE"
     | "SCROLLED_TO_BOTTOM"
     | "REVIEW_LINK_CLICK"
     | "PROMO_PRODUCT_CLICK"

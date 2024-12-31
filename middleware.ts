@@ -66,8 +66,11 @@ const middleware = async (
   } = req.nextUrl;
   const urlSearchParams = new URLSearchParams(search);
   const params = Object.fromEntries(urlSearchParams.entries());
+  //encode params to base64 to avoid non-ascii characters in headers - returns error
+  const encodedParams = Buffer.from(JSON.stringify(params)).toString("base64");
+  console.log("PARAMS FROM MIDDLEWARE :", JSON.stringify(params));
   const headers = new Headers(req.headers);
-  headers.set("params_from_middleware", JSON.stringify(params));
+  headers.set("params_from_middleware", encodedParams);
 
   //----------------------------------------------------------
 

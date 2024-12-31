@@ -7,27 +7,25 @@ import getBookingParentRefByUniqueId from "../server/server_actions/getBookingPa
 //---------------------------------------------------------
 
 const Page = async ({
-  //params,
   searchParams,
 }: {
-  //params: Promise<{ booking_ref: string }>;
   searchParams: Promise<{ [key: string]: string | undefined }>;
 }) => {
-  //const { booking_ref } = await params;
   let { ref } = await searchParams;
   const { uniqueId } = await searchParams;
   if (uniqueId) {
+    //if we get uniqueId, get ref first because there might be multiple bookings in the same parent ref
     const booking_ref = await getBookingParentRefByUniqueId(uniqueId);
-    console.log(booking_ref);
     if (booking_ref.status === "success") {
       ref = booking_ref.data;
     }
   }
+
+  //then get all uniqueIds for this ref and render all bookings
   const uniqueIds = (await getBookingUniqueIds(ref)) as string[];
 
   return (
     <main className="page-container">
-      {/* <TrackPageVisitHandler booking_ref={booking_ref} /> */}
       <div className="content-wrapper">
         <div className="content-container">
           <div className="content-container-wrapper">

@@ -10,9 +10,13 @@ export const addOpenSession = async (): Promise<unknown> => {
   //await new Promise((resolve) => setTimeout(resolve, 2000)); // simulate delay
 
   const headerList = await headers();
-  const params = headerList.get("params_from_middleware") as string;
-  console.log("Params from middleware:", params);
-  const { ref, uniqueId } = JSON.parse(params) as {
+
+  const encodedParams = headerList.get("params_from_middleware") as string;
+  const decodedParams = JSON.parse(
+    Buffer.from(encodedParams, "base64").toString("utf8")
+  );
+
+  const { ref, uniqueId } = decodedParams as {
     ref: string;
     uniqueId: string;
   };

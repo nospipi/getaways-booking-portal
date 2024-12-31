@@ -105,9 +105,12 @@ export const getBookingByUniqueId = cache(
     try {
       //throw new Error("getBookingById error"); //simulate error
       const headerList = await headers();
-      const params = headerList.get("params_from_middleware") as string;
-      console.log("Params from middleware:", params);
-      const { confirm: uniqueBookingIdtoConfirm } = JSON.parse(params) as {
+      const encodedParams = headerList.get("params_from_middleware") as string;
+      const decodedParams = JSON.parse(
+        Buffer.from(encodedParams, "base64").toString("utf8")
+      );
+      console.log("Decoded params from middleware:", decodedParams);
+      const { confirm: uniqueBookingIdtoConfirm } = decodedParams as {
         confirm: string;
       };
       await connectDB();

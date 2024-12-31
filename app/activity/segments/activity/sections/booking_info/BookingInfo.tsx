@@ -13,7 +13,7 @@ const BookingInfo = async ({ uniqueId }: { uniqueId: string }) => {
   const hasClientLocation = booking?.client_location?.length > 0;
   const hasPickupLocation =
     booking?.pickup_location?.latitude && booking?.pickup_location?.longitude;
-  const pickupIncluded = booking.option.pickup_included;
+  const pickupIncluded = booking?.option?.pickup_included;
   const shouldShowLocation = pickupIncluded && !hasPickupLocation;
   const shouldPromptLocation =
     !hasClientLocation && !hasPickupLocation && pickupIncluded;
