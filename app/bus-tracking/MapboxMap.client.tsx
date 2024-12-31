@@ -19,7 +19,6 @@ import { IoIosFlag } from "react-icons/io";
 import { IGetBookingReturn } from "@/app/server/server_actions/getBookingByUniqueId";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { IExtendedServerActionReturn } from "@/app/server/server_actions/getTrackingData";
-import { Suspense } from "react";
 mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN as string;
 
 //---------------------------------------------------------
@@ -294,9 +293,8 @@ const MapboxMap = ({ booking }: { booking: string }) => {
         shouldFollowClient={shouldFollowClient}
         shouldFollowVehicle={shouldFollowVehicle}
       />
-      <Suspense>
-        <MapBackButton shouldShowDisclaimer={!isError} />
-      </Suspense>
+
+      <MapBackButton shouldShowDisclaimer={!isError} />
 
       <div
         ref={mapContainer}

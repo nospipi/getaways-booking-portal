@@ -1,7 +1,6 @@
 "use client";
 
 import { useCallback } from "react";
-import { useSearchParams } from "next/navigation";
 import {
   isMobile,
   isTablet,
@@ -20,9 +19,9 @@ import { UserActionType } from "@/app/server/getaways-shared-models/schemas/port
 //---------------------------------------------------------
 
 const useAddUserAction = () => {
-  const searchParams = useSearchParams();
-  const ref = searchParams.get("ref") ?? null;
-  const uniqueId = searchParams.get("uniqueId") ?? null;
+  const ref = new URLSearchParams(window.location.search).get("ref") ?? null;
+  const uniqueId =
+    new URLSearchParams(window.location.search).get("uniqueId") ?? null;
 
   const platform = Object.keys({
     isMobile,
@@ -44,6 +43,7 @@ const useAddUserAction = () => {
   const triggerUserAction = useCallback(
     async (action: UserActionType) => {
       try {
+        console.log(ref, uniqueId);
         // Trigger the server action with the gathered data
         const result = await addUserAction(
           ref,

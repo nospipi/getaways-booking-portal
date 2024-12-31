@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useMemo } from "react";
-import { useSearchParams } from "next/navigation";
 //import { useFingerprint } from "./FingerprintProvider.client";
 import {
   isMobile,
@@ -19,10 +18,9 @@ import addOpenSession from "@/app/server/server_actions/addOpenSession";
 //---------------------------------------------------------
 
 const TrackPageVisitHandler = () => {
-  const searchParams = useSearchParams();
-
-  const ref = searchParams.get("ref") ?? "";
-  const uniqueId = searchParams.get("uniqueId") ?? "";
+  const ref = new URLSearchParams(window.location.search).get("ref") ?? "";
+  const uniqueId =
+    new URLSearchParams(window.location.search).get("uniqueId") ?? "";
 
   console.log("Ref client:", ref, "Unique ID client:", uniqueId);
 
