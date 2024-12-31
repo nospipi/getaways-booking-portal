@@ -7,14 +7,14 @@ import { IoTime } from "react-icons/io5";
 import Chip from "@mui/material/Chip";
 import { IProduct } from "@/app/server/getaways-shared-models/schemas/productsSchema";
 import Image from "next/image";
-import useAddUserAction from "@/app/useAddUserAction";
+//import useAddUserAction from "@/app/useAddUserAction";
 const NEXT_PUBLIC_FILE_SERVE_BASE_URL =
   process.env.NEXT_PUBLIC_FILE_SERVE_BASE_URL;
 
 //---------------------------------------------------------
 
 const ProductCard = ({ product }: { product: IProduct }) => {
-  const { triggerUserAction } = useAddUserAction();
+  //const { triggerUserAction } = useAddUserAction();
   const hasImage = product.product_pictures[0] ? true : false;
   const image_url = hasImage
     ? `${NEXT_PUBLIC_FILE_SERVE_BASE_URL}${product.product_pictures[0].file_id}`
@@ -171,9 +171,9 @@ const ProductCard = ({ product }: { product: IProduct }) => {
           className="bokunButton"
           //data-src={`https://widgets.bokun.io/online-sales/db6fd107-983c-4e5e-8d51-b37b123ddd0d/experience-calendar/${product.bokun_product_code}?partialView=1`}
           data-src={`data-src="https://widgets.bokun.io/online-sales/db6fd107-983c-4e5e-8d51-b37b123ddd0d/experience/${product.bokun_product_code}?partialView=1"`}
-          onClick={async () => {
-            await triggerUserAction("PROMO_PRODUCT_CLICK");
-          }}
+          // onClick={async () => {
+          //   await triggerUserAction("PROMO_PRODUCT_CLICK");
+          // }}
         >
           Book Now
         </Button>
