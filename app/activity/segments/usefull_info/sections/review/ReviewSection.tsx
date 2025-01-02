@@ -3,6 +3,8 @@ import { TfiArrowCircleRight } from "react-icons/tfi";
 import getBookingByUniqueId from "@/app/server/server_actions/getBookingByUniqueId";
 import Button from "@mui/material/Button";
 import Link from "next/link";
+import ReviewButton from "./ReviewButton";
+import { Suspense } from "react";
 
 //---------------------------------------------------------
 
@@ -29,14 +31,9 @@ const ReviewSection = async ({ id }: { id: string }) => {
               width: "100%",
             }}
           >
-            <Button
-              fullWidth
-              variant="outlined"
-              color="success"
-              endIcon={<TfiArrowCircleRight size={15} />}
-            >
-              REVIEW US ON TRIPADVISOR
-            </Button>
+            <Suspense>
+              <ReviewButton />
+            </Suspense>
           </Link>
         </aside>
       </div>

@@ -1,7 +1,7 @@
 import { MdOutlinePhoneAndroid } from "react-icons/md";
-import { TfiArrowCircleRight } from "react-icons/tfi";
-import Button from "@mui/material/Button";
 import Link from "next/link";
+import SimButton from "./SimButton.client";
+import { Suspense } from "react";
 
 //---------------------------------------------------------
 
@@ -29,14 +29,9 @@ const SimSection = () => {
               width: "100%",
             }}
           >
-            <Button
-              fullWidth
-              variant="outlined"
-              color="success"
-              endIcon={<TfiArrowCircleRight size={15} />}
-            >
-              GET YOUR eSIM NOW
-            </Button>
+            <Suspense>
+              <SimButton />
+            </Suspense>
           </Link>
         </aside>
       </div>
