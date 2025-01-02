@@ -1,8 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
-import addSimLinkAction from "../utils/addSimLinkAction";
+import {
+  addUserActionByRef,
+  addUserActionByUniqueId,
+} from "../../server_actions/addUserAction";
 
 //---------------------------------------------------------
-
 //beacon request
 export const POST = async (req: NextRequest) => {
   const data = await req.formData();
@@ -13,7 +15,13 @@ export const POST = async (req: NextRequest) => {
   const uniqueIdString = typeof uniqueId === "string" ? uniqueId : null;
 
   try {
-    await addSimLinkAction(refString, uniqueIdString);
+    if (refString) {
+      await addUserActionByRef(refString, "SIM_LINK_CLICK");
+    }
+
+    if (!refString && uniqueIdString) {
+      await addUserActionByUniqueId(uniqueIdString, "SIM_LINK_CLICK");
+    }
 
     return NextResponse.json({
       message: "This message will not be received by the client",

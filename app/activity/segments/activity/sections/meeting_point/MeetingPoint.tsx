@@ -5,6 +5,7 @@ import { FaEye } from "react-icons/fa";
 import Image from "next/image";
 import ExpandableSectionItem from "../booking_info/ExpandableSectionItem.client";
 import NavigateButton from "./NavigateButton";
+import { Suspense } from "react";
 
 //---------------------------------------------------------
 
@@ -34,9 +35,13 @@ const MeetingPoint = async ({ uniqueId }: { uniqueId: string }) => {
           </div>
         </div>
         {hasPickupLocation && (
-          <NavigateButton
-            url={`https://www.google.com.sa/maps/search/${booking.pickup_location.latitude},${booking.pickup_location.longitude}?hl=en`}
-          />
+          <Suspense>
+            {/* wrapped in Suspense because it accesses useSearchParams hook */}
+            {/* https://nextjs.org/docs/messages/missing-suspense-with-csr-bailout */}
+            <NavigateButton
+              url={`https://www.google.com.sa/maps/search/${booking.pickup_location.latitude},${booking.pickup_location.longitude}?hl=en`}
+            />
+          </Suspense>
         )}
         {hasPickupLocation && (
           <div className="section-content-item-container">

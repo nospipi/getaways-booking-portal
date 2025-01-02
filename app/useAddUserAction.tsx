@@ -13,18 +13,22 @@ import {
   mobileVendor,
   mobileModel,
 } from "react-device-detect";
-import addUserAction from "@/app/server/server_actions/addUserAction";
+import {
+  addUserActionByRef,
+  addUserActionByUniqueId,
+} from "@/app/server/server_actions/addUserAction";
 import {
   UserActionType,
   UserActionData,
 } from "@/app/server/getaways-shared-models/schemas/portalSessionSchema";
+import { useSearchParams } from "next/navigation";
 
 //---------------------------------------------------------
 
 const useAddUserAction = () => {
-  const ref = new URLSearchParams(window.location.search).get("ref") ?? null;
-  const uniqueId =
-    new URLSearchParams(window.location.search).get("uniqueId") ?? null;
+  const searchParams = useSearchParams();
+  const ref = searchParams.get("ref") ?? null;
+  const uniqueId = searchParams.get("uniqueId") ?? null;
 
   const platform = Object.keys({
     isMobile,
@@ -43,24 +47,40 @@ const useAddUserAction = () => {
     .replace("is", "");
   //returns Desktop | Mobile | Tablet | Browser
 
+  //---------------------------------------------------------
+
   const triggerUserAction = useCallback(
     async (action: UserActionType, data?: UserActionData) => {
       try {
-        // Trigger the server action with the gathered data
-        const result = await addUserAction(
-          ref,
-          uniqueId,
-          action,
-          platform,
-          osName,
-          osVersion,
-          browserName,
-          browserVersion,
-          mobileVendor,
-          mobileModel,
-          data
-        );
-        console.log("User action added successfully:", result);
+        if (ref) {
+          await addUserActionByRef(
+            ref,
+            action,
+            platform,
+            osName,
+            osVersion,
+            browserName,
+            browserVersion,
+            mobileVendor,
+            mobileModel,
+            data
+          );
+        }
+
+        if (!ref && uniqueId) {
+          await addUserActionByUniqueId(
+            uniqueId,
+            action,
+            platform,
+            osName,
+            osVersion,
+            browserName,
+            browserVersion,
+            mobileVendor,
+            mobileModel,
+            data
+          );
+        }
       } catch (error) {
         console.error("Error adding user action:", error);
       }

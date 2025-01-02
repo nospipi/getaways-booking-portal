@@ -9,6 +9,7 @@ import { escape } from "validator";
 import { cache } from "react";
 import { revalidatePath } from "next/cache";
 import connectDB from "@/app/server/db.connect";
+import { addUserActionByRef } from "./addUserAction";
 import { IServerActionReturn } from "./types";
 const REFRESH_NOTIFICATIONS_URL = process.env
   .REFRESH_NOTIFICATIONS_URL as string;
@@ -50,6 +51,7 @@ export const addLocation = cache(
           new: true,
         }
       );
+      await addUserActionByRef(updatedBooking.ref, "SIM_LINK_CLICK");
       const product = await ProductsModel.findById(updatedBooking.product_id);
       //create notification and call refresh notifications url
       const notification = new NotificationModel({
@@ -95,22 +97,3 @@ export const addLocation = cache(
 );
 
 export default addLocation;
-//------------------------------------------------------------------------------
-
-// try{
-
-//     } catch (e: unknown) {
-//       console.log(e);
-//       if (typeof e === "object" && e !== null && "message" in e) {
-//         const error = e as { message: string };
-//         return {
-//           status: "error",
-//           message: error.message,
-//         };
-//       } else {
-//         return {
-//           status: "error",
-//           message: "An error occurred",
-//         };
-//       }
-//     }

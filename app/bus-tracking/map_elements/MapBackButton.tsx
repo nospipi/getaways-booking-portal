@@ -8,8 +8,6 @@ import Link from "next/link";
 
 //---------------------------------------------------------
 
-//wrapped in Suspense because it accesses useSearchParams hook
-//https://nextjs.org/docs/messages/missing-suspense-with-csr-bailout
 const MapBackButton = ({
   shouldShowDisclaimer,
 }: {

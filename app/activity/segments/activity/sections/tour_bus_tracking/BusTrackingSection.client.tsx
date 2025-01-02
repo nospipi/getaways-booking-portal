@@ -9,11 +9,13 @@ import Button from "@mui/material/Button";
 import { RotatingLines } from "react-loader-spinner";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
+import useAddUserAction from "@/app/useAddUserAction";
 
 //---------------------------------------------------------------------------------------------
 
 const BusTrackingSection = ({ uniqueId }: { uniqueId: string }) => {
   const [isNavigatingToTracking, setIsNavigatingToTracking] = useState(false);
+  const { triggerUserAction } = useAddUserAction();
   const { data, refetch } = useQuery({
     queryKey: ["TRACKING_DATA", uniqueId],
     queryFn: () => getTrackingData(uniqueId),
@@ -182,7 +184,10 @@ const BusTrackingSection = ({ uniqueId }: { uniqueId: string }) => {
             variant="contained"
             color="success"
             fullWidth
-            onClick={() => setIsNavigatingToTracking(true)}
+            onClick={async () => {
+              setIsNavigatingToTracking(true);
+              await triggerUserAction("BUS_TRACKING_MAP_CLICK");
+            }}
             sx={{
               minHeight: "40px",
             }}

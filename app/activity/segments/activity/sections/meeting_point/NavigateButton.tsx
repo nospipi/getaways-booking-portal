@@ -3,10 +3,24 @@
 import Button from "@mui/material/Button";
 import { FaExternalLinkAlt } from "react-icons/fa";
 import { FaMapMarked } from "react-icons/fa";
+import { useMemo } from "react";
+import { useSearchParams } from "next/navigation";
 
 //---------------------------------------------------------
 
 const NavigateButton = ({ url }: { url: string }) => {
+  const searchParams = useSearchParams();
+
+  const ref = searchParams.get("ref") ?? "";
+  const uniqueId = searchParams.get("uniqueId") ?? "";
+
+  const formData = useMemo(() => {
+    const data = new FormData();
+    data.append("ref", ref);
+    data.append("uniqueId", uniqueId);
+    return data;
+  }, [ref, uniqueId]);
+
   return (
     <Button
       variant="contained"
@@ -28,6 +42,12 @@ const NavigateButton = ({ url }: { url: string }) => {
       }}
       disableElevation
       onClick={() => {
+        //we dont use the useAddUserAction here because we are leaving the page
+        //so we sent a beacon and the it will be handled by the server even after we navigated away
+        navigator.sendBeacon(
+          `/server/api/add_navigation_link_action`,
+          formData
+        );
         window.open(url, "_blank");
       }}
     >

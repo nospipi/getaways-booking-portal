@@ -27,6 +27,8 @@ const SimButton = () => {
       color="success"
       endIcon={<TfiArrowCircleRight size={15} />}
       onClick={() => {
+        //we dont use the useAddUserAction here because we are leaving the page
+        //so we sent a beacon and the it will be handled by the server even after we navigated away
         navigator.sendBeacon(`/server/api/add_sim_link_action`, formData);
       }}
     >

@@ -7,7 +7,7 @@ import mongooseAggregatePaginate from "mongoose-aggregate-paginate-v2";
 export type UserActionType =
   | "PAGE_VISIT"
   | "PAGE_LEAVE"
-  | "SCROLLED_TO_BOTTOM"
+  | "SCROLLED_TO_BOTTOM" 
   | "REVIEW_LINK_CLICK"
   | "PROMO_PRODUCT_CLICK"
   | "SIM_LINK_CLICK"
@@ -42,6 +42,7 @@ export interface IPortalSessionBooking {
 }
 
 export interface IPortalSession extends Document {
+  last_action_date_time: Date;
   booking_ref: string;
   bookings: IPortalSessionBooking[];
   has_scrolled_to_bottom: boolean;
@@ -83,6 +84,7 @@ const portalSessionBookingSchema = new Schema<IPortalSessionBooking>({
 });
 
 const portalSessionSchema = new Schema<IPortalSession>({
+  last_action_date_time: { type: Date, default: Date.now },
   booking_ref: { type: String, required: true },
   bookings: { type: [portalSessionBookingSchema], default: [] },
   has_scrolled_to_bottom: { type: Boolean, default: false },
@@ -98,6 +100,9 @@ const portalSessionSchema = new Schema<IPortalSession>({
 });
 
 portalSessionSchema.pre("save", function (next) {
+  //update last_action_date_time
+  this.last_action_date_time = new Date();
+
   //handle session actions flags
   this.has_scrolled_to_bottom = this.session_actions.some(
     (action: IPortalAction) => action.user_action === "SCROLLED_TO_BOTTOM"

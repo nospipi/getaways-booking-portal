@@ -32,6 +32,8 @@ const ReviewSection = async ({ id }: { id: string }) => {
             }}
           >
             <Suspense>
+              {/* wrapped in Suspense because it accesses useSearchParams hook */}
+              {/* https://nextjs.org/docs/messages/missing-suspense-with-csr-bailout */}
               <ReviewButton />
             </Suspense>
           </Link>

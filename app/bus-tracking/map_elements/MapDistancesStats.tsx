@@ -156,7 +156,7 @@ const MapDistancesStats = ({
               color: "dodgerblue",
               fontWeight: "bold",
             }}
-          >{`Vehicle ↔ Your position`}</span>
+          >{`Vehicle ↔ Your Position`}</span>
 
           <div>
             <span>{`${distanceFromVehicleToClientInKm.toFixed(2)} km`}</span>

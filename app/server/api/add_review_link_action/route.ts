@@ -1,5 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
-import addReviewLinkAction from "../utils/addReviewLinkAction";
+import {
+  addUserActionByRef,
+  addUserActionByUniqueId,
+} from "../../server_actions/addUserAction";
 
 //---------------------------------------------------------
 
@@ -13,7 +16,13 @@ export const POST = async (req: NextRequest) => {
   const uniqueIdString = typeof uniqueId === "string" ? uniqueId : null;
 
   try {
-    await addReviewLinkAction(refString, uniqueIdString);
+    if (refString) {
+      await addUserActionByRef(refString, "REVIEW_LINK_CLICK");
+    }
+
+    if (!refString && uniqueIdString) {
+      await addUserActionByUniqueId(uniqueIdString, "REVIEW_LINK_CLICK");
+    }
 
     return NextResponse.json({
       message: "This message will not be received by the client",

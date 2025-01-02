@@ -30,6 +30,8 @@ const SimSection = () => {
             }}
           >
             <Suspense>
+              {/* wrapped in Suspense because it accesses useSearchParams hook */}
+              {/* https://nextjs.org/docs/messages/missing-suspense-with-csr-bailout */}
               <SimButton />
             </Suspense>
           </Link>

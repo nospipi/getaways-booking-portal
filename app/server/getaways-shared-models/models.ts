@@ -1,4 +1,5 @@
 import mongoose, { model, models } from "mongoose";
+//import addUserAction from "../server_actions/addUserAction";
 const REFRESH_ONLINE_SESSIONS_URL = process.env
   .REFRESH_ONLINE_SESSIONS_URL as string;
 
@@ -97,6 +98,12 @@ export const PortalOpenSessionModel =
   model("portal_open_session", portalOpenSessionSchema);
 const portalOpenSessionChangeStream = PortalOpenSessionModel.watch();
 portalOpenSessionChangeStream.on("change", async () => {
+  // console.log("OPEN SESSION CHANGE DETECTED", change.operationType);
+  // if (change.operationType === "delete") {
+  //   console.log("OPEN SESSION DELETED");
+  //   const doc = await PortalOpenSessionModel.findById(change.documentKey._id);
+  //   await addUserAction(doc.booking_ref, null, "PAGE_LEAVE");
+  // }
   await fetch(REFRESH_ONLINE_SESSIONS_URL);
 });
 //-----------------------------------------------------------------

@@ -17,11 +17,11 @@ export const POST = async (req: NextRequest) => {
 
   try {
     if (refString) {
-      await addUserActionByRef(refString, "PAGE_LEAVE");
+      await addUserActionByRef(refString, "NAVIGATION_LINK_CLICK");
     }
 
     if (!refString && uniqueIdString) {
-      await addUserActionByUniqueId(uniqueIdString, "PAGE_LEAVE");
+      await addUserActionByUniqueId(uniqueIdString, "NAVIGATION_LINK_CLICK");
     }
 
     return NextResponse.json({
