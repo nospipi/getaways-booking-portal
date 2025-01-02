@@ -62,6 +62,7 @@ const MapControlSwitches = ({
                 if (value.target.checked) {
                   setShouldWatchDevicePosition(true);
                   setShouldFollowClient(true);
+                  setShouldFollowVehicle(false);
                   const id = navigator.geolocation.watchPosition(
                     (position) => {
                       setDevicePosition([
