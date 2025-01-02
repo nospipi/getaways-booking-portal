@@ -89,10 +89,8 @@ const createOpenSession = async (
         mobileVendor,
         mobileModel,
       });
-      await PortalSessionModel.updateOne(
-        { booking_ref: bookings[0].ref },
-        { session_actions }
-      );
+      session.session_actions = session_actions;
+      await session.save();
     }
 
     //2. create open session ---------------------------------------------------------

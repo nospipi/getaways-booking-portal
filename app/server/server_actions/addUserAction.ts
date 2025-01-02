@@ -3,7 +3,10 @@ import {
   PortalSessionModel,
   BookingModel,
 } from "@/app/server/getaways-shared-models/models";
-import { UserActionType } from "../getaways-shared-models/schemas/portalSessionSchema";
+import {
+  UserActionType,
+  UserActionData,
+} from "../getaways-shared-models/schemas/portalSessionSchema";
 import connectDB from "@/app/server/db.connect";
 
 //-----------------------------------------------------------------------------
@@ -18,7 +21,8 @@ export const addUserAction = async (
   browserName: string,
   browserVersion: string,
   mobileVendor: string,
-  mobileModel: string
+  mobileModel: string,
+  data?: UserActionData
 ): Promise<void> => {
   //throw new Error("addUserAction simulate error");
   //await new Promise((resolve) => setTimeout(resolve, 5000)); // simulate delay
@@ -62,6 +66,7 @@ export const addUserAction = async (
       browserVersion,
       mobileVendor,
       mobileModel,
+      data,
     });
     await session.save();
   }

@@ -14,7 +14,10 @@ import {
   mobileModel,
 } from "react-device-detect";
 import addUserAction from "@/app/server/server_actions/addUserAction";
-import { UserActionType } from "@/app/server/getaways-shared-models/schemas/portalSessionSchema";
+import {
+  UserActionType,
+  UserActionData,
+} from "@/app/server/getaways-shared-models/schemas/portalSessionSchema";
 
 //---------------------------------------------------------
 
@@ -41,9 +44,8 @@ const useAddUserAction = () => {
   //returns Desktop | Mobile | Tablet | Browser
 
   const triggerUserAction = useCallback(
-    async (action: UserActionType) => {
+    async (action: UserActionType, data?: UserActionData) => {
       try {
-        console.log(ref, uniqueId);
         // Trigger the server action with the gathered data
         const result = await addUserAction(
           ref,
@@ -55,7 +57,8 @@ const useAddUserAction = () => {
           browserName,
           browserVersion,
           mobileVendor,
-          mobileModel
+          mobileModel,
+          data
         );
         console.log("User action added successfully:", result);
       } catch (error) {

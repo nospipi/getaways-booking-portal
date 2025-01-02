@@ -29,11 +29,11 @@ const ProductSwiper = ({ products }: { products: string }) => {
         prevEl: ".custom-swiper-button-prev",
       }}
       modules={[Autoplay, Navigation, Pagination]}
-      autoplay={{
-        delay: 2500,
-        disableOnInteraction: true,
-      }}
-      spaceBetween={20}
+      // autoplay={{
+      //   delay: 2500,
+      //   disableOnInteraction: true,
+      // }}
+      spaceBetween={10}
       slidesPerView={1}
       style={{
         display: "flex",
