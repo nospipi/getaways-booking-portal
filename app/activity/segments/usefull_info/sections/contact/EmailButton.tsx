@@ -3,6 +3,7 @@
 import Button from "@mui/material/Button";
 import { MdEmail } from "react-icons/md";
 import { FiExternalLink } from "react-icons/fi";
+import useAddUserAction from "@/app/useAddUserAction";
 const BUSINESS_MAIN_EMAIL = process.env
   .NEXT_PUBLIC_BUSINESS_MAIN_EMAIL as string;
 
@@ -15,6 +16,7 @@ const EmailButton = ({
   booking_ref: string | undefined;
   client_name: string | undefined;
 }) => {
+  const { triggerUserAction } = useAddUserAction();
   return (
     <Button
       sx={{
@@ -32,7 +34,8 @@ const EmailButton = ({
         position: "relative",
         boxShadow: "1px 1px 2px 0px rgba(0,0,0,0.25)",
       }}
-      onClick={() => {
+      onClick={async () => {
+        await triggerUserAction("CONTACT_BUTTON_CLICK");
         window.open(
           `mailto:${BUSINESS_MAIN_EMAIL}?subject=${`[${booking_ref}/${client_name}]`}`,
           "_blank"
@@ -74,7 +77,7 @@ const EmailButton = ({
         }}
       >
         <span>Email</span>
-        <FiExternalLink size={10}    />
+        <FiExternalLink size={10} />
       </div>
 
       <span

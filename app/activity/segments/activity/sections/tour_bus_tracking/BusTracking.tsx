@@ -5,6 +5,7 @@ import {
 } from "@tanstack/react-query";
 import getTrackingData from "@/app/server/server_actions/getTrackingData";
 import BusTrackingSection from "./BusTrackingSection.client";
+import { Suspense } from "react";
 
 //---------------------------------------------------------------------------------------------
 
@@ -17,7 +18,11 @@ const BusTracking = async ({ uniqueId }: { uniqueId: string }) => {
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <BusTrackingSection uniqueId={uniqueId} />
+      <Suspense>
+        {/* wrapped in Suspense because it accesses useSearchParams hook (through useAddUserAction hook) */}
+        {/* https://nextjs.org/docs/messages/missing-suspense-with-csr-bailout */}
+        <BusTrackingSection uniqueId={uniqueId} />
+      </Suspense>
     </HydrationBoundary>
   );
 };

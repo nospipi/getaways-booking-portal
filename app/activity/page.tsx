@@ -3,6 +3,7 @@ import UsefullInfoSegment from "@/app/activity/segments/usefull_info/UsefullInfo
 import getBookingUniqueIds from "@/app/server/server_actions/getBookingUniqueIds";
 import getBookingParentRefByUniqueId from "../server/server_actions/getBookingParentRefByUniqueId";
 import BottomViewTarget from "./BottomViewTarget";
+import { Suspense } from "react";
 //import TrackPageVisitHandler from "@/utils/TrackPageVisitHandler.client";
 
 //---------------------------------------------------------
@@ -39,7 +40,11 @@ const Page = async ({
               />
             ))}
             <UsefullInfoSegment id={uniqueIds[0]} />
-            <BottomViewTarget />
+            <Suspense>
+              {/* wrapped in Suspense because it accesses useSearchParams hook (through useAddUserAction hook) */}
+              {/* https://nextjs.org/docs/messages/missing-suspense-with-csr-bailout */}
+              <BottomViewTarget />
+            </Suspense>
           </div>
         </div>
       </div>

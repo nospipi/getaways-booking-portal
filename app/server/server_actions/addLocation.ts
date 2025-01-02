@@ -51,7 +51,7 @@ export const addLocation = cache(
           new: true,
         }
       );
-      await addUserActionByRef(updatedBooking.ref, "SIM_LINK_CLICK");
+      await addUserActionByRef(updatedBooking.ref, "ADDED_LOCATION");
       const product = await ProductsModel.findById(updatedBooking.product_id);
       //create notification and call refresh notifications url
       const notification = new NotificationModel({

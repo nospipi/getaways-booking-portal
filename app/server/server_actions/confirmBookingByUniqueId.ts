@@ -4,6 +4,7 @@ import {
   NotificationModel,
 } from "@/app/server/getaways-shared-models/models";
 import connectDB from "@/app/server/db.connect";
+import { addUserActionByRef } from "./addUserAction";
 import moment from "moment";
 const REFRESH_NOTIFICATIONS_URL = process.env
   .REFRESH_NOTIFICATIONS_URL as string;
@@ -26,6 +27,8 @@ export const confirmBookingByUniqueId = async (
   if (!bookingToUpdate) {
     throw new Error("Booking not found");
   }
+
+  await addUserActionByRef(bookingToUpdate.ref, "CONFIRMED_INSTRUCTIONS");
 
   //update booking status
   bookingToUpdate.client_response_status = "CONFIRMED";

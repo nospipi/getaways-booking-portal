@@ -6,6 +6,7 @@ import IconButton from "@mui/material/IconButton";
 import { PiCaretLeft, PiCaretRight } from "react-icons/pi";
 import ProductCard from "./ProductCard";
 import { IProduct } from "@/app/server/getaways-shared-models/schemas/productsSchema";
+import { Suspense } from "react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -44,7 +45,11 @@ const ProductSwiper = ({ products }: { products: string }) => {
       {parsedProducts.map((product: IProduct) => {
         return (
           <SwiperSlide key={product.id}>
-            <ProductCard product={product} />
+            <Suspense>
+              {/* wrapped in Suspense because it accesses useSearchParams hook (through useAddUserAction hook) */}
+              {/* https://nextjs.org/docs/messages/missing-suspense-with-csr-bailout */}
+              <ProductCard product={product} />
+            </Suspense>
           </SwiperSlide>
         );
       })}

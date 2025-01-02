@@ -4,8 +4,7 @@ import IMessageButton from "./IMessageButton.client";
 import WhatsAppButton from "./WhatsAppButton.client";
 import ViberButton from "./ViberButton.client";
 import EmailButton from "./EmailButton";
-// import ContactButton from "./ContactButton";
-// import { FaApple } from "react-icons/fa";
+import { Suspense } from "react";
 
 //---------------------------------------------------------
 
@@ -40,23 +39,23 @@ const ContactSection = async ({ id }: { id: string }) => {
               gap: "10px",
             }}
           >
-            <IMessageButton
-              booking_ref={booking.ref}
-              client_name={booking.client_name}
-            />
-            {/* <ContactButton
-              icon={<FaApple size={15} />}
-              buttonText="iMessage"
-              handler={async () => {
-                "use server";
-                console.log("iMessage clicked");
-                return;
-              }}
-            /> */}
-            <WhatsAppButton
-              booking_ref={booking.ref}
-              client_name={booking.client_name}
-            />
+            <Suspense>
+              {/* wrapped in Suspense because it accesses useSearchParams hook (through useAddUserAction hook) */}
+              {/* https://nextjs.org/docs/messages/missing-suspense-with-csr-bailout */}
+              <IMessageButton
+                booking_ref={booking.ref}
+                client_name={booking.client_name}
+              />
+            </Suspense>
+
+            <Suspense>
+              {/* wrapped in Suspense because it accesses useSearchParams hook (through useAddUserAction hook) */}
+              {/* https://nextjs.org/docs/messages/missing-suspense-with-csr-bailout */}
+              <WhatsAppButton
+                booking_ref={booking.ref}
+                client_name={booking.client_name}
+              />
+            </Suspense>
           </div>
           <div
             style={{
@@ -66,14 +65,23 @@ const ContactSection = async ({ id }: { id: string }) => {
               gap: "10px",
             }}
           >
-            <ViberButton
-              booking_ref={booking.ref}
-              client_name={booking.client_name}
-            />
-            <EmailButton
-              booking_ref={booking.ref}
-              client_name={booking.client_name}
-            />
+            <Suspense>
+              {/* wrapped in Suspense because it accesses useSearchParams hook (through useAddUserAction hook) */}
+              {/* https://nextjs.org/docs/messages/missing-suspense-with-csr-bailout */}
+              <ViberButton
+                booking_ref={booking.ref}
+                client_name={booking.client_name}
+              />
+            </Suspense>
+
+            <Suspense>
+              {/* wrapped in Suspense because it accesses useSearchParams hook (through useAddUserAction hook) */}
+              {/* https://nextjs.org/docs/messages/missing-suspense-with-csr-bailout */}
+              <EmailButton
+                booking_ref={booking.ref}
+                client_name={booking.client_name}
+              />
+            </Suspense>
           </div>
         </div>
       </div>

@@ -5,6 +5,7 @@ import Button from "@mui/material/Button";
 import getPhoneNumberOnDuty from "@/app/server/server_actions/getPhoneNumberOnDuty";
 import toast from "react-hot-toast";
 import { FiExternalLink } from "react-icons/fi";
+import useAddUserAction from "@/app/useAddUserAction";
 
 //---------------------------------------------------------
 
@@ -15,10 +16,12 @@ const ViberButton = ({
   booking_ref: string | undefined;
   client_name: string | undefined;
 }) => {
+  const { triggerUserAction } = useAddUserAction();
   const handleGetPhoneNumberOnDuty = async () => {
     const toastId = "messages-toast";
     toast.loading("Getting agents on duty ...", { id: toastId });
     const { status, message, data } = await getPhoneNumberOnDuty();
+    await triggerUserAction("CONTACT_BUTTON_CLICK");
 
     if (status === "error") {
       toast.error(message, { id: toastId });
@@ -42,6 +45,8 @@ const ViberButton = ({
       .split("\n")
       .map((line) => encodeURIComponent(line))
       .join("%0A");
+
+    
 
     setTimeout(() => {
       toast.dismiss(toastId);
