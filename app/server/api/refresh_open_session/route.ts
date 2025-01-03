@@ -1,12 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import {
-  addUserActionByRef,
-  addUserActionByUniqueId,
-} from "../../server_actions/addUserAction";
-import {
-  closeOpenSessionByRef,
-  closeOpenSessionByUniqueId,
-} from "../../server_actions/closeOpenSession";
+  refreshOpenSessionByRef,
+  refreshOpenSessionByUniqueId,
+} from "../../server_actions/refreshOpenSession";
 
 //---------------------------------------------------------
 
@@ -21,13 +17,11 @@ export const POST = async (req: NextRequest) => {
 
   try {
     if (refString) {
-      await addUserActionByRef(refString, "PAGE_LEAVE");
-      await closeOpenSessionByRef(refString);
+      await refreshOpenSessionByRef(refString);
     }
 
     if (!refString && uniqueIdString) {
-      await addUserActionByUniqueId(uniqueIdString, "PAGE_LEAVE");
-      await closeOpenSessionByUniqueId(uniqueIdString);
+      await refreshOpenSessionByUniqueId(uniqueIdString);
     }
 
     return NextResponse.json({

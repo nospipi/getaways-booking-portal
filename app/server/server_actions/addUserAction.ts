@@ -27,6 +27,8 @@ export const addUserActionByRef = async (
     return;
   }
 
+  await connectDB();
+
   const session = await PortalSessionModel.findOne({
     booking_ref: ref,
   });

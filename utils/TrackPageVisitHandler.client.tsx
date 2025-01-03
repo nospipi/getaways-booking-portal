@@ -15,6 +15,7 @@ import {
   mobileModel,
 } from "react-device-detect";
 import addOpenSession from "@/app/server/server_actions/addOpenSession";
+import { throttle } from "lodash";
 
 //---------------------------------------------------------
 
@@ -70,6 +71,11 @@ const TrackPageVisitHandler = () => {
       }
     };
 
+    const handleInteraction = async () => {
+      navigator.sendBeacon(`/server/api/refresh_open_session`, formData);
+    };
+    const throttledInteraction = throttle(handleInteraction, 1500); //max 1 request every 1.5 seconds
+
     if (uniqueId || ref) {
       const handleVisibilityChange = async () => {
         if (document.visibilityState === "visible") {
@@ -85,11 +91,18 @@ const TrackPageVisitHandler = () => {
 
       handleVisibilityChange();
       document.addEventListener("visibilitychange", handleVisibilityChange);
+      
+      document.addEventListener("pointermove", throttledInteraction);
+      document.addEventListener("pointerup", throttledInteraction);
+      document.addEventListener("scroll", throttledInteraction);
       return () => {
         document.removeEventListener(
           "visibilitychange",
           handleVisibilityChange
         );
+        document.removeEventListener("pointermove", throttledInteraction);
+        document.removeEventListener("pointerup", throttledInteraction);
+        document.removeEventListener("scroll", throttledInteraction);
       };
     }
   }, [uniqueId, ref, formData, platform]);

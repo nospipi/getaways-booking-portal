@@ -1,20 +1,9 @@
-import mongoose, { model, models } from "mongoose";
-//import addUserAction from "../server_actions/addUserAction";
+import { model, models } from "mongoose";
+
 const REFRESH_ONLINE_SESSIONS_URL = process.env
   .REFRESH_ONLINE_SESSIONS_URL as string;
-
-// the below modifies the response when is passed to the client (converted to json by default) or converted to json explicitly in the BE
-mongoose.set("toJSON", {
-  //the below adds the virtual id field which is the same as default mongo ObjectId -->  _id.toString()
-  //i need this to have consistent id field between mongo and postgres (postgres cannot have _id as it is against field naming rules)
-  virtuals: true,
-  //the below removes the _id field from the response because we dont need it in json format
-  transform: (doc, converted) => {
-    delete converted._id;
-  },
-  //this removes the default mongo __v field
-  versionKey: false,
-});
+// const REFRESH_ONLINE_SESSIONS_URL =
+//   "http://localhost:3000/api/booking_portal_sessions/refresh_online_sessions";
 
 //-----------------------------------------------------------------
 

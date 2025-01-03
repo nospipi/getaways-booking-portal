@@ -10,7 +10,6 @@ const BottomViewTarget = () => {
     triggerOnce: true,
     onChange: async (inView) => {
       if (inView) {
-        //write SCROLLED_TO_BOTTOM action
         await triggerUserAction("SCROLLED_TO_BOTTOM");
       }
     },
