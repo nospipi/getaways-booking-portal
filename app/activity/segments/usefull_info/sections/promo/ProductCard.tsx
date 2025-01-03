@@ -173,7 +173,7 @@ const ProductCard = ({ product }: { product: IProduct }) => {
           data-src={`data-src="https://widgets.bokun.io/online-sales/db6fd107-983c-4e5e-8d51-b37b123ddd0d/experience/${product.bokun_product_code}?partialView=1"`}
           onClick={async () => {
             await triggerUserAction("PROMO_PRODUCT_CLICK", {
-              clickedPromoProductId: product.id,
+              clickedPromoProductId: product._id,
             });
           }}
         >
