@@ -94,7 +94,6 @@ portalOpenSessionChangeStream.on("change", async () => {
   //   await addUserAction(doc.booking_ref, null, "PAGE_LEAVE");
   // }
   await fetch(REFRESH_ONLINE_SESSIONS_URL);
-  console.log("REFRESH_ONLINE_SESSIONS_URL");
 });
 //-----------------------------------------------------------------
 export const VehicleServiceLogEntryModel =
