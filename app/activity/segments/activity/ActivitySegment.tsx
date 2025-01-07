@@ -20,7 +20,7 @@ const ActivitySegment = async ({
   numberOfActivities: number;
 }) => {
   const booking = await getBookingByUniqueId(uniqueId);
-  const hasPickupLocationAndTime =
+  const shouldShowConfirmButton =
     booking?.pickup_location?.name &&
     booking.pickup_location.name.length > 0 &&
     booking?.pickup_time?.length > 0;
@@ -45,7 +45,7 @@ const ActivitySegment = async ({
           </span>
         </div>
       </SegmentHeader>
-      {hasPickupLocationAndTime && <ConfirmStatusSection uniqueId={uniqueId} />}
+      {shouldShowConfirmButton && <ConfirmStatusSection uniqueId={uniqueId} />}
       <BookingInfo uniqueId={uniqueId} />
       <TourInfoSection uniqueId={uniqueId} />
       <MeetingPoint uniqueId={uniqueId} />

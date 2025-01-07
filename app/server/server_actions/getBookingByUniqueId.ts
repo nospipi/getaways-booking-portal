@@ -6,7 +6,7 @@ import {
   TaskModel,
   VehicleModel,
   UserModel,
-  PortalUserSessionModel,
+  PortalSessionModel,
   NotificationModel,
 } from "@/app/server/getaways-shared-models/models";
 import moment from "moment";
@@ -110,7 +110,7 @@ export const getBookingByUniqueId = cache(
       const decodedParams = JSON.parse(
         Buffer.from(encodedParams, "base64").toString("utf8")
       );
-      console.log("Decoded params from middleware:", decodedParams);
+      //console.log("Decoded params from middleware:", decodedParams);
       const { confirm: uniqueBookingIdtoConfirm } = decodedParams as {
         confirm: string;
       };
@@ -134,13 +134,26 @@ export const getBookingByUniqueId = cache(
         "tour_group_id",
       ]);
 
-      // !booking will never happen because this is called immediately after we get the booking ids from getBookingIds
+      //confirm url param matches this booking's unique_booking_id, it means the client visits page with auto-confirm linking
+      const isAutoConfirm =
+        uniqueBookingIdtoConfirm === booking.unique_booking_id;
+
+      //should not confirm if pickup location or pickup time is missing
+      //ui does bot show confirm button if these fields are missing, for manual confirm
+      //so auto-confirm should not proceed as well
+      const eligibleForConfirm =
+        booking?.pickup_location?.name &&
+        booking.pickup_location.name.length > 0 &&
+        booking?.pickup_time?.length > 0;
+
+      //we should also not proceed if the booking is already confirmed
       const isAlreadyConfirmed =
         booking?.client_response_status === "CONFIRMED";
-      if (
-        uniqueBookingIdtoConfirm === booking.unique_booking_id &&
-        !isAlreadyConfirmed
-      ) {
+
+      const shouldConfirm =
+        isAutoConfirm && eligibleForConfirm && !isAlreadyConfirmed;
+
+      if (shouldConfirm) {
         //update status to confirmed
         booking.client_response_status = "CONFIRMED";
 
@@ -196,7 +209,7 @@ export const getBookingByUniqueId = cache(
         }
       }
       const vehicle = await VehicleModel.findById(task?.vehicle_id);
-      const previousVisit = await PortalUserSessionModel.findOne({
+      const previousVisit = await PortalSessionModel.findOne({
         booking_ref: booking.ref,
       });
 
