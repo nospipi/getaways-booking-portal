@@ -14,8 +14,6 @@ const REFRESH_NOTIFICATIONS_URL = process.env
 export const confirmBookingByUniqueId = async (
   unique_booking_id: string
 ): Promise<unknown> => {
-  console.log("confirmBookingByUniqueId", unique_booking_id);
-
   await connectDB();
   //throw new Error("simulate error");
   //await new Promise((resolve) => setTimeout(resolve, 2000)); // simulate delay
@@ -28,7 +26,10 @@ export const confirmBookingByUniqueId = async (
     throw new Error("Booking not found");
   }
 
-  await addUserActionByRef(bookingToUpdate.ref, "CONFIRMED_INSTRUCTIONS");
+  await addUserActionByRef(
+    bookingToUpdate.ref,
+    "CONFIRMED_INSTRUCTIONS_VIA_BUTTON"
+  );
 
   //update booking status
   bookingToUpdate.client_response_status = "CONFIRMED";

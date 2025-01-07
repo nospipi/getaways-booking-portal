@@ -10,6 +10,7 @@ import {
   NotificationModel,
 } from "@/app/server/getaways-shared-models/models";
 import moment from "moment";
+import { addUserActionByRef } from "./addUserAction";
 import { cache } from "react";
 import connectDB from "@/app/server/db.connect";
 import { IBooking } from "@/app/server/getaways-shared-models/schemas/bookingSchema";
@@ -142,6 +143,12 @@ export const getBookingByUniqueId = cache(
       ) {
         //update status to confirmed
         booking.client_response_status = "CONFIRMED";
+
+        await addUserActionByRef(
+          booking.ref,
+          "CONFIRMED_INSTRUCTIONS_VIA_LINK"
+        );
+
         await booking.save();
         //create notification and call refresh notifications url
         const notification = new NotificationModel({
