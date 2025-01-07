@@ -26,10 +26,7 @@ export const confirmBookingByUniqueId = async (
     throw new Error("Booking not found");
   }
 
-  await addUserActionByRef(
-    bookingToUpdate.ref,
-    "CONFIRMED_INSTRUCTIONS_VIA_BUTTON"
-  );
+  await addUserActionByRef(bookingToUpdate.ref, "CONFIRMED_INSTRUCTIONS");
 
   //update booking status
   bookingToUpdate.client_response_status = "CONFIRMED";

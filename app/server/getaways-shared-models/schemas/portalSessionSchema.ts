@@ -12,8 +12,7 @@ export type UserActionType =
   | "PROMO_PRODUCT_CLICK"
   | "SIM_LINK_CLICK"
   | "ADDED_LOCATION"
-  | "CONFIRMED_INSTRUCTIONS_VIA_BUTTON"
-  | "CONFIRMED_INSTRUCTIONS_VIA_LINK"
+  | "CONFIRMED_INSTRUCTIONS"
   | "BUS_TRACKING_MAP_CLICK"
   | "NAVIGATION_LINK_CLICK"
   | "CONTACT_BUTTON_CLICK";
@@ -114,9 +113,7 @@ portalSessionSchema.pre("save", function (next) {
     (action: IPortalAction) => action.user_action === "ADDED_LOCATION"
   );
   this.has_confirmed_instructions = this.session_actions.some(
-    (action: IPortalAction) =>
-      action.user_action === "CONFIRMED_INSTRUCTIONS_VIA_BUTTON" ||
-      action.user_action === "CONFIRMED_INSTRUCTIONS_VIA_LINK"
+    (action: IPortalAction) => action.user_action === "CONFIRMED_INSTRUCTIONS"
   );
   this.has_clicked_bus_tracking_map = this.session_actions.some(
     (action: IPortalAction) => action.user_action === "BUS_TRACKING_MAP_CLICK"

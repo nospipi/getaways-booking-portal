@@ -144,10 +144,7 @@ export const getBookingByUniqueId = cache(
         //update status to confirmed
         booking.client_response_status = "CONFIRMED";
 
-        await addUserActionByRef(
-          booking.ref,
-          "CONFIRMED_INSTRUCTIONS_VIA_LINK"
-        );
+        await addUserActionByRef(booking.ref, "CONFIRMED_INSTRUCTIONS");
 
         await booking.save();
         //create notification and call refresh notifications url
