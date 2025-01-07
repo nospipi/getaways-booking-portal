@@ -7,7 +7,7 @@ import mongooseAggregatePaginate from "mongoose-aggregate-paginate-v2";
 export type UserActionType =
   | "PAGE_VISIT"
   | "PAGE_LEAVE"
-  | "SCROLLED_TO_BOTTOM" 
+  | "SCROLLED_TO_BOTTOM"
   | "REVIEW_LINK_CLICK"
   | "PROMO_PRODUCT_CLICK"
   | "SIM_LINK_CLICK"
@@ -34,17 +34,12 @@ export interface IPortalAction extends Document {
   data?: UserActionData;
 }
 
-export interface IPortalSessionBooking {
-  unique_booking_id: string;
-  booking_date: string;
-  client_name: string;
-  product_title: string;
-}
-
 export interface IPortalSession extends Document {
+  first_visit_date_time: Date;
+  last_action: UserActionType;
   last_action_date_time: Date;
+  actions_count: number;
   booking_ref: string;
-  bookings: IPortalSessionBooking[];
   has_scrolled_to_bottom: boolean;
   has_clicked_review_link: boolean;
   has_clicked_promo_product: boolean;
@@ -76,17 +71,12 @@ const portalActionSchema = new Schema<IPortalAction>({
   data: portalSessionActionDataSchema,
 });
 
-const portalSessionBookingSchema = new Schema<IPortalSessionBooking>({
-  unique_booking_id: { type: String, required: true },
-  booking_date: { type: String, required: true },
-  client_name: { type: String, required: true },
-  product_title: { type: String, required: true },
-});
-
 const portalSessionSchema = new Schema<IPortalSession>({
+  first_visit_date_time: { type: Date, default: Date.now },
+  last_action: { type: String },
   last_action_date_time: { type: Date, default: Date.now },
+  actions_count: { type: Number, default: 0 },
   booking_ref: { type: String, required: true },
-  bookings: { type: [portalSessionBookingSchema], default: [] },
   has_scrolled_to_bottom: { type: Boolean, default: false },
   has_clicked_review_link: { type: Boolean, default: false },
   has_clicked_promo_product: { type: Boolean, default: false },
@@ -102,6 +92,9 @@ const portalSessionSchema = new Schema<IPortalSession>({
 portalSessionSchema.pre("save", function (next) {
   //update last_action_date_time
   this.last_action_date_time = new Date();
+  this.last_action =
+    this.session_actions[this.session_actions.length - 1].user_action;
+  this.actions_count = this.session_actions.length;
 
   //handle session actions flags
   this.has_scrolled_to_bottom = this.session_actions.some(
