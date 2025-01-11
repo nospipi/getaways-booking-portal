@@ -7,10 +7,10 @@ import {
   VehicleModel,
   UserModel,
   PortalSessionModel,
-  NotificationModel,
+  //NotificationModel,
 } from "@/app/server/getaways-shared-models/models";
-import moment from "moment";
-import { addUserActionByRef } from "./addUserAction";
+//import moment from "moment";
+//import { addUserActionByRef } from "./addUserAction";
 import { cache } from "react";
 import connectDB from "@/app/server/db.connect";
 import { IBooking } from "@/app/server/getaways-shared-models/schemas/bookingSchema";
@@ -21,9 +21,9 @@ import {
 import { ITask, IPickup } from "../getaways-shared-models/schemas/taskSchema";
 import { IVehicle } from "../getaways-shared-models/schemas/vehicleSchema";
 import { redirect } from "next/navigation";
-import { headers } from "next/headers";
-const REFRESH_NOTIFICATIONS_URL = process.env
-  .REFRESH_NOTIFICATIONS_URL as string;
+//import { headers } from "next/headers";
+// const REFRESH_NOTIFICATIONS_URL = process.env
+//   .REFRESH_NOTIFICATIONS_URL as string;
 
 //-----------------------------------------------------------------------------
 
@@ -105,15 +105,15 @@ export const getBookingByUniqueId = cache(
   async (unique_id: string): Promise<IGetBookingReturn> => {
     try {
       //throw new Error("getBookingById error"); //simulate error
-      const headerList = await headers();
-      const encodedParams = headerList.get("params_from_middleware") as string;
-      const decodedParams = JSON.parse(
-        Buffer.from(encodedParams, "base64").toString("utf8")
-      );
+      //const headerList = await headers();
+      //const encodedParams = headerList.get("params_from_middleware") as string;
+      // const decodedParams = JSON.parse(
+      //   Buffer.from(encodedParams, "base64").toString("utf8")
+      // );
       //console.log("Decoded params from middleware:", decodedParams);
-      const { confirm: uniqueBookingIdtoConfirm } = decodedParams as {
-        confirm: string;
-      };
+      // const { confirm: uniqueBookingIdtoConfirm } = decodedParams as {
+      //   confirm: string;
+      // };
       await connectDB();
 
       const booking = await BookingModel.findOne({
@@ -134,47 +134,52 @@ export const getBookingByUniqueId = cache(
         "tour_group_id",
       ]);
 
+      //this causes confirmation even when link is shared to someone - whatsapp for example will call this url in text chat
+      //we need to do this in frontend
+
       //confirm url param matches this booking's unique_booking_id, it means the client visits page with auto-confirm linking
-      const isAutoConfirm =
-        uniqueBookingIdtoConfirm === booking.unique_booking_id;
+
+      // const isAutoConfirm =
+      //   uniqueBookingIdtoConfirm === booking.unique_booking_id;
 
       //should not confirm if pickup location or pickup time is missing
       //ui does bot show confirm button if these fields are missing, for manual confirm
       //so auto-confirm should not proceed as well
-      const eligibleForConfirm =
-        booking?.pickup_location?.name &&
-        booking.pickup_location.name.length > 0 &&
-        booking?.pickup_time?.length > 0;
+
+      // const eligibleForConfirm =
+      //   booking?.pickup_location?.name &&
+      //   booking.pickup_location.name.length > 0 &&
+      //   booking?.pickup_time?.length > 0;
 
       //we should also not proceed if the booking is already confirmed
-      const isAlreadyConfirmed =
-        booking?.client_response_status === "CONFIRMED";
+      // const isAlreadyConfirmed =
+      //   booking?.client_response_status === "CONFIRMED";
 
-      const shouldConfirm =
-        isAutoConfirm && eligibleForConfirm && !isAlreadyConfirmed;
+      // const shouldConfirm =
+      //   isAutoConfirm && eligibleForConfirm && !isAlreadyConfirmed;
 
-      if (shouldConfirm) {
-        //update status to confirmed
-        booking.client_response_status = "CONFIRMED";
+      // if (shouldConfirm) {
+      //   //update status to confirmed
+      //   booking.client_response_status = "CONFIRMED";
 
-        await addUserActionByRef(booking.ref, "CONFIRMED_INSTRUCTIONS");
+      //   await addUserActionByRef(booking.ref, "CONFIRMED_INSTRUCTIONS");
 
-        await booking.save();
-        //create notification and call refresh notifications url
-        const notification = new NotificationModel({
-          title: `${booking.client_name} confirmed via booking portal`,
-          data: {
-            getaways_suite: {
-              isReadBy: [],
-              bookingDate: moment(new Date(booking.date)).format("DD/MM/YYYY"),
-              type: "client_confirmed",
-              id: booking.id,
-            },
-          },
-        });
-        await notification.save();
-        await fetch(REFRESH_NOTIFICATIONS_URL);
-      }
+      //   await booking.save();
+      //   //create notification and call refresh notifications url
+      //   const notification = new NotificationModel({
+      //     title: `${booking.client_name} confirmed via booking portal`,
+      //     data: {
+      //       getaways_suite: {
+      //         isReadBy: [],
+      //         bookingDate: moment(new Date(booking.date)).format("DD/MM/YYYY"),
+      //         type: "client_confirmed",
+      //         id: booking.id,
+      //       },
+      //     },
+      //   });
+      //   await notification.save();
+      //   await fetch(REFRESH_NOTIFICATIONS_URL);
+      // }
 
       const product = await ProductsModel.findById(booking.product_id);
       const option = product?.options?.find(
