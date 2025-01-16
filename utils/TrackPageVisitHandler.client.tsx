@@ -25,9 +25,6 @@ const TrackPageVisitHandler = () => {
   const ref = searchParams.get("ref") ?? "";
   const uniqueId = searchParams.get("uniqueId") ?? "";
 
-  console.log("Ref client:", ref, "Unique ID client:", uniqueId);
-
-  //we construct formData object to send along with the beacon request as it does not support objects
   const platform = Object.keys({
     isMobile,
     isTablet,
@@ -45,6 +42,7 @@ const TrackPageVisitHandler = () => {
     .replace("is", "");
   //returns Desktop | Mobile | Tablet | Browser
 
+  //we construct formData object to send along with the beacon request as it does not stringify objects by default
   const formData = useMemo(() => {
     const data = new FormData();
     data.append("ref", ref);
@@ -91,7 +89,7 @@ const TrackPageVisitHandler = () => {
 
       handleVisibilityChange();
       document.addEventListener("visibilitychange", handleVisibilityChange);
-      
+
       document.addEventListener("pointermove", throttledInteraction);
       document.addEventListener("pointerup", throttledInteraction);
       document.addEventListener("scroll", throttledInteraction);
