@@ -146,6 +146,7 @@ const TrackPageVisitHandler = () => {
     platform,
     cookieYesConsent,
     sanitizedConfirmUniqueId,
+    router,
   ]);
   return null;
 };
