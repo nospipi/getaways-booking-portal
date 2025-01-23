@@ -25,16 +25,20 @@ const useCookieYesConsent = (): CookieYesConsent | null => {
     const getCookieYesConsent = () => {
       if (window) {
         const windowHasCookieYes = window as typeof window & {
-          getCkyConsent: CookieYesConsent;
+          getCkyConsent: () => CookieYesConsent;
         };
 
-        console.log("windowHasCookieYes", windowHasCookieYes);
-
-        if (windowHasCookieYes.getCkyConsent) {
-          setConsent(windowHasCookieYes.getCkyConsent);
+        if (typeof windowHasCookieYes.getCkyConsent === "function") {
+          console.log(
+            "windowHasCookieYes.getCkyConsent",
+            windowHasCookieYes.getCkyConsent
+          );
+          const consentData = windowHasCookieYes.getCkyConsent();
+          setConsent(consentData);
         }
       }
     };
+
     getCookieYesConsent();
   }, []);
 
