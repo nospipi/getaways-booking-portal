@@ -52,8 +52,6 @@ const NavigateButton = ({ url }: { url: string }) => {
             `/server/api/add_navigation_link_action`,
             formData
           );
-        } else {
-          console.log("No consent for analytics");
         }
 
         window.open(url, "_blank");

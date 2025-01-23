@@ -32,8 +32,6 @@ const SimButton = () => {
         //so we sent a beacon and the it will be handled by the server even after we navigated away
         if (cookieYesConsent?.categories?.analytics) {
           navigator.sendBeacon(`/server/api/add_sim_link_action`, formData);
-        } else {
-          console.log("No consent for analytics");
         }
       }}
     >

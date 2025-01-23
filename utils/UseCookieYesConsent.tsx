@@ -29,10 +29,6 @@ const useCookieYesConsent = (): CookieYesConsent | null => {
         };
 
         if (typeof windowHasCookieYes.getCkyConsent === "function") {
-          console.log(
-            "windowHasCookieYes.getCkyConsent",
-            windowHasCookieYes.getCkyConsent
-          );
           const consentData = windowHasCookieYes.getCkyConsent();
           setConsent(consentData);
         }

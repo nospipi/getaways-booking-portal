@@ -81,6 +81,9 @@ const TrackPageVisitHandler = () => {
     const handleAddOpenSession = async () => {
       try {
         if (cookieYesConsent?.categories?.analytics) {
+          console.log(
+            "analytics consent granted, proceeding to add open session"
+          );
           await addOpenSession(
             sanitizedRef,
             sanitizedUniqueId,
@@ -92,8 +95,6 @@ const TrackPageVisitHandler = () => {
             mobileVendor,
             mobileModel
           );
-        } else {
-          console.log("No consent for analytics");
         }
       } catch (e) {
         console.log(e);
@@ -103,8 +104,6 @@ const TrackPageVisitHandler = () => {
     const handleInteraction = async () => {
       if (cookieYesConsent?.categories?.analytics) {
         navigator.sendBeacon(`/server/api/refresh_open_session`, formData);
-      } else {
-        console.log("No consent for analytics");
       }
     };
     const throttledInteraction = throttle(handleInteraction, 1500); //max 1 request every 1.5 seconds
@@ -120,8 +119,6 @@ const TrackPageVisitHandler = () => {
           //so we sent a beacon to a route in our own server that closes the session on our behalf in the backend
           if (cookieYesConsent?.categories?.analytics) {
             navigator.sendBeacon(`/server/api/close_session`, formData);
-          } else {
-            console.log("No consent for analytics");
           }
         }
       };

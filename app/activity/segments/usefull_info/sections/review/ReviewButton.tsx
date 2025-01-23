@@ -34,8 +34,6 @@ const ReviewButton = () => {
 
         if (cookieYesConsent?.categories?.analytics) {
           navigator.sendBeacon(`/server/api/add_review_link_action`, formData);
-        } else {
-          console.log("No consent for analytics");
         }
       }}
     >
