@@ -28,6 +28,8 @@ const useCookieYesConsent = (): CookieYesConsent | null => {
           getCkyConsent: CookieYesConsent;
         };
 
+        console.log("windowHasCookieYes", windowHasCookieYes);
+
         if (windowHasCookieYes.getCkyConsent) {
           setConsent(windowHasCookieYes.getCkyConsent);
         }
