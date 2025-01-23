@@ -4,11 +4,13 @@ import { TfiArrowCircleRight } from "react-icons/tfi";
 import Button from "@mui/material/Button";
 import { useMemo } from "react";
 import { useSearchParams } from "next/navigation";
+import useCookieYesConsent from "@/utils/UseCookieYesConsent";
 
 //---------------------------------------------------------
 
 const ReviewButton = () => {
   const searchParams = useSearchParams();
+  const cookieYesConsent = useCookieYesConsent();
 
   const ref = searchParams.get("ref") ?? "";
   const uniqueId = searchParams.get("uniqueId") ?? "";
@@ -29,7 +31,12 @@ const ReviewButton = () => {
       onClick={() => {
         //we dont use the useAddUserAction here because we are leaving the page
         //so we sent a beacon and the it will be handled by the server even after we navigated away
-        navigator.sendBeacon(`/server/api/add_review_link_action`, formData);
+
+        if (cookieYesConsent?.categories?.analytics) {
+          navigator.sendBeacon(`/server/api/add_review_link_action`, formData);
+        } else {
+          console.log("No consent for analytics");
+        }
       }}
     >
       REVIEW US ON TRIPADVISOR

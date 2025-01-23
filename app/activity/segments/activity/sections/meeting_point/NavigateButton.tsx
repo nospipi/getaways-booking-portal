@@ -5,10 +5,12 @@ import { FaExternalLinkAlt } from "react-icons/fa";
 import { FaMapMarked } from "react-icons/fa";
 import { useMemo } from "react";
 import { useSearchParams } from "next/navigation";
+import useCookieYesConsent from "@/utils/UseCookieYesConsent";
 
 //---------------------------------------------------------
 
 const NavigateButton = ({ url }: { url: string }) => {
+  const cookieYesConsent = useCookieYesConsent();
   const searchParams = useSearchParams();
 
   const ref = searchParams.get("ref") ?? "";
@@ -44,10 +46,16 @@ const NavigateButton = ({ url }: { url: string }) => {
       onClick={() => {
         //we dont use the useAddUserAction here because we are leaving the page
         //so we sent a beacon and the it will be handled by the server even after we navigated away
-        navigator.sendBeacon(
-          `/server/api/add_navigation_link_action`,
-          formData
-        );
+
+        if (cookieYesConsent?.categories?.analytics) {
+          navigator.sendBeacon(
+            `/server/api/add_navigation_link_action`,
+            formData
+          );
+        } else {
+          console.log("No consent for analytics");
+        }
+
         window.open(url, "_blank");
       }}
     >
