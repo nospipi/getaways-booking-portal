@@ -5,6 +5,7 @@ import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import IconButton from "@mui/material/IconButton";
 import { PiCaretLeft, PiCaretRight } from "react-icons/pi";
 import ProductCard from "./ProductCard";
+import { nanoid } from "nanoid";
 import { IProduct } from "@/app/server/getaways-shared-models/schemas/productsSchema";
 import { Suspense } from "react";
 import "swiper/css";
@@ -44,7 +45,7 @@ const ProductSwiper = ({ products }: { products: string }) => {
     >
       {parsedProducts.map((product: IProduct) => {
         return (
-          <SwiperSlide key={product.id}>
+          <SwiperSlide key={product.id || nanoid()}>
             <Suspense>
               {/* wrapped in Suspense because it accesses useSearchParams hook (through useAddUserAction hook) */}
               {/* https://nextjs.org/docs/messages/missing-suspense-with-csr-bailout */}

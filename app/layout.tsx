@@ -3,6 +3,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
 import { Montserrat } from "next/font/google";
 import Providers from "@/utils/Providers.client";
+
 import Script from "next/script";
 import TrackPageVisitHandler from "@/utils/TrackPageVisitHandler.client";
 import { Suspense } from "react";
@@ -35,7 +36,12 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <Script src={BOKUN_LOADER} strategy="lazyOnload" />
+        <Script
+          strategy="beforeInteractive"
+          src={`https://cdn-cookieyes.com/client_data/d993e9da9c0f4502dc696364/script.js`}
+        ></Script>
       </head>
+
       <body className={montserrat.className}>
         <Providers>
           <Suspense>
