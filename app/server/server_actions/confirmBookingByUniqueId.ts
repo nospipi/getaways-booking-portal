@@ -26,28 +26,30 @@ export const confirmBookingByUniqueId = async (
     throw new Error("Booking not found");
   }
 
-  await addUserActionByRef(bookingToUpdate.ref, "CONFIRMED_INSTRUCTIONS");
+  if (bookingToUpdate.client_response_status === "PENDING") {
+    await addUserActionByRef(bookingToUpdate.ref, "CONFIRMED_INSTRUCTIONS");
 
-  //update booking status
-  bookingToUpdate.client_response_status = "CONFIRMED";
-  await bookingToUpdate.save();
+    //update booking status
+    bookingToUpdate.client_response_status = "CONFIRMED";
+    await bookingToUpdate.save();
 
-  //create notification and call refresh notifications url
-  const notification = new NotificationModel({
-    title: `${bookingToUpdate.client_name} confirmed via booking portal`,
-    data: {
-      getaways_suite: {
-        isReadBy: [],
-        bookingDate: moment(new Date(bookingToUpdate.date)).format(
-          "DD/MM/YYYY"
-        ),
-        type: "client_confirmed",
-        id: bookingToUpdate.id,
+    //create notification and call refresh notifications url
+    const notification = new NotificationModel({
+      title: `${bookingToUpdate.client_name} confirmed via booking portal`,
+      data: {
+        getaways_suite: {
+          isReadBy: [],
+          bookingDate: moment(new Date(bookingToUpdate.date)).format(
+            "DD/MM/YYYY"
+          ),
+          type: "client_confirmed",
+          id: bookingToUpdate.id,
+        },
       },
-    },
-  });
-  await notification.save();
-  await fetch(REFRESH_NOTIFICATIONS_URL);
+    });
+    await notification.save();
+    await fetch(REFRESH_NOTIFICATIONS_URL);
+  }
 
   return;
 };

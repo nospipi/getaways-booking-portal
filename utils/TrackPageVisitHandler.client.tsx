@@ -65,15 +65,12 @@ const TrackPageVisitHandler = () => {
 
   useEffect(() => {
     const handleConfirm = async () => {
-      const toastId = "manual-confirm";
       try {
-        toast.loading("Confirming booking...", { id: toastId });
         await confirmBookingByUniqueId(sanitizedConfirmUniqueId);
         router.refresh(); // rehydrate
-        toast.dismiss(toastId);
       } catch (e) {
         console.log(e?.toString());
-        toast.error(e?.toString() || "An error occurred", { id: toastId });
+        toast.error(e?.toString() || "An error occurred");
       }
     };
 
