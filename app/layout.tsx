@@ -38,7 +38,7 @@ export default function RootLayout({
         <Script src={BOKUN_LOADER} strategy="lazyOnload" />
         <Script
           strategy="beforeInteractive"
-          src={`https://cdn-cookieyes.com/client_data/d993e9da9c0f4502dc696364/script.js`}
+          src={`https://cdn-cookieyes.com/client_data/${process.env.COOKIE_YES_KEY}/script.js`}
         ></Script>
       </head>
 
