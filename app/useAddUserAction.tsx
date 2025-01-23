@@ -22,10 +22,12 @@ import {
   UserActionData,
 } from "@/app/server/getaways-shared-models/schemas/portalSessionSchema";
 import { useSearchParams } from "next/navigation";
+import useCookieYesConsent from "@/utils/UseCookieYesConsent";
 
 //---------------------------------------------------------
 
 const useAddUserAction = () => {
+  const cookieYesConsent = useCookieYesConsent();
   const searchParams = useSearchParams();
   const ref = searchParams.get("ref") ?? null;
   const uniqueId = searchParams.get("uniqueId") ?? null;
@@ -52,6 +54,10 @@ const useAddUserAction = () => {
   const triggerUserAction = useCallback(
     async (action: UserActionType, data?: UserActionData) => {
       try {
+        if (!cookieYesConsent?.categories?.analytics) {
+          throw new Error("No consent for analytics");
+        }
+
         if (ref) {
           await addUserActionByRef(
             ref,
@@ -85,7 +91,7 @@ const useAddUserAction = () => {
         console.error("Error adding user action:", error);
       }
     },
-    [ref, uniqueId, platform]
+    [ref, uniqueId, platform, cookieYesConsent]
   );
 
   return { triggerUserAction };
