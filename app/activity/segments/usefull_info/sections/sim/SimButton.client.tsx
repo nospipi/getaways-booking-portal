@@ -4,12 +4,13 @@ import { useMemo } from "react";
 import { TfiArrowCircleRight } from "react-icons/tfi";
 import Button from "@mui/material/Button";
 import { useSearchParams } from "next/navigation";
+import useCookieYesConsent from "@/utils/UseCookieYesConsent";
 
 //---------------------------------------------------------
 
 const SimButton = () => {
+  const cookieYesConsent = useCookieYesConsent();
   const searchParams = useSearchParams();
-
   const ref = searchParams.get("ref") ?? "";
   const uniqueId = searchParams.get("uniqueId") ?? "";
 
@@ -29,7 +30,11 @@ const SimButton = () => {
       onClick={() => {
         //we dont use the useAddUserAction here because we are leaving the page
         //so we sent a beacon and the it will be handled by the server even after we navigated away
-        navigator.sendBeacon(`/server/api/add_sim_link_action`, formData);
+        if (cookieYesConsent?.categories?.analytics) {
+          navigator.sendBeacon(`/server/api/add_sim_link_action`, formData);
+        } else {
+          console.log("No consent for analytics");
+        }
       }}
     >
       GET YOUR eSIM NOW

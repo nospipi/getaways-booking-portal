@@ -16,12 +16,13 @@ import {
 } from "react-device-detect";
 import addOpenSession from "@/app/server/server_actions/addOpenSession";
 import { throttle } from "lodash";
+import useCookieYesConsent from "@/utils/UseCookieYesConsent";
 
 //---------------------------------------------------------
 
 const TrackPageVisitHandler = () => {
+  const cookieYesConsent = useCookieYesConsent();
   const searchParams = useSearchParams();
-
   const ref = searchParams.get("ref") ?? "";
   const uniqueId = searchParams.get("uniqueId") ?? "";
 
@@ -53,24 +54,32 @@ const TrackPageVisitHandler = () => {
   useEffect(() => {
     const handleAddOpenSession = async () => {
       try {
-        await addOpenSession(
-          ref,
-          uniqueId,
-          platform,
-          osName,
-          osVersion,
-          browserName,
-          browserVersion,
-          mobileVendor,
-          mobileModel
-        );
+        if (cookieYesConsent?.categories?.analytics) {
+          await addOpenSession(
+            ref,
+            uniqueId,
+            platform,
+            osName,
+            osVersion,
+            browserName,
+            browserVersion,
+            mobileVendor,
+            mobileModel
+          );
+        } else {
+          console.log("No consent for analytics");
+        }
       } catch (e) {
         console.log(e);
       }
     };
 
     const handleInteraction = async () => {
-      navigator.sendBeacon(`/server/api/refresh_open_session`, formData);
+      if (cookieYesConsent?.categories?.analytics) {
+        navigator.sendBeacon(`/server/api/refresh_open_session`, formData);
+      } else {
+        console.log("No consent for analytics");
+      }
     };
     const throttledInteraction = throttle(handleInteraction, 1500); //max 1 request every 1.5 seconds
 
@@ -83,7 +92,11 @@ const TrackPageVisitHandler = () => {
           //it does not have enough time to execute before the page is closed
           //beacon guarantees that the request will be sent before the page is fully unloaded
           //so we sent a beacon to a route in our own server that closes the session on our behalf in the backend
-          navigator.sendBeacon(`/server/api/close_session`, formData);
+          if (cookieYesConsent?.categories?.analytics) {
+            navigator.sendBeacon(`/server/api/close_session`, formData);
+          } else {
+            console.log("No consent for analytics");
+          }
         }
       };
 
