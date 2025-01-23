@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useMemo } from "react";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 //import { useFingerprint } from "./FingerprintProvider.client";
 import {
   isMobile,
@@ -17,14 +17,26 @@ import {
 import addOpenSession from "@/app/server/server_actions/addOpenSession";
 import { throttle } from "lodash";
 import useCookieYesConsent from "@/utils/UseCookieYesConsent";
+import confirmBookingByUniqueId from "@/app/server/server_actions/confirmBookingByUniqueId";
+import { escape } from "validator";
+import toast from "react-hot-toast";
 
 //---------------------------------------------------------
 
 const TrackPageVisitHandler = () => {
   const cookieYesConsent = useCookieYesConsent();
+  const router = useRouter();
   const searchParams = useSearchParams();
   const ref = searchParams.get("ref") ?? "";
   const uniqueId = searchParams.get("uniqueId") ?? "";
+  const confirmUniqueId = searchParams.get("confirm") ?? "";
+  const sanitizedRef = escape(ref);
+  const sanitizedUniqueId = escape(uniqueId);
+  const sanitizedConfirmUniqueId = escape(confirmUniqueId);
+
+  if (sanitizedConfirmUniqueId) {
+    console.log("IS_AUTO_CONFIRM", confirmUniqueId);
+  }
 
   const platform = Object.keys({
     isMobile,
@@ -46,18 +58,35 @@ const TrackPageVisitHandler = () => {
   //we construct formData object to send along with the beacon request as it does not stringify objects by default
   const formData = useMemo(() => {
     const data = new FormData();
-    data.append("ref", ref);
-    data.append("uniqueId", uniqueId);
+    data.append("ref", sanitizedRef);
+    data.append("uniqueId", sanitizedUniqueId);
     return data;
-  }, [ref, uniqueId]);
+  }, [sanitizedRef, sanitizedUniqueId]);
 
   useEffect(() => {
+    const handleConfirm = async () => {
+      const toastId = "manual-confirm";
+      try {
+        toast.loading("Confirming booking...", { id: toastId });
+        await confirmBookingByUniqueId(sanitizedConfirmUniqueId);
+        router.refresh(); // rehydrate
+        toast.dismiss(toastId);
+      } catch (e) {
+        console.log(e?.toString());
+        toast.error(e?.toString() || "An error occurred", { id: toastId });
+      }
+    };
+
+    if (sanitizedConfirmUniqueId) {
+      handleConfirm();
+    }
+
     const handleAddOpenSession = async () => {
       try {
         if (cookieYesConsent?.categories?.analytics) {
           await addOpenSession(
-            ref,
-            uniqueId,
+            sanitizedRef,
+            sanitizedUniqueId,
             platform,
             osName,
             osVersion,
@@ -83,7 +112,7 @@ const TrackPageVisitHandler = () => {
     };
     const throttledInteraction = throttle(handleInteraction, 1500); //max 1 request every 1.5 seconds
 
-    if (uniqueId || ref) {
+    if (sanitizedUniqueId || sanitizedRef) {
       const handleVisibilityChange = async () => {
         if (document.visibilityState === "visible") {
           await handleAddOpenSession();
@@ -116,7 +145,14 @@ const TrackPageVisitHandler = () => {
         document.removeEventListener("scroll", throttledInteraction);
       };
     }
-  }, [uniqueId, ref, formData, platform]);
+  }, [
+    sanitizedUniqueId,
+    sanitizedRef,
+    formData,
+    platform,
+    cookieYesConsent,
+    sanitizedConfirmUniqueId,
+  ]);
   return null;
 };
 
