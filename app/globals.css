@@ -331,3 +331,68 @@ a {
     opacity: 1;
   }
 }
+
+/* Add these styles to your existing globals.css file */
+
+.traveler-details-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+}
+
+.traveler-type-container {
+  border-radius: 8px;
+}
+
+.traveler-item {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid #eaeaea;
+}
+
+.traveler-item:last-child {
+  border-bottom: none;
+}
+
+.traveler-header {
+  font-size: 14px;
+  font-weight: 600;
+  color: rgb(50, 75, 104);
+  letter-spacing: 0.5px;
+}
+
+.traveler-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* For screens wider than 480px, display inputs side by side */
+@media (min-width: 480px) {
+  .traveler-inputs {
+    flex-direction: row;
+  }
+  
+  .traveler-input {
+    flex: 1;
+  }
+}
+
+.traveler-submit-button {
+  font-weight: 600 !important;
+  letter-spacing: 0.7px !important;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15) !important;
+  transition: all 0.2s ease-in-out !important;
+}
+
+.disclaimer-container {
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  padding: 30px;
+  border-left: 3px solid #627a96;
+  margin: 5px 0;
+   font-size: 12px;
+}
