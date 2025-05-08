@@ -4,6 +4,7 @@ import PickupInputContainer from "@/app/activity/segments/activity/sections/book
 import PickupInputStateContextProvider from "@/app/activity/segments/activity/sections/booking_info/PickupInputStateContextProvider.client";
 import EditButton from "@/app/activity/segments/activity/sections/booking_info/EditButton.client";
 import { IGetBookingReturn } from "@/app/server/server_actions/getBookingByUniqueId";
+import DetailsFormNavigateButton from "./DetailsFormNavigateButton";
 
 //---------------------------------------------------------
 
@@ -51,6 +52,15 @@ const BookingInfo = async ({ uniqueId }: { uniqueId: string }) => {
               (<span>{tickets.join(", ")}</span>)
             </div>
           </div>
+
+          <div className="section-content-item-container">
+            <div className="section-content-icon-container">Details</div>
+            <div className="section-content-text-container">
+              YOU HAVE NOT PROVIDED TRAVELLER DETAILS
+            </div>
+          </div>
+          <DetailsFormNavigateButton unique_booking_id={uniqueId} />
+
           <PickupInputStateContextProvider
             shouldPromptLocation={shouldPromptLocation}
           >
@@ -74,11 +84,7 @@ const BookingInfo = async ({ uniqueId }: { uniqueId: string }) => {
                 </div>
               </div>
             )}
-            {/* {shouldPromptLocation && (
-              <>
-                <PickupPromptText />
-              </>
-            )} */}
+
             <PickupInputContainer
               booking_id={booking._id.toString()}
               client_location={booking.client_location || ""}

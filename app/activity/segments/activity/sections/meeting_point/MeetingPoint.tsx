@@ -1,8 +1,11 @@
 import getBookingByUniqueId from "@/app/server/server_actions/getBookingByUniqueId";
 import { FaLocationDot } from "react-icons/fa6";
 import { FaInfoCircle } from "react-icons/fa";
+import { MdOutlineAccessTimeFilled } from "react-icons/md";
 import { FaEye } from "react-icons/fa";
 import Image from "next/image";
+import moment from "moment";
+import ConfirmStatusSection from "./confirm/ConfirmStatusSection";
 import ExpandableSectionItem from "../booking_info/ExpandableSectionItem.client";
 import NavigateButton from "./NavigateButton";
 import { Suspense } from "react";
@@ -15,9 +18,19 @@ const MeetingPoint = async ({ uniqueId }: { uniqueId: string }) => {
     booking?.pickup_location?.latitude && booking?.pickup_location?.longitude;
   const img_url = booking?.pickup_location?.img_url;
 
+  const hasPickupTime = booking?.pickup_time?.length > 0;
+  const time = moment(booking?.pickup_time, "HH:mm").format("h:mm A");
+
+  const shouldShowConfirmButton =
+    booking?.pickup_location?.name &&
+    booking.pickup_location.name.length > 0 &&
+    booking?.pickup_time?.length > 0;
+
   return (
     <section className="section-container">
-      <header className="section-title-container">Your Meeting Point</header>
+      <header className="section-title-container">
+        Your Meeting Point & Time
+      </header>
       <div className="section-content-container">
         <div className="section-content-item-container">
           <div className="section-content-icon-container">
@@ -34,6 +47,24 @@ const MeetingPoint = async ({ uniqueId }: { uniqueId: string }) => {
               : "TO BE ANNOUNCED"}
           </div>
         </div>
+
+        <div className="section-content-item-container">
+          <div className="section-content-icon-container">
+            <MdOutlineAccessTimeFilled size={15} />
+          </div>
+          <div
+            className="section-content-text-container"
+            style={{
+              color: hasPickupTime ? "black" : "indianred",
+            }}
+          >
+            {hasPickupTime ? time : "TO BE ANNOUNCED"}
+          </div>
+        </div>
+
+        {shouldShowConfirmButton && (
+          <ConfirmStatusSection uniqueId={uniqueId} />
+        )}
         {hasPickupLocation && (
           <Suspense>
             {/* wrapped in Suspense because it accesses useSearchParams hook */}

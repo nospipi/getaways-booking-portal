@@ -40,7 +40,7 @@ const InterchangableConfirmSection = ({
                 gap: "5px",
               }}
             >
-              You have confirmed
+              You have confirmed meeting point and time
               <i
                 style={{
                   fontSize: "18px",
@@ -68,7 +68,7 @@ const InterchangableConfirmSection = ({
               color: "indianred",
             }}
           >
-            PENDING
+            PENDING CONFIRMATION
           </div>
         </motion.div>
       )}

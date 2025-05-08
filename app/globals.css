@@ -26,6 +26,7 @@ a {
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  background-color: white;
 }
 
 .content-wrapper {
@@ -375,7 +376,7 @@ a {
   .traveler-inputs {
     flex-direction: row;
   }
-  
+
   .traveler-input {
     flex: 1;
   }
@@ -394,5 +395,56 @@ a {
   padding: 30px;
   border-left: 3px solid #627a96;
   margin: 5px 0;
-   font-size: 12px;
+  font-size: 12px;
+}
+
+/* Shimmer Button Effect */
+.shimmer-button-container {
+  position: sticky;
+  bottom: 0;
+  overflow: hidden;
+  width: 100%;
+  border-radius: 4px;
+}
+
+.shimmer-button-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255, 255, 255, 0.6),
+    transparent
+  );
+  z-index: 1;
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    left: -100%;
+  }
+  50% {
+    left: 100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+.shimmer-button {
+  animation: pulse 2s infinite alternate;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 rgba(0, 128, 0, 0.4);
+  }
+  100% {
+    box-shadow: 0 0 20px rgba(0, 128, 0, 0.6);
+  }
 }

@@ -12,6 +12,7 @@ const ConfirmButton = ({
   unique_booking_id: string;
 }) => {
   const router = useRouter();
+
   const handleConfirm = async () => {
     const toastId = "manual-confirm";
     try {
@@ -26,22 +27,25 @@ const ConfirmButton = ({
   };
 
   return (
-    <Button
-      fullWidth
-      variant="contained"
-      color="success"
-      onClick={() => {
-        if (
-          window.confirm(`Are you sure you want to confirm?
+    <div className="shimmer-button-container">
+      <Button
+        fullWidth
+        variant="contained"
+        color="success"
+        className="shimmer-button"
+        onClick={() => {
+          if (
+            window.confirm(`Are you sure you want to confirm?
 
-Scroll down and review the details of your booking, such as the meeting point and time carefully before confirming`)
-        ) {
-          handleConfirm();
-        }
-      }}
-    >
-      CONFIRM
-    </Button>
+Please review the details of your booking, such as the meeting point and time carefully before confirming`)
+          ) {
+            handleConfirm();
+          }
+        }}
+      >
+        CONFIRM MEETING POINT & TIME
+      </Button>
+    </div>
   );
 };
 

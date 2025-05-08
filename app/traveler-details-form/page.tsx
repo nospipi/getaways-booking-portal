@@ -4,7 +4,10 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
+import BackButton from "./BackButton";
 import { RotatingLines } from "react-loader-spinner";
+import countries from "./countries.json";
+import CustomMaterialAutocompleteSelect from "./CustomMaterialAutocompleteSelect";
 
 // Server action for handling form submission
 async function submitTravelerDetails(formData: FormData): Promise<void> {
@@ -57,6 +60,7 @@ export default async function Page({
   if (!booking || !booking.tickets) {
     return (
       <main className="page-container">
+        <BackButton />
         <div className="content-wrapper">
           <div className="content-container">
             <div className="content-container-wrapper">
@@ -77,13 +81,15 @@ export default async function Page({
       <div className="content-wrapper">
         <div className="content-container">
           <div className="content-container-wrapper">
-            <div className="segment-container">
+            <div
+              className="segment-container"
+              style={{ padding: "15px", gap: "15px", boxShadow: "none" }}
+            >
+              <BackButton />
+              <h3>Traveller details form</h3>
               <form
                 action={submitTravelerDetails}
                 className="traveler-details-form"
-                style={{
-                  padding: "10px",
-                }}
               >
                 {Object.entries(booking.tickets).map(([ticketType, count]) => {
                   if (Number(count) <= 0) return null;
@@ -92,13 +98,22 @@ export default async function Page({
                     <div
                       key={ticketType}
                       className="section-container traveler-type-container"
+                      style={{
+                        padding: "15px",
+                        borderRadius: "20px",
+                      }}
                     >
                       <div className="section-title-container">
                         {ticketType} - {count}{" "}
                         {Number(count) === 1 ? "ticket" : "tickets"}
                       </div>
 
-                      <div className="section-content-container">
+                      <div
+                        className="section-content-container"
+                        style={{
+                          padding: "15px",
+                        }}
+                      >
                         {Array.from({ length: Number(count) }).map(
                           (_, index) => (
                             <div
@@ -114,7 +129,7 @@ export default async function Page({
                                   name={`${ticketType}-${index}-age`}
                                   label="Age"
                                   type="number"
-                                  variant="outlined"
+                                  variant="filled"
                                   fullWidth
                                   required
                                   slotProps={{
@@ -122,11 +137,27 @@ export default async function Page({
                                       min: 0,
                                       max: 120,
                                     },
+                                    inputLabel: {
+                                      //shrink: true,
+                                    },
+                                  }}
+                                  sx={{
+                                    flex: 1,
+                                    "& .MuiFilledInput-root": {
+                                      // Target the FilledInput root
+                                      backgroundColor: "white",
+                                      "&:hover": {
+                                        backgroundColor: "white", // Ensure white on hover
+                                      },
+                                      "&.Mui-focused": {
+                                        // Style when focused (optional)
+                                        backgroundColor: "white",
+                                      },
+                                    },
                                   }}
                                   className="traveler-input"
                                 />
-
-                                <TextField
+                                {/* <TextField
                                   name={`${ticketType}-${index}-nationality`}
                                   label="Nationality"
                                   type="text"
@@ -134,6 +165,30 @@ export default async function Page({
                                   fullWidth
                                   required
                                   className="traveler-input"
+                                /> */}
+
+                                {/* <CustomMaterialAutocompleteSelect
+                                  values={countries.map((country) => ({
+                                    label: country.name,
+                                    value: country.iso,
+                                  }))}
+                                  selected={""}
+                                  label={"Nationality"}
+                                  set={(value: any) => {
+                                    console.log("Selected value:", value);
+                                  }}
+                                  error={false}
+                                /> */}
+
+                                <CustomMaterialAutocompleteSelect
+                                  values={countries.map((country) => ({
+                                    label: country.name,
+                                    value: country.iso,
+                                  }))}
+                                  label="Nationality"
+                                  name={`${ticketType}-${index}-nationality`}
+                                  required
+                                  error={false}
                                 />
                               </div>
                             </div>
@@ -159,15 +214,31 @@ export default async function Page({
                     label="I confirm all of the above details and ensure that each participant will possess the necessary documents for age and nationality verification, such as a passport, ID card, birth certificate, or equivalent, and will present it upon request at the entrance of the archaeological site"
                     sx={{
                       "& .MuiFormControlLabel-label": {
-                        fontSize: "0.9rem",
-                        lineHeight: "1.3",
+                        fontSize: "0.8rem",
+                        lineHeight: "1",
                       },
                     }}
                   />
                 </div>
 
-                <div className="disclaimer-container">
-                  <h3>Data Protection Disclaimer</h3>
+                {/* <details>
+                  <summary>Test Credentials</summary>
+                  Username: test_account_01
+                  <br />
+                  Password: test_account_01
+                  <span title="Copy to clipboard">sdafasdf</span>
+                </details> */}
+
+                <details className="disclaimer-container">
+                  <summary
+                    style={{
+                      fontSize: "13px",
+                      fontWeight: "bold",
+                      cursor: "pointer",
+                    }}
+                  >
+                    Data Protection Disclaimer
+                  </summary>
                   <br />
                   <p>
                     We value your privacy and are committed to protecting your
@@ -225,7 +296,7 @@ export default async function Page({
                       understood this disclaimer
                     </strong>
                   </p>
-                </div>
+                </details>
 
                 <Button
                   type="submit"

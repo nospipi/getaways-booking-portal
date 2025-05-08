@@ -1,6 +1,6 @@
 import BookingInfo from "./sections/booking_info/BookingInfo";
 import SegmentHeader from "../SegmentHeader";
-import ConfirmStatusSection from "./sections/confirm/ConfirmStatusSection";
+import ConfirmStatusSection from "./sections/meeting_point/confirm/ConfirmStatusSection";
 import TourInfoSection from "./sections/tour_info/TourInfoSection";
 import MeetingPoint from "./sections/meeting_point/MeetingPoint";
 import MeetingTime from "./sections/meeting_time/MeetingTime";
@@ -45,11 +45,11 @@ const ActivitySegment = async ({
           </span>
         </div>
       </SegmentHeader>
-      {shouldShowConfirmButton && <ConfirmStatusSection uniqueId={uniqueId} />}
+      {/* {shouldShowConfirmButton && <ConfirmStatusSection uniqueId={uniqueId} />} */}
       <BookingInfo uniqueId={uniqueId} />
       <TourInfoSection uniqueId={uniqueId} />
       <MeetingPoint uniqueId={uniqueId} />
-      <MeetingTime uniqueId={uniqueId} />
+      {/* <MeetingTime uniqueId={uniqueId} /> */}
       <TourHosts uniqueId={uniqueId} />
       <TourBusInfo uniqueId={uniqueId} />
       <BusTracking uniqueId={uniqueId} />
