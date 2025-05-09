@@ -42,6 +42,18 @@ export interface IBooking extends Document {
   email_history?: unknown[];
   task_id?: string;
   tour_group_id?: string;
+  traveller_details_form?:
+    | {
+        ticket_type: string;
+        age: number;
+        nationality: string;
+        iso: string;
+        numeric: number;
+        continent: string;
+        free_entrance: boolean;
+        _id?: string;
+      }[]
+    | null;
 }
 
 //------------------------------------------------------------------------
@@ -84,6 +96,20 @@ const bookingSchema = new Schema<IBooking>(
     email_history: { type: Array, default: [] },
     task_id: { type: String },
     tour_group_id: { type: String },
+    traveller_details_form: {
+      type: [
+        {
+          ticket_type: String,
+          age: String,
+          nationality: String,
+          iso: String,
+          numeric: Number,
+          continent: String,
+          free_entrance: Boolean,
+        },
+      ],
+      default: null,
+    },
   },
   {
     minimize: false, // allows saving empty objects in db

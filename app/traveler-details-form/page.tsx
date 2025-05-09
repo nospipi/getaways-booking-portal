@@ -5,45 +5,10 @@ import Button from "@mui/material/Button";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import BackButton from "./BackButton";
-import { RotatingLines } from "react-loader-spinner";
+import SubmitButton from "./SubmitButton";
 import countries from "./countries.json";
 import CustomMaterialAutocompleteSelect from "./CustomMaterialAutocompleteSelect";
-
-// Server action for handling form submission
-async function submitTravelerDetails(formData: FormData): Promise<void> {
-  "use server";
-
-  // Process form data and create structured data
-  const travelersData: Record<string, { age: string; nationality: string }[]> =
-    {};
-
-  for (const [key, value] of formData.entries()) {
-    // Skip confirmation checkbox for traveler data processing
-    if (key === "termsConfirmation") continue;
-
-    // Parse keys like "Adult-0-age" into { type: "Adult", index: 0, field: "age" }
-    const [ticketType, indexStr, field] = key.split("-");
-    const index = parseInt(indexStr);
-
-    if (!travelersData[ticketType]) {
-      travelersData[ticketType] = [];
-    }
-
-    if (!travelersData[ticketType][index]) {
-      travelersData[ticketType][index] = { age: "", nationality: "" };
-    }
-
-    if (field === "age" || field === "nationality") {
-      travelersData[ticketType][index][field] = value.toString();
-    }
-  }
-
-  // Log the data for now (you'll implement actual submission later)
-  console.log("Travelers data submitted:", travelersData);
-
-  // Don't return any values
-  return;
-}
+import submitTravelerDetails from "../server/server_actions/submitTravelerDetails";
 
 //---------------------------------------------------------
 
@@ -60,7 +25,7 @@ export default async function Page({
   if (!booking || !booking.tickets) {
     return (
       <main className="page-container">
-        <BackButton />
+        <BackButton uniqueId={uniqueId} />
         <div className="content-wrapper">
           <div className="content-container">
             <div className="content-container-wrapper">
@@ -77,7 +42,12 @@ export default async function Page({
   }
 
   return (
-    <main className="page-container">
+    <main
+      className="page-container"
+      style={{
+        background: "white",
+      }}
+    >
       <div className="content-wrapper">
         <div className="content-container">
           <div className="content-container-wrapper">
@@ -85,12 +55,13 @@ export default async function Page({
               className="segment-container"
               style={{ padding: "15px", gap: "15px", boxShadow: "none" }}
             >
-              <BackButton />
+              <BackButton uniqueId={uniqueId} />
               <h3>Traveller details form</h3>
               <form
                 action={submitTravelerDetails}
                 className="traveler-details-form"
               >
+                <input type="hidden" name="uniqueId" value={uniqueId} />
                 {Object.entries(booking.tickets).map(([ticketType, count]) => {
                   if (Number(count) <= 0) return null;
 
@@ -157,33 +128,10 @@ export default async function Page({
                                   }}
                                   className="traveler-input"
                                 />
-                                {/* <TextField
-                                  name={`${ticketType}-${index}-nationality`}
-                                  label="Nationality"
-                                  type="text"
-                                  variant="outlined"
-                                  fullWidth
-                                  required
-                                  className="traveler-input"
-                                /> */}
-
-                                {/* <CustomMaterialAutocompleteSelect
-                                  values={countries.map((country) => ({
-                                    label: country.name,
-                                    value: country.iso,
-                                  }))}
-                                  selected={""}
-                                  label={"Nationality"}
-                                  set={(value: any) => {
-                                    console.log("Selected value:", value);
-                                  }}
-                                  error={false}
-                                /> */}
-
                                 <CustomMaterialAutocompleteSelect
                                   values={countries.map((country) => ({
                                     label: country.name,
-                                    value: country.iso,
+                                    value: country,
                                   }))}
                                   label="Nationality"
                                   name={`${ticketType}-${index}-nationality`}
@@ -220,14 +168,6 @@ export default async function Page({
                     }}
                   />
                 </div>
-
-                {/* <details>
-                  <summary>Test Credentials</summary>
-                  Username: test_account_01
-                  <br />
-                  Password: test_account_01
-                  <span title="Copy to clipboard">sdafasdf</span>
-                </details> */}
 
                 <details className="disclaimer-container">
                   <summary
@@ -297,20 +237,7 @@ export default async function Page({
                     </strong>
                   </p>
                 </details>
-
-                <Button
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  className="traveler-submit-button"
-                  sx={{
-                    backgroundColor: "#627a96",
-                    minHeight: "50px",
-                    marginTop: "20px",
-                  }}
-                >
-                  <span>SUBMIT TRAVELER DETAILS</span>
-                </Button>
+                <SubmitButton />
               </form>
             </div>
           </div>

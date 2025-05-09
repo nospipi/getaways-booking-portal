@@ -1,26 +1,27 @@
-"use client";
 import { IoMdArrowRoundBack } from "react-icons/io";
+import Link from "next/link";
 
-const BackButton = () => {
+const BackButton = ({ uniqueId }: { uniqueId: string | undefined }) => {
   return (
-    <button
-      onClick={() => window.history.back()}
-      style={{
-        backgroundColor: "#f0f0f0",
-        borderRadius: "5px",
-        padding: "10px 20px",
-        border: "none",
-        cursor: "pointer",
-        fontSize: "16px",
-        display: "flex",
-        alignItems: "center",
-        alignSelf: "flex-start",
-
-        gap: "5px",
-      }}
-    >
-      <IoMdArrowRoundBack />
-    </button>
+    <Link href={`/activity?uniqueId=${uniqueId}`} prefetch={true}>
+      <button
+        style={{
+          backgroundColor: "#f0f0f0",
+          borderRadius: "5px",
+          padding: "10px 20px",
+          border: "none",
+          cursor: "pointer",
+          fontSize: "16px",
+          display: "flex",
+          alignItems: "center",
+          alignSelf: "flex-start",
+          gap: "5px",
+        }}
+      >
+        <IoMdArrowRoundBack />
+        <span>Back to your booking portal</span>
+      </button>
+    </Link>
   );
 };
 

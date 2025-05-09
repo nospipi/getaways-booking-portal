@@ -79,7 +79,7 @@ const CustomMaterialAutocompleteSelect = ({
   name, // Add name prop for form submission
   required = false,
 }: {
-  values: Array<{ label: string; value: string }>;
+  values: Array<{ label: string; value: any }>;
   label: string;
   error?: boolean;
   name: string;

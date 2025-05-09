@@ -26,7 +26,7 @@ a {
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  background-color: white;
+  background: rgb(37, 49, 63);
 }
 
 .content-wrapper {
@@ -400,7 +400,7 @@ a {
 
 /* Shimmer Button Effect */
 .shimmer-button-container {
-  position: sticky;
+  position: relative;
   bottom: 0;
   overflow: hidden;
   width: 100%;

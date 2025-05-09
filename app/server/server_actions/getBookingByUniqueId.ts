@@ -132,6 +132,7 @@ export const getBookingByUniqueId = cache(
         "pickup_time",
         "client_response_status",
         "tour_group_id",
+        "traveller_details_form",
       ]);
 
       //this causes confirmation even when link is shared to someone - whatsapp for example will call this url in text chat

@@ -12,6 +12,7 @@ export interface IOption {
   pickup_included: boolean;
   requires_vehicle: boolean;
   requires_platform_entry: boolean;
+  requires_traveller_details_form: boolean;
   description: string;
   meeting_point_id: string;
 }
@@ -103,6 +104,7 @@ const productsSchema = new Schema<IProduct>(
           pickup_included: { type: Boolean },
           requires_vehicle: { type: Boolean },
           requires_platform_entry: { type: Boolean },
+          requires_traveller_details_form: { type: Boolean },
           description: { type: String },
           meeting_point_id: { type: String },
         },
