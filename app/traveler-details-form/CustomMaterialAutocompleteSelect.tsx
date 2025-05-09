@@ -14,7 +14,10 @@ const CustomMaterialAutocompleteSelect = ({
   values: Array<{
     label: string;
     value: {
-      [key: string]: string | number | boolean | null | undefined;
+      name: string;
+      iso: string;
+      numeric: string;
+      continent: string;
     };
   }>;
   label: string;
@@ -25,7 +28,10 @@ const CustomMaterialAutocompleteSelect = ({
   const [selectedValue, setSelectedValue] = useState<{
     label: string;
     value: {
-      [key: string]: string | number | boolean | null | undefined;
+      name: string;
+      iso: string;
+      numeric: string;
+      continent: string;
     };
   } | null>(null);
 
@@ -76,8 +82,8 @@ const CustomMaterialAutocompleteSelect = ({
         return (
           <li key={key} {...otherProps}>
             {option.label}
-            {selectedValue?.value === option?.value && (
-              <input type="hidden" name={name} value={option.value} />
+            {selectedValue?.value?.iso === option?.value?.iso && (
+              <input type="hidden" name={name} value={option.value.iso} />
             )}
           </li>
         );
