@@ -24,7 +24,9 @@ const CustomMaterialAutocompleteSelect = ({
 }) => {
   const [selectedValue, setSelectedValue] = useState<{
     label: string;
-    value: string;
+    value: {
+      [key: string]: string | number | boolean | null | undefined;
+    };
   } | null>(null);
 
   return (
@@ -74,7 +76,7 @@ const CustomMaterialAutocompleteSelect = ({
         return (
           <li key={key} {...otherProps}>
             {option.label}
-            {selectedValue?.value === option.value && (
+            {selectedValue?.value === option?.value && (
               <input type="hidden" name={name} value={option.value} />
             )}
           </li>
