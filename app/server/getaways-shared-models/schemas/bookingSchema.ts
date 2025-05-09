@@ -100,7 +100,7 @@ const bookingSchema = new Schema<IBooking>(
       type: [
         {
           ticket_type: String,
-          age: String,
+          age: Number,
           nationality: String,
           iso: String,
           numeric: Number,

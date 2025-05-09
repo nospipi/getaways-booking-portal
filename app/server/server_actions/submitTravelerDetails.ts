@@ -83,8 +83,6 @@ const submitTravelerDetails = async (formData: FormData): Promise<void> => {
       }
     }
 
-    console.log("Travelers:", uniqueId, travelers);
-
     await BookingModel.findOneAndUpdate(
       { unique_booking_id: uniqueId },
       {
