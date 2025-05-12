@@ -1,10 +1,10 @@
 "use client";
 import Button from "@mui/material/Button";
-import { useState } from "react";
+import { useFormStatus } from "react-dom";
 import { RotatingLines } from "react-loader-spinner";
 
 const SubmitButton = () => {
-  const [isLoading, setIsLoading] = useState(false);
+  const { pending } = useFormStatus();
 
   return (
     <Button
@@ -12,16 +12,15 @@ const SubmitButton = () => {
       fullWidth
       variant="contained"
       className="traveler-submit-button"
-      onClick={() => {
-        setIsLoading(true);
-      }}
+      disabled={pending}
       sx={{
-        backgroundColor: "#627a96",
+        backgroundColor: pending ? "#a0a0a0" : "#627a96",
         minHeight: "50px",
         marginTop: "20px",
+        cursor: pending ? "not-allowed" : "pointer",
       }}
     >
-      {isLoading ? (
+      {pending ? (
         <RotatingLines width="15" strokeColor="white" />
       ) : (
         <span>SUBMIT TRAVELER DETAILS</span>
