@@ -36,11 +36,9 @@ const BookingInfo = async ({ uniqueId }: { uniqueId: string }) => {
   const requiresTravellerDetails =
     booking?.option?.requires_traveller_details_form;
 
-  const travellerDetailsFormSubmitted = booking?.traveller_details_form
+  const travellerDetailsFormSubmitted = booking?.traveller_details_form?.length
     ? true
     : false;
-
-  console.log("travellerDetailsFormSubmitted", travellerDetailsFormSubmitted);
 
   return (
     <>
