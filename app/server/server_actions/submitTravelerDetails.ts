@@ -64,7 +64,11 @@ const submitTravelerDetails = async (formData: FormData): Promise<void> => {
             freeEntrance = true;
           }
 
-          if (Number(ageValue) < 25 && countryData.continent === "Europe") {
+          if (
+            Number(ageValue) < 25 &&
+            countryData.continent === "Europe" &&
+            countryData.iso !== "GB"
+          ) {
             freeEntrance = true;
           }
 
