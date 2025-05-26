@@ -24,7 +24,9 @@ const SimSection = () => {
         </div>
         <aside className="section-content-item-button-container">
           <Link
-            href={"https://connectphone.eu/download-app"}
+            //href={"https://connectphone.eu/download-app"}
+            href={"https://connectphone.eu/product/greece-e-sim-100-data/"}
+            target="_blank"
             style={{
               width: "100%",
             }}
