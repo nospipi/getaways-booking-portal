@@ -7,7 +7,6 @@ import React, {
   ReactElement,
 } from "react";
 import { MdExpandMore } from "react-icons/md";
-import Button from "@mui/material/Button";
 import { motion, AnimatePresence } from "framer-motion";
 
 //---------------------------------------------------------
@@ -49,25 +48,23 @@ const ExpandableSectionItem = ({ children }: { children: React.ReactNode }) => {
           minHeight: "45px",
         }}
       >
-        <Button
-          variant="contained"
+        <button
           aria-expanded={expanded}
-          sx={{
+          onClick={() => setExpanded(!expanded)}
+          style={{
             height: "100%",
-            paddingTop: 0,
-            paddingBottom: 0,
-            paddingLeft: 0,
+            padding: 0,
             paddingRight: "10px",
             width: "100%",
             color: "#ffffff",
             backgroundColor: "transparent",
-            borderRadius: "0px",
-            boxShadow: "none",
-            textTransform: "none",
+            border: "none",
+            cursor: "pointer",
             fontFamily: "inherit",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
           }}
-          disableElevation
-          onClick={() => setExpanded(!expanded)}
         >
           {React.isValidElement(firstChild) &&
             React.cloneElement(firstChild as ReactElement, {
@@ -83,7 +80,7 @@ const ExpandableSectionItem = ({ children }: { children: React.ReactNode }) => {
           >
             <MdExpandMore size={20} />
           </motion.div>
-        </Button>
+        </button>
       </header>
       <AnimatePresence initial={false}>
         {expanded && (

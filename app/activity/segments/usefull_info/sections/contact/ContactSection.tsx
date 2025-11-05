@@ -30,6 +30,7 @@ const ContactSection = async ({ id }: { id: string }) => {
         </div>
 
         <div
+          className="contact-buttons-grid"
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(2, 1fr)",

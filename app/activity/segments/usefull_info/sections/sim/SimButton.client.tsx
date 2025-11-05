@@ -2,7 +2,6 @@
 
 import { useMemo } from "react";
 import { TfiArrowCircleRight } from "react-icons/tfi";
-import Button from "@mui/material/Button";
 import { useSearchParams } from "next/navigation";
 import useCookieYesConsent from "@/utils/UseCookieYesConsent";
 
@@ -22,21 +21,23 @@ const SimButton = () => {
   }, [ref, uniqueId]);
 
   return (
-    <Button
-      fullWidth
-      variant="outlined"
-      color="success"
-      endIcon={<TfiArrowCircleRight size={15} />}
+    <button
+      className="confirm-button"
       onClick={() => {
-        //we dont use the useAddUserAction here because we are leaving the page
-        //so we sent a beacon and the it will be handled by the server even after we navigated away
         if (cookieYesConsent?.categories?.analytics) {
           navigator.sendBeacon(`/server/api/add_sim_link_action`, formData);
         }
       }}
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: "8px",
+      }}
     >
-      GET YOUR eSIM NOW
-    </Button>
+      <span>Get Your eSIM Now</span>
+      <TfiArrowCircleRight size={15} />
+    </button>
   );
 };
 

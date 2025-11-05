@@ -38,84 +38,37 @@ const TourInfoSection = async ({ uniqueId }: { uniqueId: string }) => {
             </div>
           </div>
         </div>
-        <ExpandableSectionItem>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              alignItems: "center",
-              width: "100%",
-              gap: "12px",
-              padding: "12px 0",
-            }}
-          >
-            <div className="modern-info-icon">
-              <MdTour size={20} />
-            </div>
-            <div style={{ flex: 1 }}>
-              <div className="modern-info-label">Tour</div>
-              <div className="modern-info-value">{product_title}</div>
-            </div>
-          </div>
-          <div style={{ marginTop: "16px", position: "relative" }}>
-            <figure
+        
+        {/* Tour Product Card */}
+        <div className="tour-product-card">
+          <div className="tour-product-image-wrapper">
+            <Image
+              src={image_url}
+              fill
               style={{
-                position: "relative",
-                display: "flex",
-                flexDirection: "column",
-                width: "100%",
-                height: "100%",
-                margin: 0,
+                objectFit: "cover",
               }}
-            >
-              <Image
-                src={image_url}
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  minHeight: "240px",
-                  objectFit: "cover",
-                }}
-                width={0}
-                height={0}
-                sizes="(max-width: 800px) 100vw, 800px"
-                alt={
-                  hasImage
-                    ? booking?.product.product_pictures[0]?.alt
-                    : "No image available"
-                }
-                quality={20}
-              />
-              {booking?.product?.product_short_description && (
-                <figcaption
-                  style={{
-                    position: "absolute",
-                    bottom: "0",
-                    left: "0",
-                    right: "0",
-                    backgroundColor: "rgba(10, 10, 10, 0.95)",
-                    color: "#ffffff",
-                    padding: "20px",
-                    display: "flex",
-                    justifyContent: "flex-start",
-                    alignItems: "center",
-                    borderTop: "1px solid #252525",
-                  }}
-                >
-                  <span
-                    style={{
-                      fontSize: "14px",
-                      lineHeight: "1.6",
-                      color: "#e5e5e5",
-                    }}
-                  >
-                    {booking?.product?.product_short_description}
-                  </span>
-                </figcaption>
-              )}
-            </figure>
+              sizes="(max-width: 800px) 100vw, 400px"
+              alt={
+                hasImage
+                  ? booking?.product.product_pictures[0]?.alt
+                  : "No image available"
+              }
+              quality={20}
+            />
           </div>
-        </ExpandableSectionItem>
+          <div className="tour-product-details">
+            <div className="tour-product-header">
+              <MdTour size={20} style={{ color: "#667eea" }} />
+              <h3 className="tour-product-name">{product_title}</h3>
+            </div>
+            {booking?.product?.product_short_description && (
+              <p className="tour-product-description">
+                {booking.product.product_short_description}
+              </p>
+            )}
+          </div>
+        </div>
         <ExpandableSectionItem>
           <div
             style={{

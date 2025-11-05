@@ -1,6 +1,5 @@
 "use client";
 
-import Button from "@mui/material/Button";
 import { MdEmail } from "react-icons/md";
 import { FiExternalLink } from "react-icons/fi";
 import useAddUserAction from "@/app/useAddUserAction";
@@ -18,21 +17,10 @@ const EmailButton = ({
 }) => {
   const { triggerUserAction } = useAddUserAction();
   return (
-    <Button
-      sx={{
-        display: "flex",
-        flex: 1,
-        flexDirection: "row",
-        justifyContent: "space-between",
-        gap: "5px",
-        fontSize: "11px",
-        textTransform: "none",
-        color: "black",
-        backgroundColor: "white",
-        borderRadius: "10px",
-        padding: "10px",
-        position: "relative",
-        boxShadow: "1px 1px 2px 0px rgba(0,0,0,0.25)",
+    <button
+      className="contact-button"
+      style={{
+        background: "linear-gradient(135deg, #4285f4 0%, #1a73e8 100%)",
       }}
       onClick={async () => {
         await triggerUserAction("CONTACT_BUTTON_CLICK");
@@ -42,52 +30,12 @@ const EmailButton = ({
         );
       }}
     >
-      <div
-        style={{
-          width: "30px",
-          height: "30px",
-          backgroundColor: "white",
-          boxShadow: "0px 1px 2px 0px rgba(0,0,0,0.25)",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          borderRadius: "50%",
-          position: "relative",
-        }}
-      >
-        <MdEmail
-          size={15}
-          color="dodgerblue"
-          style={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-          }}
-        />
+      <div className="contact-button-icon">
+        <MdEmail size={18} color="#ffffff" />
       </div>
-
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          gap: "5px",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <span>Email</span>
-        <FiExternalLink size={10} />
-      </div>
-
-      <span
-        style={{
-          opacity: 0,
-        }}
-      >
-        FFF
-      </span>
-    </Button>
+      <span className="contact-button-text">Email</span>
+      <FiExternalLink size={14} color="#ffffff" style={{ opacity: 0.8 }} />
+    </button>
   );
 };
 

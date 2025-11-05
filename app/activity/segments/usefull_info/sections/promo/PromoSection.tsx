@@ -1,5 +1,5 @@
 import { FaShoppingCart } from "react-icons/fa";
-import ProductSwiper from "./ProductSwiper";
+import ProductCarousel from "./ProductCarousel.client";
 import ExpandableSectionItem from "@/app/activity/segments/activity/sections/booking_info/ExpandableSectionItem.client";
 import { FaInfoCircle } from "react-icons/fa";
 import { IoCaretForwardOutline } from "react-icons/io5";
@@ -147,7 +147,7 @@ const PromoSection = async ({ id }: { id: string }) => {
         </ExpandableSectionItem>
 
         <div style={{ marginTop: "16px" }}>
-          <ProductSwiper products={JSON.stringify(booking.suggestedProducts)} />
+          <ProductCarousel products={JSON.stringify(booking.suggestedProducts)} />
         </div>
       </div>
     </div>

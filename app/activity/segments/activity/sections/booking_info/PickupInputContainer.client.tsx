@@ -2,7 +2,6 @@
 import { useContext, useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
 import { PickupInputStateContext } from "./PickupInputStateContextProvider.client";
 import addLocation from "@/app/server/server_actions/addLocation";
 import { toast } from "react-hot-toast";
@@ -109,7 +108,7 @@ const PickupInputContainer = ({
         {shouldPromptLocation && (
           <span
             style={{
-              color: "indianred",
+              color: "#ff6b6b",
               fontSize: "13px",
               fontStyle: "italic",
               marginBottom: "5px",
@@ -119,7 +118,8 @@ const PickupInputContainer = ({
             use the form below to add your&nbsp;
             <mark
               style={{
-                backgroundColor: "rgb(255 250 206)",
+                backgroundColor: "#fff9c4",
+                color: "#1a1a1a",
               }}
             >
               <b>hotel name or apartment/AirBNB full address </b>
@@ -144,14 +144,12 @@ const PickupInputContainer = ({
           onChange={(e) => setLocationInputValue(e.target.value)}
         />
 
-        <Button
-          fullWidth
-          variant="contained"
-          color="success"
+        <button
+          className="confirm-button"
           onClick={handleAddLocation}
         >
-          UPDATE
-        </Button>
+          <span>Update</span>
+        </button>
       </motion.div>
     </AnimatePresence>
   );

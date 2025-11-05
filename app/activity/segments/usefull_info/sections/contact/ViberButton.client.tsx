@@ -1,7 +1,6 @@
 "use client";
 
 import { FaViber } from "react-icons/fa6";
-import Button from "@mui/material/Button";
 import getPhoneNumberOnDuty from "@/app/server/server_actions/getPhoneNumberOnDuty";
 import toast from "react-hot-toast";
 import { FiExternalLink } from "react-icons/fi";
@@ -58,70 +57,19 @@ const ViberButton = ({
   };
 
   return (
-    <Button
-      sx={{
-        display: "flex",
-        flex: 1,
-        flexDirection: "row",
-        justifyContent: "space-between",
-        gap: "5px",
-        fontSize: "11px",
-        textTransform: "none",
-        color: "black",
-        backgroundColor: "white",
-        borderRadius: "10px",
-        padding: "10px",
-        position: "relative",
-        boxShadow: "1px 1px 2px 0px rgba(0,0,0,0.25)",
-      }}
+    <button
       onClick={handleGetPhoneNumberOnDuty}
+      className="contact-button"
+      style={{
+        background: "linear-gradient(135deg, #7360f2 0%, #5a4ccf 100%)",
+      }}
     >
-      <div
-        style={{
-          width: "30px",
-          height: "30px",
-          backgroundColor: "white",
-          boxShadow: "0px 1px 2px 0px rgba(0,0,0,0.25)",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          borderRadius: "50%",
-          position: "relative",
-        }}
-      >
-        <FaViber
-          size={14}
-          color="#7360f2"
-          style={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-          }}
-        />
+      <div className="contact-button-icon">
+        <FaViber size={18} color="#ffffff" />
       </div>
-
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          gap: "5px",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <span>Viber</span>
-        <FiExternalLink size={10} color="black" />
-      </div>
-
-      <span
-        style={{
-          opacity: 0,
-        }}
-      >
-        FFF
-      </span>
-    </Button>
+      <span className="contact-button-text">Viber</span>
+      <FiExternalLink size={14} color="#ffffff" style={{ opacity: 0.8 }} />
+    </button>
   );
 };
 

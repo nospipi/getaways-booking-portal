@@ -11,9 +11,10 @@ const UsefullInfoSegment = ({ id }: { id: string }) => {
     <article className="segment-container">
       <SegmentHeader>Useful Information</SegmentHeader>
       <div
+        className="activity-grid"
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+          gridTemplateColumns: "repeat(auto-fit, minmax(350px, 1fr))",
           gap: "24px",
         }}
       >
