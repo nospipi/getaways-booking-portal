@@ -28,31 +28,22 @@ const ActivitySegment = async ({
   return (
     <article className="segment-container">
       <SegmentHeader>
-        <div
-          style={{
-            flex: 1,
-            display: "flex",
-            //justifyContent: "flex-start",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <span>
-            {/* {`Activity #${
-              activityIndex + 1
-            } of ${numberOfActivities} - ${product_title}`} */}
-            {`Activity #${activityIndex + 1} of ${numberOfActivities}`}
-          </span>
-        </div>
+        {`Activity ${activityIndex + 1} of ${numberOfActivities}`}
       </SegmentHeader>
-      {/* {shouldShowConfirmButton && <ConfirmStatusSection uniqueId={uniqueId} />} */}
-      <BookingInfo uniqueId={uniqueId} />
-      <TourInfoSection uniqueId={uniqueId} />
-      <MeetingPoint uniqueId={uniqueId} />
-      {/* <MeetingTime uniqueId={uniqueId} /> */}
-      <TourHosts uniqueId={uniqueId} />
-      <TourBusInfo uniqueId={uniqueId} />
-      <BusTracking uniqueId={uniqueId} />
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+          gap: "24px",
+        }}
+      >
+        <BookingInfo uniqueId={uniqueId} />
+        <TourInfoSection uniqueId={uniqueId} />
+        <MeetingPoint uniqueId={uniqueId} />
+        <TourHosts uniqueId={uniqueId} />
+        <TourBusInfo uniqueId={uniqueId} />
+        <BusTracking uniqueId={uniqueId} />
+      </div>
     </article>
   );
 };

@@ -9,23 +9,19 @@ import SegmentHeader from "../SegmentHeader";
 const UsefullInfoSegment = ({ id }: { id: string }) => {
   return (
     <article className="segment-container">
-      <SegmentHeader>
-        <div
-          style={{
-            flex: 1,
-            display: "flex",
-            //justifyContent: "flex-start",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <span>Useful Information</span>
-        </div>
-      </SegmentHeader>
-      <PromoSection id={id} />
-      <SimSection />
-      <ReviewSection id={id} />
-      <ContactSection id={id} />
+      <SegmentHeader>Useful Information</SegmentHeader>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+          gap: "24px",
+        }}
+      >
+        <PromoSection id={id} />
+        <SimSection />
+        <ReviewSection id={id} />
+        <ContactSection id={id} />
+      </div>
     </article>
   );
 };

@@ -11,27 +11,19 @@ const PromoSection = async ({ id }: { id: string }) => {
   const booking = await getBookingByUniqueId(id);
 
   return (
-    <section className="section-container">
-      <header className="section-title-container">
-        Book your next tour with Getaways !
-      </header>
-      <div className="section-content-container">
-        <div className="section-content-item-container">
-          <div className="section-content-icon-container">
-            <FaShoppingCart size={15} />
+    <div className="modern-card" style={{ gridColumn: "span 2" }}>
+      <div className="modern-card-header">
+        <div className="modern-card-title">Book Your Next Tour</div>
+      </div>
+      <div className="modern-card-content">
+        <div className="modern-info-row">
+          <div className="modern-info-icon">
+            <FaShoppingCart size={20} />
           </div>
-          <div className="section-content-text-container">
-            <div>
-              Use the promo code :&nbsp;
-              <b
-                style={{
-                  color: "darkgreen",
-                }}
-              >
-                PROMO_APP
-              </b>
-              &nbsp; during the checkout process to get a <b>15%</b> discount on
-              your next booking
+          <div style={{ flex: 1 }}>
+            <div className="modern-info-label">Promo Code</div>
+            <div className="modern-info-value" style={{ fontSize: "14px", color: "#e5e5e5" }}>
+              Use the code <b style={{ color: "#ffffff", fontWeight: "600" }}>PROMO_APP</b> during checkout to get a <b style={{ color: "#ffffff" }}>15%</b> discount
             </div>
           </div>
         </div>
@@ -43,15 +35,15 @@ const PromoSection = async ({ id }: { id: string }) => {
               flexDirection: "row",
               alignItems: "center",
               width: "100%",
-              gap: "10px",
-              height: "100%",
+              gap: "12px",
+              padding: "12px 0",
             }}
           >
-            <div className="section-content-icon-container">
-              <FaInfoCircle size={15} />
+            <div className="modern-info-icon">
+              <FaInfoCircle size={20} />
             </div>
-            <div className="section-content-text-container">
-              Redeeming coupon code instructions
+            <div style={{ flex: 1 }}>
+              <div className="modern-info-label">Redeeming Instructions</div>
             </div>
           </div>
           <div
@@ -59,21 +51,20 @@ const PromoSection = async ({ id }: { id: string }) => {
               display: "flex",
               flexDirection: "column",
               width: "100%",
-              height: "100%",
               gap: "10px",
               fontSize: "14px",
-              borderLeft: "2px solid #599cdf",
-              padding: "10px",
-              backgroundColor: "whitesmoke",
-              borderTopRightRadius: "10px",
-              borderBottomRightRadius: "10px",
+              padding: "16px 0 0 0",
+              borderTop: "1px solid #252525",
+              color: "#e5e5e5",
             }}
           >
-            <div className="ca">
+            <div style={{ display: "flex", alignItems: "flex-start", gap: "10px", padding: "8px 0" }}>
               <IoCaretForwardOutline
-                size={11}
+                size={14}
                 style={{
-                  marginRight: "5px",
+                  color: "#ffffff",
+                  flexShrink: 0,
+                  marginTop: "2px",
                 }}
               />
               <span>
@@ -81,11 +72,13 @@ const PromoSection = async ({ id }: { id: string }) => {
                 &quot;Book Now&quot; to see more details and make a reservation
               </span>
             </div>
-            <div>
+            <div style={{ display: "flex", alignItems: "flex-start", gap: "10px", padding: "8px 0" }}>
               <IoCaretForwardOutline
-                size={11}
+                size={14}
                 style={{
-                  marginRight: "5px",
+                  color: "#ffffff",
+                  flexShrink: 0,
+                  marginTop: "2px",
                 }}
               />
               <span>
@@ -93,11 +86,13 @@ const PromoSection = async ({ id }: { id: string }) => {
                 date,time and participants.
               </span>
             </div>
-            <div>
+            <div style={{ display: "flex", alignItems: "flex-start", gap: "10px", padding: "8px 0" }}>
               <IoCaretForwardOutline
-                size={11}
+                size={14}
                 style={{
-                  marginRight: "5px",
+                  color: "#ffffff",
+                  flexShrink: 0,
+                  marginTop: "2px",
                 }}
               />
               <span>
@@ -105,11 +100,13 @@ const PromoSection = async ({ id }: { id: string }) => {
                 &quot;Checkout&quot; button to move on to the payment page.
               </span>
             </div>
-            <div>
+            <div style={{ display: "flex", alignItems: "flex-start", gap: "10px", padding: "8px 0" }}>
               <IoCaretForwardOutline
-                size={11}
+                size={14}
                 style={{
-                  marginRight: "5px",
+                  color: "#ffffff",
+                  flexShrink: 0,
+                  marginTop: "2px",
                 }}
               />
               <span>
@@ -118,22 +115,26 @@ const PromoSection = async ({ id }: { id: string }) => {
                 code&quot;
               </span>
             </div>
-            <div>
+            <div style={{ display: "flex", alignItems: "flex-start", gap: "10px", padding: "8px 0" }}>
               <IoCaretForwardOutline
-                size={11}
+                size={14}
                 style={{
-                  marginRight: "5px",
+                  color: "#ffffff",
+                  flexShrink: 0,
+                  marginTop: "2px",
                 }}
               />
               <span>
                 Enter your coupon code in the input field and click apply.
               </span>
             </div>
-            <div>
+            <div style={{ display: "flex", alignItems: "flex-start", gap: "10px", padding: "8px 0" }}>
               <IoCaretForwardOutline
-                size={11}
+                size={14}
                 style={{
-                  marginRight: "5px",
+                  color: "#ffffff",
+                  flexShrink: 0,
+                  marginTop: "2px",
                 }}
               />
               <span>
@@ -145,11 +146,11 @@ const PromoSection = async ({ id }: { id: string }) => {
           </div>
         </ExpandableSectionItem>
 
-        <div>
+        <div style={{ marginTop: "16px" }}>
           <ProductSwiper products={JSON.stringify(booking.suggestedProducts)} />
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 

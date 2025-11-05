@@ -27,25 +27,20 @@ const ConfirmButton = ({
   };
 
   return (
-    <div className="shimmer-button-container">
-      <Button
-        fullWidth
-        variant="contained"
-        color="success"
-        className="shimmer-button"
-        onClick={() => {
-          if (
-            window.confirm(`Are you sure you want to confirm?
+    <button
+      className="confirm-button"
+      onClick={() => {
+        if (
+          window.confirm(`Are you sure you want to confirm?
 
 Please review the details of your booking, such as the meeting point and time carefully before confirming`)
-          ) {
-            handleConfirm();
-          }
-        }}
-      >
-        CONFIRM MEETING POINT & TIME
-      </Button>
-    </div>
+        ) {
+          handleConfirm();
+        }
+      }}
+    >
+      <span>CONFIRM MEETING POINT & TIME</span>
+    </button>
   );
 };
 

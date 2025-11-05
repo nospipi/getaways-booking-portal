@@ -8,26 +8,32 @@ const TourBusInfo = async ({ uniqueId }: { uniqueId: string }) => {
   const hasVehicle = booking?.task?.vehicle?.plate;
 
   return (
-    <section className="section-container">
-      <header className="section-title-container">Tour Bus information</header>
-      <div className="section-content-container">
-        <div className="section-content-item-container">
-          <div className="section-content-icon-container">
-            <FaBus size={16} />
+    <div className="modern-card">
+      <div className="modern-card-header">
+        <div className="modern-card-title">Bus Information</div>
+      </div>
+      <div className="modern-card-content">
+        <div className="modern-info-row">
+          <div className="modern-info-icon">
+            <FaBus size={20} />
           </div>
-          <div
-            className="section-content-text-container"
-            style={{
-              color: hasVehicle ? "black" : "indianred",
-            }}
-          >
-            {hasVehicle
-              ? `${booking?.task?.vehicle?.plate} (${booking?.task?.vehicle?.type} / ${booking?.task?.vehicle?.color})`
-              : "NOT AVAILABLE"}
+          <div style={{ flex: 1 }}>
+            <div className="modern-info-label">Vehicle</div>
+            <div
+              className="modern-info-value"
+              style={{
+                color: hasVehicle ? "#ffffff" : "#ff6b6b",
+                fontWeight: hasVehicle ? "500" : "600",
+              }}
+            >
+              {hasVehicle
+                ? `${booking?.task?.vehicle?.plate} (${booking?.task?.vehicle?.type} / ${booking?.task?.vehicle?.color})`
+                : "Not available"}
+            </div>
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 

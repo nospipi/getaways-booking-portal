@@ -41,35 +41,35 @@ const BookingInfo = async ({ uniqueId }: { uniqueId: string }) => {
     : false;
 
   return (
-    <>
-      <section className="section-container">
-        <header className="section-title-container">
-          Your Getaways Booking Info
-        </header>
-        <div className="section-content-container">
-          <div className="section-content-item-container">
-            <div className="section-content-icon-container">Name</div>
-            <div className="section-content-text-container">
-              {booking.client_name}
-            </div>
+    <div className="modern-card">
+      <div className="modern-card-header">
+        <div className="modern-card-title">Booking Details</div>
+      </div>
+      <div className="modern-card-content">
+        <div className="modern-info-row">
+          <div className="modern-info-icon">👤</div>
+          <div style={{ flex: 1 }}>
+            <div className="modern-info-label">Name</div>
+            <div className="modern-info-value">{booking.client_name}</div>
           </div>
-          <div className="section-content-item-container">
-            <div className="section-content-icon-container">Seats</div>
-            <div className="section-content-text-container">
-              <span
-                style={{
-                  fontWeight: "bold",
-                }}
-              >
-                {seats}
+        </div>
+        <div className="modern-info-row">
+          <div className="modern-info-icon">🎫</div>
+          <div style={{ flex: 1 }}>
+            <div className="modern-info-label">Seats</div>
+            <div className="modern-info-value">
+              <span style={{ fontWeight: "600" }}>{seats}</span>
+              <span style={{ color: "#888888", marginLeft: "8px" }}>
+                ({tickets.join(", ")})
               </span>
-              (<span>{tickets.join(", ")}</span>)
             </div>
           </div>
+        </div>
 
-          {requiresTravellerDetails && (
-            <>
-              {travellerDetailsFormSubmitted ? (
+        {requiresTravellerDetails && (
+          <>
+            {travellerDetailsFormSubmitted ? (
+              <div style={{ marginTop: "8px" }}>
                 <ExpandableSectionItem>
                   <div
                     style={{
@@ -77,42 +77,37 @@ const BookingInfo = async ({ uniqueId }: { uniqueId: string }) => {
                       flexDirection: "row",
                       alignItems: "center",
                       width: "100%",
-                      gap: "10px",
-                      height: "100%",
+                      gap: "12px",
+                      padding: "12px 0",
                     }}
                   >
-                    <div className="section-content-icon-container">
-                      <IoDocumentText size={18} />
+                    <div className="modern-info-icon">
+                      <IoDocumentText size={20} />
                     </div>
-                    <div className="section-content-text-container">
+                    <div style={{ flex: 1 }}>
+                      <div className="modern-info-label">Traveller Details</div>
                       <div
                         style={{
                           display: "flex",
                           alignItems: "center",
-                          gap: "10px",
-                          color: "darkgreen",
+                          gap: "8px",
+                          color: "#ffffff",
+                          fontSize: "15px",
                         }}
                       >
-                        <span>Traveller details form submitted</span>
-                        <FaCheck size={12} />
+                        <span>Form submitted</span>
+                        <FaCheck size={14} />
                       </div>
                     </div>
                   </div>
                   <div
                     style={{
                       display: "flex",
-                      alignItems: "flex-end",
                       flexDirection: "column",
                       width: "100%",
-                      height: "100%",
-                      gap: "5px",
-                      fontSize: "14px",
-                      borderLeft: "2px solid #599cdf",
-                      paddingLeft: "10px",
-                      padding: "10px",
-                      backgroundColor: "whitesmoke",
-                      borderTopRightRadius: "10px",
-                      borderBottomRightRadius: "10px",
+                      gap: "12px",
+                      padding: "16px 0 0 0",
+                      borderTop: "1px solid #252525",
                     }}
                   >
                     {booking?.traveller_details_form?.map(
@@ -138,65 +133,74 @@ const BookingInfo = async ({ uniqueId }: { uniqueId: string }) => {
                     </Link>
                   </div>
                 </ExpandableSectionItem>
-              ) : (
-                <div className="section-content-item-container">
-                  <div className="section-content-icon-container">
-                    <IoDocumentText size={18} />
-                  </div>
-                  <div className="section-content-text-container">
-                    <div
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "5px",
-                      }}
-                    >
-                      <b>TRAVELLER DETAILS NOT PROVIDED</b>
-                      <FaExclamationCircle color="indianred" />
-                    </div>
-                  </div>
+              </div>
+            ) : (
+              <div className="modern-info-row">
+                <div className="modern-info-icon">
+                  <IoDocumentText size={20} />
                 </div>
-              )}
-
-              {!travellerDetailsFormSubmitted && (
-                <DetailsFormNavigateButton unique_booking_id={uniqueId} />
-              )}
-            </>
-          )}
-
-          <PickupInputStateContextProvider
-            shouldPromptLocation={shouldPromptLocation}
-          >
-            {shouldShowLocation && (
-              <div className="section-content-item-container">
-                <div className="section-content-icon-container">Hotel</div>
-                <div className="section-content-text-container">
-                  {booking.client_location || (
-                    <div
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "5px",
-                      }}
-                    >
-                      <b>NOT PROVIDED</b>
-                      <FaExclamationCircle color="indianred" />
-                    </div>
-                  )}
-                  {!shouldPromptLocation && <EditButton />} {/* CLIENT */}
+                <div style={{ flex: 1 }}>
+                  <div className="modern-info-label">Traveller Details</div>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "8px",
+                      color: "#ff6b6b",
+                      fontSize: "15px",
+                      fontWeight: "600",
+                    }}
+                  >
+                    <span>Not provided</span>
+                    <FaExclamationCircle size={14} />
+                  </div>
                 </div>
               </div>
             )}
 
-            <PickupInputContainer
-              booking_id={booking._id.toString()}
-              client_location={booking.client_location || ""}
-            />
-            {/* CLIENT */}
-          </PickupInputStateContextProvider>
-        </div>
-      </section>
-    </>
+            {!travellerDetailsFormSubmitted && (
+              <div style={{ marginTop: "8px" }}>
+                <DetailsFormNavigateButton unique_booking_id={uniqueId} />
+              </div>
+            )}
+          </>
+        )}
+
+        <PickupInputStateContextProvider
+          shouldPromptLocation={shouldPromptLocation}
+        >
+          {shouldShowLocation && (
+            <div className="modern-info-row">
+              <div className="modern-info-icon">🏨</div>
+              <div style={{ flex: 1 }}>
+                <div className="modern-info-label">Hotel / Location</div>
+                <div className="modern-info-value">
+                  {booking.client_location || (
+                    <span
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "8px",
+                        color: "#ff6b6b",
+                      }}
+                    >
+                      <span>Not provided</span>
+                      <FaExclamationCircle size={14} />
+                    </span>
+                  )}
+                  {!shouldPromptLocation && <EditButton />}
+                </div>
+              </div>
+            </div>
+          )}
+
+          <PickupInputContainer
+            booking_id={booking._id.toString()}
+            client_location={booking.client_location || ""}
+          />
+        </PickupInputStateContextProvider>
+      </div>
+    </div>
   );
 };
 

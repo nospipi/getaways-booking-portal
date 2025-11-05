@@ -27,101 +27,119 @@ const MeetingPoint = async ({ uniqueId }: { uniqueId: string }) => {
     booking?.pickup_time?.length > 0;
 
   return (
-    <section className="section-container">
-      <header className="section-title-container">
-        Your Meeting Point & Time
-      </header>
-      <div className="section-content-container">
-        <div className="section-content-item-container">
-          <div className="section-content-icon-container">
-            <FaLocationDot size={15} />
+    <div className="modern-card">
+      <div className="modern-card-header">
+        <div className="modern-card-title">Meeting Point & Time</div>
+      </div>
+      <div className="modern-card-content">
+        <div className="modern-info-row">
+          <div className="modern-info-icon">
+            <FaLocationDot size={20} />
           </div>
-          <div
-            className="section-content-text-container"
-            style={{
-              color: hasPickupLocation ? "black" : "indianred",
-            }}
-          >
-            {hasPickupLocation
-              ? booking.pickup_location.name
-              : "TO BE ANNOUNCED"}
+          <div style={{ flex: 1 }}>
+            <div className="modern-info-label">Location</div>
+            <div
+              className="modern-info-value"
+              style={{
+                color: hasPickupLocation ? "#ffffff" : "#ff6b6b",
+                fontWeight: hasPickupLocation ? "500" : "600",
+              }}
+            >
+              {hasPickupLocation
+                ? booking.pickup_location.name
+                : "To be announced"}
+            </div>
           </div>
         </div>
 
-        <div className="section-content-item-container">
-          <div className="section-content-icon-container">
-            <MdOutlineAccessTimeFilled size={15} />
+        <div className="modern-info-row">
+          <div className="modern-info-icon">
+            <MdOutlineAccessTimeFilled size={20} />
           </div>
-          <div
-            className="section-content-text-container"
-            style={{
-              color: hasPickupTime ? "black" : "indianred",
-            }}
-          >
-            {hasPickupTime ? time : "TO BE ANNOUNCED"}
+          <div style={{ flex: 1 }}>
+            <div className="modern-info-label">Time</div>
+            <div
+              className="modern-info-value"
+              style={{
+                color: hasPickupTime ? "#ffffff" : "#ff6b6b",
+                fontWeight: hasPickupTime ? "500" : "600",
+              }}
+            >
+              {hasPickupTime ? time : "To be announced"}
+            </div>
           </div>
         </div>
 
         {shouldShowConfirmButton && (
-          <ConfirmStatusSection uniqueId={uniqueId} />
-        )}
-        {hasPickupLocation && (
-          <Suspense>
-            {/* wrapped in Suspense because it accesses useSearchParams hook */}
-            {/* https://nextjs.org/docs/messages/missing-suspense-with-csr-bailout */}
-            <NavigateButton
-              url={`https://www.google.com.sa/maps/search/${booking.pickup_location.latitude},${booking.pickup_location.longitude}?hl=en`}
-            />
-          </Suspense>
-        )}
-        {hasPickupLocation && (
-          <div className="section-content-item-container">
-            <div className="section-content-icon-container">
-              <FaInfoCircle size={15} />
-            </div>
-            <div className="section-content-text-container">
-              {booking.pickup_location.instructions}
-            </div>
+          <div style={{ marginTop: "8px" }}>
+            <ConfirmStatusSection uniqueId={uniqueId} />
           </div>
         )}
-
-        {img_url && (
-          <ExpandableSectionItem>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "center",
-                width: "100%",
-                gap: "10px",
-                height: "100%",
-              }}
-            >
-              <div className="section-content-icon-container">
-                <FaEye size={16} />
+        {hasPickupLocation && (
+          <>
+            <Suspense>
+              <div style={{ marginTop: "8px" }}>
+                <NavigateButton
+                  url={`https://www.google.com.sa/maps/search/${booking.pickup_location.latitude},${booking.pickup_location.longitude}?hl=en`}
+                />
               </div>
-              <div className="section-content-text-container">
-                See your meeting point
+            </Suspense>
+            {booking.pickup_location.instructions && (
+              <div className="modern-info-row">
+                <div className="modern-info-icon">
+                  <FaInfoCircle size={20} />
+                </div>
+                <div style={{ flex: 1 }}>
+                  <div className="modern-info-label">Instructions</div>
+                  <div className="modern-info-value" style={{ fontSize: "14px", lineHeight: "1.6", color: "#e5e5e5" }}>
+                    {booking.pickup_location.instructions}
+                  </div>
+                </div>
               </div>
-            </div>
-            <Image
-              src={img_url}
-              style={{
-                width: "100%",
-                height: "100%",
-                borderRadius: "10px",
-                objectFit: "cover",
-              }}
-              width={0}
-              height={0}
-              sizes="(max-width: 800px) 100vw, 800px"
-              alt="No image available"
-              quality={20}
-            />
-          </ExpandableSectionItem>
+            )}
+            {img_url && (
+              <div style={{ marginTop: "16px" }}>
+                <ExpandableSectionItem>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      alignItems: "center",
+                      width: "100%",
+                      gap: "12px",
+                      padding: "12px 0",
+                    }}
+                  >
+                    <div className="modern-info-icon">
+                      <FaEye size={20} />
+                    </div>
+                    <div style={{ flex: 1 }}>
+                      <div className="modern-info-label">Meeting Point Image</div>
+                    </div>
+                  </div>
+                  <div style={{ marginTop: "16px", borderTop: "1px solid #252525", paddingTop: "16px" }}>
+                    <Image
+                      src={img_url}
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        minHeight: "200px",
+                        objectFit: "cover",
+                      }}
+                      width={0}
+                      height={0}
+                      sizes="(max-width: 800px) 100vw, 800px"
+                      alt="Meeting point"
+                      quality={20}
+                    />
+                  </div>
+                </ExpandableSectionItem>
+              </div>
+            )}
+          </>
         )}
       </div>
-    </section>
+    </div>
   );
 };
 

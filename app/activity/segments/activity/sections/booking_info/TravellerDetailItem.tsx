@@ -21,48 +21,43 @@ const TravellerDetailItem: React.FC<TravellerDetailsProps> = ({
         display: "flex",
         flexDirection: "column",
         width: "100%",
-        backgroundColor: "white",
-        borderRadius: "8px",
-        padding: "12px",
-        //marginBottom: "8px",
-        boxShadow: "0 1px 3px rgba(0, 0, 0, 0.1)",
-        border: "1px solid #eaeaea",
+        backgroundColor: "#1a1a1a",
+        padding: "16px",
+        border: "1px solid #252525",
+        gap: "12px",
       }}
     >
       <div
         style={{
           display: "flex",
           alignItems: "center",
-          marginBottom: "8px",
+          marginBottom: "4px",
         }}
       >
         <div
           style={{
-            backgroundColor: "rgb(50, 75, 104)",
-            color: "white",
-            borderRadius: "4px",
-            padding: "4px 8px",
+            background: "#252525",
+            color: "#ffffff",
+            padding: "6px 12px",
             fontSize: "11px",
-            fontWeight: "bold",
+            fontWeight: "600",
+            letterSpacing: "0.08em",
+            textTransform: "uppercase",
           }}
         >
           Ticket #{index + 1}
         </div>
       </div>
 
-      <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(100px, 1fr))", gap: "16px" }}>
         <div
           style={{
             display: "flex",
             flexDirection: "column",
-            flex: "1",
-            minWidth: "120px",
           }}
         >
-          <div style={{ fontSize: "11px", color: "rgb(84, 116, 155)" }}>
-            Type
-          </div>
-          <div style={{ fontSize: "14px", fontWeight: "bold" }}>
+          <div className="modern-info-label">Type</div>
+          <div className="modern-info-value" style={{ fontSize: "14px" }}>
             {ticketType}
           </div>
         </div>
@@ -71,28 +66,20 @@ const TravellerDetailItem: React.FC<TravellerDetailsProps> = ({
           style={{
             display: "flex",
             flexDirection: "column",
-            flex: "1",
-            minWidth: "80px",
           }}
         >
-          <div style={{ fontSize: "11px", color: "rgb(84, 116, 155)" }}>
-            Age
-          </div>
-          <div style={{ fontSize: "14px", fontWeight: "bold" }}>{age}</div>
+          <div className="modern-info-label">Age</div>
+          <div className="modern-info-value" style={{ fontSize: "14px" }}>{age}</div>
         </div>
 
         <div
           style={{
             display: "flex",
             flexDirection: "column",
-            flex: "1",
-            minWidth: "120px",
           }}
         >
-          <div style={{ fontSize: "11px", color: "rgb(84, 116, 155)" }}>
-            Nationality
-          </div>
-          <div style={{ fontSize: "14px", fontWeight: "bold" }}>
+          <div className="modern-info-label">Nationality</div>
+          <div className="modern-info-value" style={{ fontSize: "14px" }}>
             {nationality}
           </div>
         </div>

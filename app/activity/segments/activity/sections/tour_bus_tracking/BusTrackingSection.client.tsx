@@ -38,80 +38,60 @@ const BusTrackingSection = ({ uniqueId }: { uniqueId: string }) => {
     completed,
   }: CountdownRenderProps) => {
     return (
-      <section className="section-container">
-        <header className="section-title-container">Tour Bus Tracking</header>
-        <div className="section-content-container">
-          <div className="section-content-item-container">
-            <div className="section-content-icon-container">
-              <FaRoute size={16} />
+      <div className="modern-card">
+        <div className="modern-card-header">
+          <div className="modern-card-title">Bus Tracking</div>
+        </div>
+        <div className="modern-card-content">
+          <div className="modern-info-row">
+            <div className="modern-info-icon">
+              <FaRoute size={20} />
             </div>
-
-            <div
-              className="section-content-text-container"
-              style={{
-                color: "indianred",
-                width: "100%",
-              }}
-            >
-              {errorText}
+            <div style={{ flex: 1 }}>
+              <div className="modern-info-label">Status</div>
+              <div className="modern-info-value" style={{ color: "#ff6b6b", fontSize: "14px" }}>
+                {errorText}
+              </div>
             </div>
           </div>
           {!completed && (
             <div
               style={{
                 display: "flex",
-                justifyContent: "center",
-                alignItems: "flex-start",
                 flexDirection: "column",
-                backgroundColor: "whitesmoke",
-                padding: "10px",
-                gap: "10px",
-                //border: "1px solid #ccc",
-                borderRadius: "10px",
-                //borderLeft: "3px solid dodgerblue",
+                gap: "12px",
+                padding: "16px",
+                background: "#1a1a1a",
+                border: "1px solid #252525",
               }}
             >
-              <span
-                style={{
-                  fontSize: "13px",
-                  fontWeight: "bold",
-                }}
-              >
-                Bus tracking will open in
-              </span>
+              <div className="modern-info-label" style={{ marginBottom: "4px" }}>
+                Tracking opens in
+              </div>
               <div
                 style={{
-                  backgroundColor: "white",
-                  padding: "10px",
-                  width: "100%",
-                  textAlign: "center",
                   display: "flex",
-                  justifyContent: "center",
                   alignItems: "center",
-                  position: "relative",
-                  gap: "6px",
-                  fontSize: "13px",
-                  borderRadius: "100px",
+                  justifyContent: "center",
+                  gap: "8px",
+                  padding: "12px",
+                  background: "#0a0a0a",
+                  border: "1px solid #252525",
+                  fontSize: "15px",
+                  fontWeight: "600",
+                  color: "#ffffff",
                 }}
               >
-                <PiClockCountdownFill
-                  size={18}
-                  style={{
-                    position: "absolute",
-                    left: "10px",
-                    top: "50%",
-                    transform: "translateY(-50%)",
-                  }}
-                />
-                {days > 0 && <span>{days} days</span>}
-                {hours > 0 && <span>{hours} hours</span>}
-                {minutes > 0 && <span>{minutes} minutes</span>}
-                {seconds > 0 && days === 0 && <span>{seconds} seconds</span>}
+                <PiClockCountdownFill size={18} />
+                {days > 0 && <span>{days}d</span>}
+                {hours > 0 && <span>{hours}h</span>}
+                {minutes > 0 && <span>{minutes}m</span>}
+                {seconds > 0 && days === 0 && <span>{seconds}s</span>}
               </div>
             </div>
           )}
         </div>
-      </section>
+      </div>
     );
   };
 
@@ -130,77 +110,80 @@ const BusTrackingSection = ({ uniqueId }: { uniqueId: string }) => {
 
   if (errorWithoutCountdown) {
     return (
-      <section className="section-container">
-        <header className="section-title-container">Tour Bus Tracking</header>
-        <div className="section-content-container">
-          <div className="section-content-item-container">
-            <div className="section-content-icon-container">
-              <FaRoute size={16} />
+      <div className="modern-card">
+        <div className="modern-card-header">
+          <div className="modern-card-title">Bus Tracking</div>
+        </div>
+        <div className="modern-card-content">
+          <div className="modern-info-row">
+            <div className="modern-info-icon">
+              <FaRoute size={20} />
             </div>
-            <div
-              className="section-content-text-container"
-              style={{
-                color: "indianred",
-                width: "100%",
-              }}
-            >
-              {errorText}
+            <div style={{ flex: 1 }}>
+              <div className="modern-info-label">Status</div>
+              <div className="modern-info-value" style={{ color: "#ff6b6b", fontSize: "14px" }}>
+                {errorText}
+              </div>
             </div>
           </div>
         </div>
-      </section>
+      </div>
     );
   }
 
   return (
-    <section className="section-container">
-      <header className="section-title-container">Tour Bus Tracking</header>
-      <div className="section-content-container">
-        <div className="section-content-item-container">
-          <div className="section-content-icon-container">
-            <FaRoute size={16} />
+    <div className="modern-card">
+      <div className="modern-card-header">
+        <div className="modern-card-title">Bus Tracking</div>
+      </div>
+      <div className="modern-card-content">
+        <div className="modern-info-row">
+          <div className="modern-info-icon">
+            <FaRoute size={20} />
           </div>
-          <div
-            className="section-content-text-container"
-            style={{
-              color: "darkgreen",
-              width: "100%",
-            }}
-          >
+          <div style={{ flex: 1 }}>
+            <div className="modern-info-label">Status</div>
             <div
+              className="modern-info-value"
               style={{
                 display: "flex",
                 alignItems: "center",
                 gap: "10px",
+                color: "#ffffff",
               }}
             >
-              <span>Tracking is Open !</span>
+              <span>Tracking active</span>
               <div className="pulsing-dot" />
             </div>
           </div>
         </div>
         <Link href={`bus-tracking/?uniqueId=${uniqueId}`} prefetch={true}>
-          <Button
-            variant="contained"
-            color="success"
-            fullWidth
+          <button
+            className="confirm-button"
             onClick={async () => {
               setIsNavigatingToTracking(true);
               await triggerUserAction("BUS_TRACKING_MAP_CLICK");
             }}
-            sx={{
-              minHeight: "40px",
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "8px",
+              marginTop: "8px",
             }}
           >
             {isNavigatingToTracking ? (
-              <RotatingLines width="15" strokeColor="white" />
+              <RotatingLines width="15" strokeColor="#0a0a0a" />
             ) : (
-              <span>VIEW BUS TRACKING</span>
+              <>
+                <FaRoute size={16} />
+                <span>View Bus Tracking</span>
+              </>
             )}
-          </Button>
+          </button>
         </Link>
       </div>
-    </section>
+    </div>
   );
 };
 

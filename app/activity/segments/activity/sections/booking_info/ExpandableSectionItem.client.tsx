@@ -28,10 +28,9 @@ const ExpandableSectionItem = ({ children }: { children: React.ReactNode }) => {
 
       if (sectionContentTextContainer) {
         if (expanded) {
-          sectionContentTextContainer.style.borderLeft = "2px solid #c06b04";
+          sectionContentTextContainer.style.borderLeft = "2px solid #ffffff";
         } else {
-          sectionContentTextContainer.style.borderLeft =
-            "2px solid rgb(84, 116, 155)";
+          sectionContentTextContainer.style.borderLeft = "none";
         }
       }
     }
@@ -60,7 +59,7 @@ const ExpandableSectionItem = ({ children }: { children: React.ReactNode }) => {
             paddingLeft: 0,
             paddingRight: "10px",
             width: "100%",
-            color: "black",
+            color: "#ffffff",
             backgroundColor: "transparent",
             borderRadius: "0px",
             boxShadow: "none",

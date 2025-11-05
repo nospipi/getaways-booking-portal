@@ -11,19 +11,16 @@ const ConfirmStatusSection = async ({ uniqueId }: { uniqueId: string }) => {
 
   return (
     <div
-      className="section-content-item-container"
       style={{
         display: "flex",
         flexDirection: "column",
-        gap: "10px",
+        gap: "12px",
       }}
     >
       <InterchangableConfirmSection isConfirmed={isConfirmed} />
 
       {!isConfirmed && (
-        <>
-          <ConfirmButton unique_booking_id={unique_booking_id} />
-        </>
+        <ConfirmButton unique_booking_id={unique_booking_id} />
       )}
     </div>
   );

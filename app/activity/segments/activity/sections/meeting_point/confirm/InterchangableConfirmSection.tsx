@@ -19,57 +19,63 @@ const InterchangableConfirmSection = ({
       {isConfirmed ? (
         <motion.div
           key={1}
-          className="section-content-item-container"
+          className="modern-info-row"
           initial={{ y: -10, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 10, opacity: 0 }}
+          style={{
+            padding: "16px",
+            background: "#1a1a1a",
+            border: "1px solid #252525",
+          }}
         >
-          <div className="section-content-icon-container">
-            <FaThumbsUp style={{ color: "darkgreen" }} size={15} />
+          <div className="modern-info-icon">
+            <FaThumbsUp style={{ color: "#ffffff" }} size={20} />
           </div>
-          <div
-            className="section-content-text-container"
-            style={{
-              color: "darkgreen",
-            }}
-          >
-            <span
+          <div style={{ flex: 1 }}>
+            <div className="modern-info-label">Status</div>
+            <div
               style={{
-                height: "100%",
+                fontSize: "15px",
+                color: "#ffffff",
+                fontWeight: "500",
                 display: "flex",
                 alignItems: "center",
-                gap: "5px",
+                gap: "8px",
               }}
             >
-              You have confirmed meeting point and time
-              <i
-                style={{
-                  fontSize: "18px",
-                }}
-              >
-                👏
-              </i>
-            </span>
+              <span>Confirmed</span>
+              <span style={{ fontSize: "18px" }}>👏</span>
+            </div>
           </div>
         </motion.div>
       ) : (
         <motion.div
           key={2}
-          className="section-content-item-container"
+          className="modern-info-row"
           initial={{ y: -10, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 10, opacity: 0 }}
+          style={{
+            padding: "16px",
+            background: "#1a1a1a",
+            border: "1px solid #252525",
+          }}
         >
-          <div className="section-content-icon-container">
-            <FaHourglassStart style={{ color: "indianred" }} size={15} />
+          <div className="modern-info-icon">
+            <FaHourglassStart style={{ color: "#ffffff" }} size={20} />
           </div>
-          <div
-            className="section-content-text-container"
-            style={{
-              color: "indianred",
-            }}
-          >
-            PENDING CONFIRMATION
+          <div style={{ flex: 1 }}>
+            <div className="modern-info-label">Status</div>
+            <div
+              style={{
+                fontSize: "15px",
+                color: "#ff6b6b",
+                fontWeight: "600",
+              }}
+            >
+              Pending confirmation
+            </div>
           </div>
         </motion.div>
       )}

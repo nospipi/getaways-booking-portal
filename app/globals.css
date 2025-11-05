@@ -7,13 +7,16 @@
 body {
   max-height: 100dvh;
   min-height: 100dvh;
-  font-family: "Roboto", sans-serif;
-  font-weight: 500;
-  letter-spacing: 0.1px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Inter", "Helvetica Neue", sans-serif;
+  font-weight: 400;
+  letter-spacing: -0.011em;
   overflow: hidden;
   margin: 0;
   display: flex;
-  background: rgb(37, 49, 63);
+  background: #0a0a0a;
+  color: #e5e5e5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 a {
@@ -26,13 +29,13 @@ a {
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  background: rgb(37, 49, 63);
+  background: linear-gradient(180deg, #0a0a0a 0%, #0f0f0f 100%);
 }
 
 .content-wrapper {
   flex: 1;
   display: flex;
-  padding: 5px;
+  padding: 24px 20px;
   justify-content: center;
   overflow: hidden;
   position: relative;
@@ -44,7 +47,24 @@ a {
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: stretch;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
+  max-width: 1200px;
+  width: 100%;
+}
+
+.content-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.content-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.content-container::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 3px;
 }
 
 .content-container-wrapper {
@@ -52,86 +72,183 @@ a {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 5px;
-  border-radius: 5px;
-  max-width: 500px;
+  gap: 32px;
+  padding-bottom: 40px;
 }
 
 .segment-container {
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 5px;
-  padding: 0 5px 5px 5px;
-  background-color: white;
-  box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.1);
+  background: transparent;
+  border: none;
+  overflow: visible;
+  margin: 0;
+  gap: 24px;
+}
+
+/* Modern Card Styles */
+.modern-card {
+  background: #151515;
+  border: 1px solid #252525;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.modern-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #252525;
+}
+
+.modern-card-title {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #ffffff;
+}
+
+.modern-card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.modern-info-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 0;
+}
+
+.modern-info-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 48px;
+  height: 48px;
+  background: #1a1a1a;
+  color: #ffffff;
+  flex-shrink: 0;
+}
+
+.modern-info-text {
+  flex: 1;
+  font-size: 15px;
+  line-height: 1.5;
+  color: #e5e5e5;
+}
+
+.modern-info-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #888888;
+  margin-bottom: 4px;
+}
+
+.modern-info-value {
+  font-size: 15px;
+  color: #ffffff;
+  font-weight: 500;
 }
 
 .section-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  gap: 8px;
-  background-color: whitesmoke;
-  padding: 10px;
+  gap: 16px;
+  padding: 0;
+  margin: 0;
+  background: transparent;
 }
 
 .section-title-container {
-  color: rgb(50, 75, 104);
-  padding: 0 5px;
-  font-size: 13px;
+  color: #ffffff;
+  padding: 0 0 12px 0;
+  font-size: 11px;
   font-weight: 600;
-  letter-spacing: 0.7px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  background: transparent;
+  border: none;
+}
+
+.section-title-container::after {
+  display: none;
 }
 
 .section-content-container {
   display: flex;
   flex-direction: column;
-  background-color: white;
-  padding: 10px;
-  gap: 10px;
-  border-radius: 13px;
-  box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.1);
+  gap: 12px;
+  padding: 0;
+  background: transparent;
 }
 
 .section-content-container ul li::marker {
-  font-size: 20px;
-  color: grey;
+  font-size: 14px;
+  color: #ffffff;
 }
 
 .section-content-item-container {
   display: flex;
-  gap: 10px;
-  min-height: 45px;
+  gap: 16px;
+  align-items: center;
+  padding: 0;
+  background: transparent;
+  border: none;
+  position: relative;
+  overflow: visible;
+  min-height: auto;
+}
+
+.section-content-item-container::before {
+  display: none;
 }
 
 .section-content-item-button-container {
   display: flex;
-  gap: 10px;
+  gap: 12px;
 }
 
 .section-content-icon-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: whitesmoke;
-  min-width: 50px;
-  max-width: 50px;
-  min-height: 100%;
-  border-radius: 5px;
+  min-width: 48px;
+  max-width: 48px;
+  width: 48px;
+  height: 48px;
+  background: #1a1a1a;
   font-size: 12px;
-  font-weight: bold;
+  font-weight: 600;
+  color: #ffffff;
+  border: none;
+  flex-shrink: 0;
+  text-align: center;
 }
 
 .section-content-text-container {
-  font-size: 14px;
-  min-height: 100%;
+  font-size: 15px;
+  line-height: 1.5;
   display: flex;
   align-items: center;
   text-align: left;
-  padding-left: 10px;
-  gap: 5px;
-  border-left: 2px solid rgb(84, 116, 155);
+  gap: 8px;
+  color: #e5e5e5;
+  flex: 1;
+  min-width: 0;
+  padding-left: 0;
+  border-left: none;
 }
 
 .section-content-input-container {
@@ -150,54 +267,122 @@ a {
   text-align: left;
   width: 100%;
   height: 100%;
-  background-color: #fcfcfc !important;
-  border: none;
-  border-radius: 5px;
-  padding: 0 5px;
+  min-height: 52px;
+  background: #1a1a1a !important;
+  border: 1px solid #2a2a2a !important;
+  padding: 0 16px;
+  color: #ffffff !important;
+  font-size: 15px;
+  transition: all 0.2s ease;
+}
+
+.section-content-input:focus {
+  outline: none;
+  border-color: #ffffff !important;
+  background: #1f1f1f !important;
 }
 
 .section-content-input::placeholder {
-  font-size: 12px;
-  color: #aeaeae;
+  font-size: 14px;
+  color: #666666;
   text-align: center;
 }
 
 .confirm-button {
   flex: 1;
   height: 100%;
-  min-height: 45px;
+  min-height: 52px;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #6a914f;
-  border-radius: 5px;
-  color: whitesmoke;
+  background: #ffffff;
+  color: #0a0a0a;
   cursor: pointer;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 600;
+  border: none;
+  letter-spacing: 0.01em;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+
+.confirm-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.05) 100%);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.confirm-button span {
+  position: relative;
+  z-index: 1;
 }
 
 .confirm-button:hover {
-  filter: brightness(0.9);
+  transform: translateY(-1px);
+}
+
+.confirm-button:hover::before {
+  opacity: 1;
+}
+
+.confirm-button:active {
+  transform: translateY(0);
 }
 
 .cancel-button {
   height: 100%;
-  min-height: 45px;
+  min-height: 52px;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: lightcoral;
-  border: 1px solid #f5f5f5;
-  border-radius: 5px;
-  color: whitesmoke;
+  background: transparent;
+  border: 1px solid #3a3a3a;
+  color: #e5e5e5;
   cursor: pointer;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  padding: 0 24px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+
+.cancel-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.05);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.cancel-button span {
+  position: relative;
+  z-index: 1;
 }
 
 .cancel-button:hover {
-  filter: brightness(0.9);
+  border-color: #5a5a5a;
+  transform: translateY(-1px);
+}
+
+.cancel-button:hover::before {
+  opacity: 1;
+}
+
+.cancel-button:active {
+  transform: translateY(0);
 }
 
 .vehicle-marker-container {
@@ -351,7 +536,7 @@ a {
   flex-direction: column;
   gap: 12px;
   padding: 10px 0;
-  border-bottom: 1px solid #eaeaea;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .traveler-item:last-child {
@@ -359,10 +544,11 @@ a {
 }
 
 .traveler-header {
-  font-size: 14px;
-  font-weight: 600;
-  color: rgb(50, 75, 104);
-  letter-spacing: 0.5px;
+  font-size: 12px;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
 }
 
 .traveler-inputs {
@@ -390,12 +576,16 @@ a {
 }
 
 .disclaimer-container {
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  padding: 30px;
-  border-left: 3px solid #627a96;
-  margin: 5px 0;
-  font-size: 12px;
+  background-color: transparent;
+  padding: 18px;
+  border-left: 2px solid #ffffff;
+  margin: 0;
+  font-size: 14px;
+  color: #f5f5f5;
+  border-top: 2px solid #252525;
+  border-bottom: 2px solid #252525;
+  border-right: none;
+  line-height: 1.7;
 }
 
 /* Shimmer Button Effect */

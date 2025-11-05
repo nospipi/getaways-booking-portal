@@ -12,80 +12,61 @@ const ContactSection = async ({ id }: { id: string }) => {
   const booking = await getBookingByUniqueId(id);
 
   return (
-    <section className="section-container">
-      <header className="section-title-container">Have questions ?</header>
-      <div className="section-content-container">
-        <div className="section-content-item-container">
-          <div className="section-content-icon-container">
-            <BsChatFill size={15} />
+    <div className="modern-card">
+      <div className="modern-card-header">
+        <div className="modern-card-title">Have questions?</div>
+      </div>
+      <div className="modern-card-content">
+        <div className="modern-info-row">
+          <div className="modern-info-icon">
+            <BsChatFill size={20} />
           </div>
-          <div className="section-content-text-container">
-            Send us a message using one of the platforms below
-            <div />
+          <div style={{ flex: 1 }}>
+            <div className="modern-info-label">Contact us</div>
+            <div className="modern-info-value" style={{ fontSize: "14px", color: "#e5e5e5" }}>
+              Send us a message using one of the platforms below
+            </div>
           </div>
         </div>
 
         <div
-          className="section-content-item-button-container"
           style={{
-            flexDirection: "column",
+            display: "grid",
+            gridTemplateColumns: "repeat(2, 1fr)",
+            gap: "12px",
+            marginTop: "8px",
           }}
         >
-          <div
-            style={{
-              flex: 1,
-              display: "flex",
-              flexDirection: "row",
-              gap: "10px",
-            }}
-          >
-            <Suspense>
-              {/* wrapped in Suspense because it accesses useSearchParams hook (through useAddUserAction hook) */}
-              {/* https://nextjs.org/docs/messages/missing-suspense-with-csr-bailout */}
-              <IMessageButton
-                booking_ref={booking.ref}
-                client_name={booking.client_name}
-              />
-            </Suspense>
+          <Suspense>
+            <IMessageButton
+              booking_ref={booking.ref}
+              client_name={booking.client_name}
+            />
+          </Suspense>
 
-            <Suspense>
-              {/* wrapped in Suspense because it accesses useSearchParams hook (through useAddUserAction hook) */}
-              {/* https://nextjs.org/docs/messages/missing-suspense-with-csr-bailout */}
-              <WhatsAppButton
-                booking_ref={booking.ref}
-                client_name={booking.client_name}
-              />
-            </Suspense>
-          </div>
-          <div
-            style={{
-              flex: 1,
-              display: "flex",
-              flexDirection: "row",
-              gap: "10px",
-            }}
-          >
-            <Suspense>
-              {/* wrapped in Suspense because it accesses useSearchParams hook (through useAddUserAction hook) */}
-              {/* https://nextjs.org/docs/messages/missing-suspense-with-csr-bailout */}
-              <ViberButton
-                booking_ref={booking.ref}
-                client_name={booking.client_name}
-              />
-            </Suspense>
+          <Suspense>
+            <WhatsAppButton
+              booking_ref={booking.ref}
+              client_name={booking.client_name}
+            />
+          </Suspense>
 
-            <Suspense>
-              {/* wrapped in Suspense because it accesses useSearchParams hook (through useAddUserAction hook) */}
-              {/* https://nextjs.org/docs/messages/missing-suspense-with-csr-bailout */}
-              <EmailButton
-                booking_ref={booking.ref}
-                client_name={booking.client_name}
-              />
-            </Suspense>
-          </div>
+          <Suspense>
+            <ViberButton
+              booking_ref={booking.ref}
+              client_name={booking.client_name}
+            />
+          </Suspense>
+
+          <Suspense>
+            <EmailButton
+              booking_ref={booking.ref}
+              client_name={booking.client_name}
+            />
+          </Suspense>
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 

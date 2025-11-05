@@ -10,27 +10,23 @@ const DetailsFormNavigateButton = ({
   unique_booking_id: string;
 }) => {
   return (
-    <div className="shimmer-button-container">
-      <Link
-        href={`/traveler-details-form?uniqueId=${unique_booking_id}`}
-        prefetch={true}
+    <Link
+      href={`/traveler-details-form?uniqueId=${unique_booking_id}`}
+      prefetch={true}
+    >
+      <button
+        className="confirm-button"
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: "8px",
+        }}
       >
-        <Button
-          fullWidth
-          variant="contained"
-          color="warning"
-          className="shimmer-button"
-          sx={{
-            backgroundColor: "dodgerblue",
-            display: "flex",
-            gap: "5px",
-          }}
-        >
-          <span>SUBMIT TRAVELLER DETAILS FORM</span>
-          <FaArrowRight />
-        </Button>
-      </Link>
-    </div>
+        <span>Submit Traveller Details</span>
+        <FaArrowRight size={14} />
+      </button>
+    </Link>
   );
 };
 

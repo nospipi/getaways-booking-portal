@@ -24,54 +24,28 @@ const NavigateButton = ({ url }: { url: string }) => {
   }, [ref, uniqueId]);
 
   return (
-    <Button
-      variant="contained"
-      sx={{
-        minHeight: "45px",
-        maxHeight: "45px",
-        paddingTop: 0,
-        paddingBottom: 0,
-        paddingLeft: 0,
-        paddingRight: "10px",
-        width: "100%",
-        color: "black",
-        backgroundColor: "transparent",
-        borderRadius: "0px",
-        boxShadow: "none",
-        textTransform: "none",
-        display: "flex",
-        justifyContent: "space-between",
-      }}
-      disableElevation
+    <button
+      className="confirm-button"
       onClick={() => {
-        //we dont use the useAddUserAction here because we are leaving the page
-        //so we sent a beacon and the it will be handled by the server even after we navigated away
-
         if (cookieYesConsent?.categories?.analytics) {
           navigator.sendBeacon(
             `/server/api/add_navigation_link_action`,
             formData
           );
         }
-
         window.open(url, "_blank");
       }}
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: "8px",
+      }}
     >
-      <div className="section-content-item-container">
-        <div className="section-content-icon-container">
-          <FaMapMarked size={15} />
-        </div>
-        <div
-          className="section-content-text-container"
-          style={{
-            color: "darkgreen",
-          }}
-        >
-          Click to navigate to your pickup
-        </div>
-      </div>
-      <FaExternalLinkAlt size={15} />
-    </Button>
+      <FaMapMarked size={16} />
+      <span>Navigate to Pickup</span>
+      <FaExternalLinkAlt size={14} />
+    </button>
   );
 };
 

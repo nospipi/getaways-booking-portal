@@ -3,34 +3,28 @@ import { ReactNode } from "react";
 
 const SegmentHeader = ({ children }: { children: ReactNode }) => {
   return (
-    <Button
-      sx={{
-        fontSize: "12px",
-        color: "black",
-        fontWeight: "bold",
-        padding: "10px 8px 8px 8px",
-        backgroundColor: "#fbe0ff",
+    <div
+      style={{
         display: "flex",
-        position: "sticky",
-        top: "0px",
-        borderTop: "5px solid white",
-        borderBottom: "3px solid rgb(84, 116, 155)",
-        borderRadius: "0px",
-        zIndex: 2,
-        gap: "10px",
-        textTransform: "none",
-        fontFamily: "inherit",
-        span: {
-          whiteSpace: "nowrap",
-          overflow: "hidden",
-          textOverflow: "ellipsis",
-        },
+        alignItems: "center",
+        justifyContent: "space-between",
+        padding: "0 0 24px 0",
+        borderBottom: "1px solid #252525",
+        marginBottom: "8px",
       }}
-      disableElevation
-      disableRipple
     >
-      {children}
-    </Button>
+      <h2
+        style={{
+          fontSize: "24px",
+          fontWeight: "700",
+          color: "#ffffff",
+          letterSpacing: "-0.02em",
+          margin: 0,
+        }}
+      >
+        {children}
+      </h2>
+    </div>
   );
 };
 

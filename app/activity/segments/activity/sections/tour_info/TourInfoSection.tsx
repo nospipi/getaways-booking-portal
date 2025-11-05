@@ -22,17 +22,20 @@ const TourInfoSection = async ({ uniqueId }: { uniqueId: string }) => {
     : placeholder;
 
   return (
-    <section className="section-container">
-      <header className="section-title-container">
-        Your Getaways Tour Info
-      </header>
-      <div className="section-content-container">
-        <div className="section-content-item-container">
-          <div className="section-content-icon-container">
-            <BsFillCalendarCheckFill size={14} />
+    <div className="modern-card" style={{ gridColumn: "span 2" }}>
+      <div className="modern-card-header">
+        <div className="modern-card-title">Tour Information</div>
+      </div>
+      <div className="modern-card-content">
+        <div className="modern-info-row">
+          <div className="modern-info-icon">
+            <BsFillCalendarCheckFill size={20} />
           </div>
-          <div className="section-content-text-container">
-            {moment(booking?.date).format("ddd, DD MMM YYYY")}
+          <div style={{ flex: 1 }}>
+            <div className="modern-info-label">Date</div>
+            <div className="modern-info-value">
+              {moment(booking?.date).format("ddd, DD MMM YYYY")}
+            </div>
           </div>
         </div>
         <ExpandableSectionItem>
@@ -42,75 +45,76 @@ const TourInfoSection = async ({ uniqueId }: { uniqueId: string }) => {
               flexDirection: "row",
               alignItems: "center",
               width: "100%",
-              gap: "10px",
-              height: "100%",
+              gap: "12px",
+              padding: "12px 0",
             }}
           >
-            <div className="section-content-icon-container">
-              <MdTour size={19} />
+            <div className="modern-info-icon">
+              <MdTour size={20} />
             </div>
-            <div className="section-content-text-container">
-              {product_title}
+            <div style={{ flex: 1 }}>
+              <div className="modern-info-label">Tour</div>
+              <div className="modern-info-value">{product_title}</div>
             </div>
           </div>
-          <figure
-            style={{
-              position: "relative",
-              display: "flex",
-              flexDirection: "column",
-              width: "100%",
-              height: "100%",
-              gap: "10px",
-            }}
-          >
-            <Image
-              src={image_url}
+          <div style={{ marginTop: "16px", position: "relative" }}>
+            <figure
               style={{
+                position: "relative",
+                display: "flex",
+                flexDirection: "column",
                 width: "100%",
                 height: "100%",
-                minHeight: "200px",
-                borderRadius: "10px",
-                objectFit: "cover",
-              }}
-              width={0}
-              height={0}
-              sizes="(max-width: 800px) 100vw, 800px"
-              alt={
-                hasImage
-                  ? booking?.product.product_pictures[0]?.alt
-                  : "No image available"
-              }
-              quality={20}
-            />
-            <figcaption
-              style={{
-                position: "absolute",
-                width: "100%",
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, -50%)",
-                backgroundColor: "rgba(0, 0, 0, 0.5)",
-                color: "white",
-                paddingTop: "15px",
-                paddingBottom: "15px",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                backdropFilter: "blur(1.5px)",
+                margin: 0,
               }}
             >
-              <span
+              <Image
+                src={image_url}
                 style={{
-                  fontSize: "13px",
-                  width: "80%",
-                  borderLeft: "3px solid #599cdf",
-                  paddingLeft: "10px",
+                  width: "100%",
+                  height: "100%",
+                  minHeight: "240px",
+                  objectFit: "cover",
                 }}
-              >
-                {booking?.product?.product_short_description}
-              </span>
-            </figcaption>
-          </figure>
+                width={0}
+                height={0}
+                sizes="(max-width: 800px) 100vw, 800px"
+                alt={
+                  hasImage
+                    ? booking?.product.product_pictures[0]?.alt
+                    : "No image available"
+                }
+                quality={20}
+              />
+              {booking?.product?.product_short_description && (
+                <figcaption
+                  style={{
+                    position: "absolute",
+                    bottom: "0",
+                    left: "0",
+                    right: "0",
+                    backgroundColor: "rgba(10, 10, 10, 0.95)",
+                    color: "#ffffff",
+                    padding: "20px",
+                    display: "flex",
+                    justifyContent: "flex-start",
+                    alignItems: "center",
+                    borderTop: "1px solid #252525",
+                  }}
+                >
+                  <span
+                    style={{
+                      fontSize: "14px",
+                      lineHeight: "1.6",
+                      color: "#e5e5e5",
+                    }}
+                  >
+                    {booking?.product?.product_short_description}
+                  </span>
+                </figcaption>
+              )}
+            </figure>
+          </div>
         </ExpandableSectionItem>
         <ExpandableSectionItem>
           <div
@@ -119,34 +123,34 @@ const TourInfoSection = async ({ uniqueId }: { uniqueId: string }) => {
               flexDirection: "row",
               alignItems: "center",
               width: "100%",
-              gap: "10px",
-              height: "100%",
+              gap: "12px",
+              padding: "12px 0",
             }}
           >
-            <div className="section-content-icon-container">
-              <FaCamera size={15} />
+            <div className="modern-info-icon">
+              <FaCamera size={20} />
             </div>
-            <div className="section-content-text-container">Highlights</div>
+            <div style={{ flex: 1 }}>
+              <div className="modern-info-label">Highlights</div>
+            </div>
           </div>
           <div
             style={{
               display: "flex",
               flexDirection: "column",
               width: "100%",
-              height: "100%",
               gap: "10px",
-              fontSize: "14px",
-              borderLeft: "2px solid #599cdf",
-              padding: "10px",
-              backgroundColor: "whitesmoke",
-              borderTopRightRadius: "10px",
-              borderBottomRightRadius: "10px",
+              fontSize: "15px",
+              padding: "16px 0 0 0",
+              borderTop: "1px solid #252525",
+              color: "#e5e5e5",
             }}
           >
             {booking?.product.highlights.map((highlight) => {
               return (
-                <div key={highlight}>
-                  <IoCaretForwardOutline size={11} /> <span>{highlight}</span>
+                <div key={highlight} style={{ display: "flex", alignItems: "flex-start", gap: "10px", padding: "8px 0" }}>
+                  <IoCaretForwardOutline size={14} style={{ color: "#ffffff", flexShrink: 0, marginTop: "2px" }} /> 
+                  <span>{highlight}</span>
                 </div>
               );
             })}
@@ -159,15 +163,15 @@ const TourInfoSection = async ({ uniqueId }: { uniqueId: string }) => {
               flexDirection: "row",
               alignItems: "center",
               width: "100%",
-              gap: "10px",
-              height: "100%",
+              gap: "12px",
+              padding: "12px 0",
             }}
           >
-            <div className="section-content-icon-container">
-              <FaInfoCircle size={15} />
+            <div className="modern-info-icon">
+              <FaInfoCircle size={20} />
             </div>
-            <div className="section-content-text-container">
-              Know Before You Go
+            <div style={{ flex: 1 }}>
+              <div className="modern-info-label">Know Before You Go</div>
             </div>
           </div>
           <div
@@ -175,21 +179,17 @@ const TourInfoSection = async ({ uniqueId }: { uniqueId: string }) => {
               display: "flex",
               flexDirection: "column",
               width: "100%",
-              height: "100%",
               gap: "10px",
-              fontSize: "14px",
-              borderLeft: "2px solid #599cdf",
-              paddingLeft: "10px",
-              padding: "10px",
-              backgroundColor: "whitesmoke",
-              borderTopRightRadius: "10px",
-              borderBottomRightRadius: "10px",
+              fontSize: "15px",
+              padding: "16px 0 0 0",
+              borderTop: "1px solid #252525",
+              color: "#e5e5e5",
             }}
           >
             {booking?.product?.additional_info?.map((additional_info) => {
               return (
-                <div key={additional_info}>
-                  <IoCaretForwardOutline size={11} />{" "}
+                <div key={additional_info} style={{ display: "flex", alignItems: "flex-start", gap: "10px", padding: "8px 0" }}>
+                  <IoCaretForwardOutline size={14} style={{ color: "#ffffff", flexShrink: 0, marginTop: "2px" }} />{" "}
                   <span>{additional_info}</span>
                 </div>
               );
@@ -203,15 +203,15 @@ const TourInfoSection = async ({ uniqueId }: { uniqueId: string }) => {
               flexDirection: "row",
               alignItems: "center",
               width: "100%",
-              gap: "10px",
-              height: "100%",
+              gap: "12px",
+              padding: "12px 0",
             }}
           >
-            <div className="section-content-icon-container">
-              <PiListPlusFill size={17} />
+            <div className="modern-info-icon">
+              <PiListPlusFill size={20} />
             </div>
-            <div className="section-content-text-container">
-              Special Instructions
+            <div style={{ flex: 1 }}>
+              <div className="modern-info-label">Special Instructions</div>
             </div>
           </div>
           <div
@@ -219,22 +219,18 @@ const TourInfoSection = async ({ uniqueId }: { uniqueId: string }) => {
               display: "flex",
               flexDirection: "column",
               width: "100%",
-              height: "100%",
               gap: "10px",
-              fontSize: "14px",
-              borderLeft: "2px solid #599cdf",
-              paddingLeft: "10px",
-              padding: "10px",
-              backgroundColor: "whitesmoke",
-              borderTopRightRadius: "10px",
-              borderBottomRightRadius: "10px",
+              fontSize: "15px",
+              padding: "16px 0 0 0",
+              borderTop: "1px solid #252525",
+              color: "#e5e5e5",
             }}
           >
             {booking?.product?.special_instructions?.map(
               (special_instruction) => {
                 return (
-                  <div key={special_instruction}>
-                    <IoCaretForwardOutline size={11} />{" "}
+                  <div key={special_instruction} style={{ display: "flex", alignItems: "flex-start", gap: "10px", padding: "8px 0" }}>
+                    <IoCaretForwardOutline size={14} style={{ color: "#ffffff", flexShrink: 0, marginTop: "2px" }} />{" "}
                     <span>{special_instruction}</span>
                   </div>
                 );
@@ -243,7 +239,7 @@ const TourInfoSection = async ({ uniqueId }: { uniqueId: string }) => {
           </div>
         </ExpandableSectionItem>
       </div>
-    </section>
+    </div>
   );
 };
 

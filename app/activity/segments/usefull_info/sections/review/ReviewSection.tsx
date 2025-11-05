@@ -12,34 +12,38 @@ const ReviewSection = async ({ id }: { id: string }) => {
   const booking = await getBookingByUniqueId(id);
 
   return (
-    <section className="section-container">
-      <header className="section-title-container">Leave us a review !</header>
-      <div className="section-content-container">
-        <div className="section-content-item-container">
-          <div className="section-content-icon-container">
+    <div className="modern-card">
+      <div className="modern-card-header">
+        <div className="modern-card-title">Leave a Review</div>
+      </div>
+      <div className="modern-card-content">
+        <div className="modern-info-row">
+          <div className="modern-info-icon">
             <TbBrandTripadvisor size={20} />
           </div>
-          <div className="section-content-text-container">
-            Write an honest review about your experience with Getaways Greece.
-            We would love to hear your feedback
+          <div style={{ flex: 1 }}>
+            <div className="modern-info-label">Share Your Experience</div>
+            <div className="modern-info-value" style={{ fontSize: "14px", color: "#e5e5e5" }}>
+              Write an honest review about your experience with Getaways Greece.
+              We would love to hear your feedback
+            </div>
           </div>
         </div>
-        <aside className="section-content-item-button-container">
+        <div style={{ marginTop: "8px" }}>
           <Link
             href={booking?.product?.review_link || "/"}
             style={{
               width: "100%",
+              display: "block",
             }}
           >
             <Suspense>
-              {/* wrapped in Suspense because it accesses useSearchParams hook */}
-              {/* https://nextjs.org/docs/messages/missing-suspense-with-csr-bailout */}
               <ReviewButton />
             </Suspense>
           </Link>
-        </aside>
+        </div>
       </div>
-    </section>
+    </div>
   );
 };
 
