@@ -1,6 +1,6 @@
 "use client";
 
-import { TfiArrowCircleRight } from "react-icons/tfi";
+import { FaArrowRight } from "react-icons/fa";
 import { useMemo } from "react";
 import { useSearchParams } from "next/navigation";
 import useCookieYesConsent from "@/utils/UseCookieYesConsent";
@@ -37,7 +37,7 @@ const ReviewButton = () => {
       }}
     >
       <span>Review Us on TripAdvisor</span>
-      <TfiArrowCircleRight size={15} />
+      <FaArrowRight size={14} />
     </button>
   );
 };

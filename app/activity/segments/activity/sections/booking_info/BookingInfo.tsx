@@ -1,4 +1,10 @@
-import { FaExclamationCircle } from "react-icons/fa";
+import {
+  FaExclamationCircle,
+  FaUser,
+  FaHotel,
+  FaTicketAlt,
+  FaCheck,
+} from "react-icons/fa";
 import getBookingByUniqueId from "@/app/server/server_actions/getBookingByUniqueId";
 import PickupInputContainer from "@/app/activity/segments/activity/sections/booking_info/PickupInputContainer.client";
 import PickupInputStateContextProvider from "@/app/activity/segments/activity/sections/booking_info/PickupInputStateContextProvider.client";
@@ -11,7 +17,6 @@ import Fab from "@mui/material/Fab";
 import { RiEdit2Fill } from "react-icons/ri";
 import Link from "next/link";
 import ExpandableSectionItem from "./ExpandableSectionItem.client";
-import { FaCheck } from "react-icons/fa";
 
 //---------------------------------------------------------
 
@@ -47,14 +52,18 @@ const BookingInfo = async ({ uniqueId }: { uniqueId: string }) => {
       </div>
       <div className="modern-card-content">
         <div className="modern-info-row">
-          <div className="modern-info-icon">👤</div>
+          <div className="modern-info-icon">
+            <FaUser size={20} />
+          </div>
           <div style={{ flex: 1 }}>
             <div className="modern-info-label">Name</div>
             <div className="modern-info-value">{booking.client_name}</div>
           </div>
         </div>
         <div className="modern-info-row">
-          <div className="modern-info-icon">🎫</div>
+          <div className="modern-info-icon">
+            <FaTicketAlt size={20} />
+          </div>
           <div style={{ flex: 1 }}>
             <div className="modern-info-label">Seats</div>
             <div className="modern-info-value">
@@ -171,7 +180,9 @@ const BookingInfo = async ({ uniqueId }: { uniqueId: string }) => {
         >
           {shouldShowLocation && (
             <div className="modern-info-row">
-              <div className="modern-info-icon">🏨</div>
+              <div className="modern-info-icon">
+                <FaHotel size={20} />
+              </div>
               <div style={{ flex: 1 }}>
                 <div className="modern-info-label">Hotel / Location</div>
                 <div className="modern-info-value">

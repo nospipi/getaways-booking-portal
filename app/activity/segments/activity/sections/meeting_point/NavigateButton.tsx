@@ -1,7 +1,7 @@
 "use client";
 
 import Button from "@mui/material/Button";
-import { FaExternalLinkAlt } from "react-icons/fa";
+import { FaArrowRight } from "react-icons/fa";
 import { FaMapMarked } from "react-icons/fa";
 import { useMemo } from "react";
 import { useSearchParams } from "next/navigation";
@@ -44,7 +44,7 @@ const NavigateButton = ({ url }: { url: string }) => {
     >
       <FaMapMarked size={16} />
       <span>Navigate to Pickup</span>
-      <FaExternalLinkAlt size={14} />
+      <FaArrowRight size={14} />
     </button>
   );
 };

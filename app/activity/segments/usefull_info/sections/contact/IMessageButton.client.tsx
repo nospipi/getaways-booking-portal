@@ -54,7 +54,7 @@ const IMessageButton = ({
       onClick={handleGetPhoneNumberOnDuty}
       className="contact-button"
       style={{
-        background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+        background: "linear-gradient(135deg, #1E90FF 0%, #0066CC 100%)",
       }}
     >
       <div className="contact-button-icon">

@@ -4,6 +4,7 @@ import ExpandableSectionItem from "@/app/activity/segments/activity/sections/boo
 import { FaInfoCircle } from "react-icons/fa";
 import { IoCaretForwardOutline } from "react-icons/io5";
 import getBookingByUniqueId from "@/app/server/server_actions/getBookingByUniqueId";
+import CopyPromoCodeButton from "./CopyPromoCodeButton.client";
 
 //---------------------------------------------------------
 
@@ -22,8 +23,11 @@ const PromoSection = async ({ id }: { id: string }) => {
           </div>
           <div style={{ flex: 1 }}>
             <div className="modern-info-label">Promo Code</div>
-            <div className="modern-info-value" style={{ fontSize: "14px", color: "#4a4a4a" }}>
-              Use the code <b style={{ color: "#667eea", fontWeight: "600" }}>PROMO_APP</b> during checkout to get a <b style={{ color: "#667eea" }}>15%</b> discount
+            <div style={{ display: "flex", alignItems: "center", gap: "12px", flexWrap: "wrap" }}>
+              <div className="modern-info-value" style={{ fontSize: "14px", color: "#4a4a4a" }}>
+                Use the code <b style={{ color: "#1E90FF", fontWeight: "600" }}>PROMO_APP</b> during checkout to get a <b style={{ color: "#1E90FF" }}>15%</b> discount
+              </div>
+              <CopyPromoCodeButton promoCode="PROMO_APP" />
             </div>
           </div>
         </div>
@@ -62,7 +66,7 @@ const PromoSection = async ({ id }: { id: string }) => {
               <IoCaretForwardOutline
                 size={14}
                 style={{
-                  color: "#667eea",
+                  color: "#1E90FF",
                   flexShrink: 0,
                   marginTop: "2px",
                 }}
@@ -76,7 +80,7 @@ const PromoSection = async ({ id }: { id: string }) => {
               <IoCaretForwardOutline
                 size={14}
                 style={{
-                  color: "#667eea",
+                  color: "#1E90FF",
                   flexShrink: 0,
                   marginTop: "2px",
                 }}
@@ -90,7 +94,7 @@ const PromoSection = async ({ id }: { id: string }) => {
               <IoCaretForwardOutline
                 size={14}
                 style={{
-                  color: "#667eea",
+                  color: "#1E90FF",
                   flexShrink: 0,
                   marginTop: "2px",
                 }}
@@ -104,7 +108,7 @@ const PromoSection = async ({ id }: { id: string }) => {
               <IoCaretForwardOutline
                 size={14}
                 style={{
-                  color: "#667eea",
+                  color: "#1E90FF",
                   flexShrink: 0,
                   marginTop: "2px",
                 }}
@@ -119,7 +123,7 @@ const PromoSection = async ({ id }: { id: string }) => {
               <IoCaretForwardOutline
                 size={14}
                 style={{
-                  color: "#667eea",
+                  color: "#1E90FF",
                   flexShrink: 0,
                   marginTop: "2px",
                 }}
@@ -132,7 +136,7 @@ const PromoSection = async ({ id }: { id: string }) => {
               <IoCaretForwardOutline
                 size={14}
                 style={{
-                  color: "#667eea",
+                  color: "#1E90FF",
                   flexShrink: 0,
                   marginTop: "2px",
                 }}

@@ -18,12 +18,9 @@ const ConfirmStatusSection = async ({ uniqueId }: { uniqueId: string }) => {
       }}
     >
       <InterchangableConfirmSection isConfirmed={isConfirmed} />
-
-      {!isConfirmed && (
-        <ConfirmButton unique_booking_id={unique_booking_id} />
-      )}
     </div>
   );
 };
 
+export { ConfirmButton };
 export default ConfirmStatusSection;

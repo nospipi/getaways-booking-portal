@@ -1,6 +1,12 @@
 import { ReactNode } from "react";
 
-const SegmentHeader = ({ children }: { children: ReactNode }) => {
+const SegmentHeader = ({ 
+  children, 
+  actionButton 
+}: { 
+  children: ReactNode;
+  actionButton?: ReactNode;
+}) => {
   return (
     <div
       className="segment-header-sticky"
@@ -11,6 +17,7 @@ const SegmentHeader = ({ children }: { children: ReactNode }) => {
         padding: "16px 0 24px 0",
         borderBottom: "1px solid #e0e0e0",
         marginBottom: "0",
+        gap: "16px",
       }}
     >
       <h2
@@ -20,10 +27,18 @@ const SegmentHeader = ({ children }: { children: ReactNode }) => {
           color: "#1a1a1a",
           letterSpacing: "-0.02em",
           margin: 0,
+          flex: 1,
         }}
       >
         {children}
       </h2>
+      {actionButton && (
+        <div 
+          className="segment-header-action-button-wrapper"
+        >
+          {actionButton}
+        </div>
+      )}
     </div>
   );
 };

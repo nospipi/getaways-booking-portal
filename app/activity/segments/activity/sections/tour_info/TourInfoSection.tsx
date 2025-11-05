@@ -59,7 +59,7 @@ const TourInfoSection = async ({ uniqueId }: { uniqueId: string }) => {
           </div>
           <div className="tour-product-details">
             <div className="tour-product-header">
-              <MdTour size={20} style={{ color: "#667eea" }} />
+              <MdTour size={20} style={{ color: "#1E90FF" }} />
               <h3 className="tour-product-name">{product_title}</h3>
             </div>
             {booking?.product?.product_short_description && (
@@ -102,7 +102,7 @@ const TourInfoSection = async ({ uniqueId }: { uniqueId: string }) => {
             {booking?.product.highlights.map((highlight) => {
               return (
                 <div key={highlight} style={{ display: "flex", alignItems: "flex-start", gap: "10px", padding: "8px 0" }}>
-                  <IoCaretForwardOutline size={14} style={{ color: "#667eea", flexShrink: 0, marginTop: "2px" }} /> 
+                  <IoCaretForwardOutline size={14} style={{ color: "#1E90FF", flexShrink: 0, marginTop: "2px" }} /> 
                   <span>{highlight}</span>
                 </div>
               );
@@ -142,7 +142,7 @@ const TourInfoSection = async ({ uniqueId }: { uniqueId: string }) => {
             {booking?.product?.additional_info?.map((additional_info) => {
               return (
                 <div key={additional_info} style={{ display: "flex", alignItems: "flex-start", gap: "10px", padding: "8px 0" }}>
-                  <IoCaretForwardOutline size={14} style={{ color: "#667eea", flexShrink: 0, marginTop: "2px" }} />{" "}
+                  <IoCaretForwardOutline size={14} style={{ color: "#1E90FF", flexShrink: 0, marginTop: "2px" }} />{" "}
                   <span>{additional_info}</span>
                 </div>
               );
@@ -183,7 +183,7 @@ const TourInfoSection = async ({ uniqueId }: { uniqueId: string }) => {
               (special_instruction) => {
                 return (
                   <div key={special_instruction} style={{ display: "flex", alignItems: "flex-start", gap: "10px", padding: "8px 0" }}>
-                    <IoCaretForwardOutline size={14} style={{ color: "#667eea", flexShrink: 0, marginTop: "2px" }} />{" "}
+                    <IoCaretForwardOutline size={14} style={{ color: "#1E90FF", flexShrink: 0, marginTop: "2px" }} />{" "}
                     <span>{special_instruction}</span>
                   </div>
                 );

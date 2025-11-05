@@ -2,8 +2,8 @@
 
 import { FaThumbsUp } from "react-icons/fa6";
 import { FaHourglassStart } from "react-icons/fa";
+import { FaHandsClapping } from "react-icons/fa6";
 import { motion, AnimatePresence } from "framer-motion";
-
 
 //---------------------------------------------------------
 
@@ -29,15 +29,15 @@ const InterchangableConfirmSection = ({
             border: "1px solid #e0e0e0",
           }}
         >
-          <div className="modern-info-icon">
-            <FaThumbsUp style={{ color: "#667eea" }} size={20} />
+          <div className="modern-info-icon" style={{ background: "#31B311" }}>
+            <FaThumbsUp size={20} />
           </div>
           <div style={{ flex: 1 }}>
             <div className="modern-info-label">Status</div>
             <div
               style={{
                 fontSize: "15px",
-                color: "#1a1a1a",
+                color: "#257C0F",
                 fontWeight: "500",
                 display: "flex",
                 alignItems: "center",
@@ -45,7 +45,7 @@ const InterchangableConfirmSection = ({
               }}
             >
               <span>Confirmed</span>
-              <span style={{ fontSize: "18px" }}>👏</span>
+              <FaHandsClapping size={18} />
             </div>
           </div>
         </motion.div>
@@ -63,7 +63,7 @@ const InterchangableConfirmSection = ({
           }}
         >
           <div className="modern-info-icon">
-            <FaHourglassStart style={{ color: "#667eea" }} size={20} />
+            <FaHourglassStart size={20} />
           </div>
           <div style={{ flex: 1 }}>
             <div className="modern-info-label">Status</div>
@@ -72,9 +72,12 @@ const InterchangableConfirmSection = ({
                 fontSize: "15px",
                 color: "#ff6b6b",
                 fontWeight: "600",
+                display: "flex",
+                alignItems: "center",
+                gap: "8px",
               }}
             >
-              Pending confirmation
+              <span>Pending confirmation</span>
             </div>
           </div>
         </motion.div>

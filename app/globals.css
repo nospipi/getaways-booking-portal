@@ -59,6 +59,7 @@ a {
   flex-direction: column;
   gap: 32px;
   padding-bottom: 40px;
+  position: relative;
 }
 
 @media (max-width: 1024px) {
@@ -98,21 +99,29 @@ a {
   overflow: visible;
   margin: 0;
   gap: 24px;
+  position: relative;
 }
 
 .segment-header-sticky {
   position: sticky;
   top: 0;
-  z-index: 10;
-  background: linear-gradient(180deg, #f8f9fa 0%, #ffffff 100%);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  z-index: 100;
+background: #f8f9fa;
   padding-top: 16px !important;
   margin-top: -16px;
   padding-bottom: 24px !important;
   margin-bottom: 0 !important;
   border-bottom: 1px solid #e0e0e0;
 }
+
+.segment-header-action-button-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+
+
+
 
 /* Modern Card Styles */
 .modern-card {
@@ -147,7 +156,7 @@ a {
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #667eea;
+  color: #1E90FF;
 }
 
 .modern-card-content {
@@ -184,7 +193,7 @@ a {
   align-items: center;
   width: 48px;
   height: 48px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #1E90FF 0%, #0066CC 100%);
   color: #ffffff;
   flex-shrink: 0;
 }
@@ -238,7 +247,7 @@ a {
 }
 
 .section-title-container {
-  color: #667eea;
+  color: #1E90FF;
   padding: 0 0 12px 0;
   font-size: 11px;
   font-weight: 600;
@@ -297,7 +306,7 @@ a {
   max-width: 48px;
   width: 48px;
   height: 48px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #1E90FF 0%, #0066CC 100%);
   font-size: 12px;
   font-weight: 600;
   color: #ffffff;
@@ -361,7 +370,7 @@ a {
 
 .section-content-input:focus {
   outline: none;
-  border-color: #667eea !important;
+  border-color: #1E90FF !important;
   background: #3a3a3a !important;
 }
 
@@ -385,7 +394,7 @@ a {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #1E90FF 0%, #0066CC 100%);
   color: #ffffff;
   cursor: pointer;
   font-size: 14px;
@@ -407,6 +416,37 @@ a {
   .confirm-button {
     min-height: 48px;
     font-size: 13px;
+  }
+}
+
+.confirm-button-header {
+  min-height: 40px;
+  background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  letter-spacing: 0.01em;
+  padding: 0 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 2px 8px rgba(34, 197, 94, 0.2);
+  position: relative;
+}
+
+.confirm-button-header:active {
+  transform: scale(0.98);
+  opacity: 0.9;
+}
+
+@media (max-width: 768px) {
+  .confirm-button-header {
+    min-height: 36px;
+    font-size: 13px;
+    padding: 0 16px;
   }
 }
 
@@ -689,7 +729,7 @@ a {
 .traveler-header {
   font-size: 12px;
   font-weight: 800;
-  color: #667eea;
+  color: #1E90FF;
   letter-spacing: 0.15em;
   text-transform: uppercase;
 }
@@ -721,7 +761,7 @@ a {
 .disclaimer-container {
   background-color: transparent;
   padding: 18px;
-  border-left: 2px solid #667eea;
+  border-left: 2px solid #1E90FF;
   margin: 0;
   font-size: 14px;
   color: #1a1a1a;
@@ -854,6 +894,13 @@ a {
   width: 100%;
   min-width: 0;
   max-width: 100%;
+  position: relative;
+}
+
+.product-carousel-card-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
 }
 
 /* Promo Section Card - spans 2 columns on larger screens */
@@ -976,22 +1023,51 @@ a {
 .promo-product-price-discounted {
   font-size: 18px;
   font-weight: 700;
-  color: #667eea;
+  color: #1E90FF;
 }
 
 .promo-product-button {
   width: 100%;
   min-height: 44px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #1E90FF 0%, #0066CC 100%);
   color: #ffffff;
   border: none;
+  cursor: pointer;
   font-size: 14px;
   font-weight: 600;
-  cursor: pointer;
   margin-top: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.copy-promo-code-button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  background: linear-gradient(135deg, #1E90FF 0%, #0066CC 100%);
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.1s ease, opacity 0.1s ease;
+  white-space: nowrap;
+}
+
+.copy-promo-code-button:active {
+  transform: scale(0.98);
+  opacity: 0.9;
+}
+
+@media (max-width: 768px) {
+  .copy-promo-code-button {
+    padding: 7px 12px;
+    font-size: 12px;
+    gap: 5px;
+  }
 }
 
 @media (max-width: 768px) {
@@ -1041,37 +1117,94 @@ a {
 }
 
 .product-navigation-button {
+  width: 100%;
+  min-height: 52px;
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  color: #1a1a1a;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.2s ease;
+}
+
+.product-navigation-button:hover {
+  border-color: #1E90FF;
+}
+
+.product-navigation-button-content {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 12px 16px;
   gap: 12px;
-  padding: 14px 16px;
-  background: transparent;
-  border: 1px solid #d0d0d0;
-  color: #1a1a1a;
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: 600;
   width: 100%;
+  position: relative;
+  z-index: 2;
+}
+
+.product-navigation-text {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
 }
 
 .product-navigation-title {
-  flex: 1;
-  text-align: left;
+  font-weight: 600;
   color: #1a1a1a;
-  font-weight: 700;
+  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
+}
+
+.product-navigation-arrow {
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+.product-navigation-button:hover .product-navigation-arrow {
+  transform: translateX(4px);
+}
+
+.product-navigation-progress-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: #f0f0f0;
+  z-index: 1;
+}
+
+.product-navigation-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #1E90FF 0%, #0066CC 100%);
+  transition: opacity 0.2s ease;
+  border-radius: 0;
 }
 
 @media (max-width: 768px) {
   .product-navigation-button {
-    padding: 12px 14px;
+    min-height: 48px;
+  }
+  
+  .product-navigation-button-content {
+    padding: 10px 14px;
     font-size: 13px;
   }
   
   .product-navigation-title {
     font-size: 13px;
+  }
+  
+  .product-navigation-progress-bar {
+    height: 2px;
   }
 }

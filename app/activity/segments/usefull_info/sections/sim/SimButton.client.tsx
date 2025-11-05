@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo } from "react";
-import { TfiArrowCircleRight } from "react-icons/tfi";
+import { FaArrowRight } from "react-icons/fa";
 import { useSearchParams } from "next/navigation";
 import useCookieYesConsent from "@/utils/UseCookieYesConsent";
 
@@ -36,7 +36,7 @@ const SimButton = () => {
       }}
     >
       <span>Get Your eSIM Now</span>
-      <TfiArrowCircleRight size={15} />
+      <FaArrowRight size={14} />
     </button>
   );
 };

@@ -27,7 +27,7 @@ const ExpandableSectionItem = ({ children }: { children: React.ReactNode }) => {
 
       if (sectionContentTextContainer) {
         if (expanded) {
-          sectionContentTextContainer.style.borderLeft = "2px solid #667eea";
+          sectionContentTextContainer.style.borderLeft = "2px solid #1E90FF";
         } else {
           sectionContentTextContainer.style.borderLeft = "none";
         }

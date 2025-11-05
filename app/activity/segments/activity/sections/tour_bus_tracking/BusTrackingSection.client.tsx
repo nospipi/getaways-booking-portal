@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { FaRoute } from "react-icons/fa";
+import { FaRoute, FaArrowRight } from "react-icons/fa";
 import { PiClockCountdownFill } from "react-icons/pi";
 import getTrackingData from "@/app/server/server_actions/getTrackingData";
 import Countdown, { CountdownRenderProps } from "react-countdown";
@@ -178,6 +178,7 @@ const BusTrackingSection = ({ uniqueId }: { uniqueId: string }) => {
               <>
                 <FaRoute size={16} />
                 <span>View Bus Tracking</span>
+                <FaArrowRight size={14} />
               </>
             )}
           </button>

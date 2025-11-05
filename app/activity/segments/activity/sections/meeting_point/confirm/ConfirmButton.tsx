@@ -3,6 +3,7 @@ import Button from "@mui/material/Button";
 import confirmBookingByUniqueId from "@/app/server/server_actions/confirmBookingByUniqueId";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { FaCheck } from "react-icons/fa";
 
 //---------------------------------------------------------
 
@@ -28,7 +29,7 @@ const ConfirmButton = ({
 
   return (
     <button
-      className="confirm-button"
+      className="confirm-button-header"
       onClick={() => {
         if (
           window.confirm(`Are you sure you want to confirm?
@@ -38,8 +39,15 @@ Please review the details of your booking, such as the meeting point and time ca
           handleConfirm();
         }
       }}
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: "8px",
+      }}
     >
-      <span>CONFIRM MEETING POINT & TIME</span>
+      <span>Confirm</span>
+      <FaCheck size={14} />
     </button>
   );
 };
