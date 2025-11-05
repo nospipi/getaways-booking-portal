@@ -1,32 +1,17 @@
-import SkeletonItem from "./segments/SkeletonItem";
-
 //---------------------------------------------------------
 
 const Loading = () => {
   return (
-    <main
-      style={{
-        width: "100%",
-        display: "flex",
-        justifyContent: "center",
-        backgroundColor: "rgb(37, 49, 63)",
-      }}
-    >
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "10px",
-          width: "100%",
-          maxWidth: "500px",
-          padding: "10px",
-        }}
-      >
-        <SkeletonItem />
-        <SkeletonItem />
-        <SkeletonItem />
-        <SkeletonItem />
-        <SkeletonItem />
+    <main className="page-container">
+      <div className="content-wrapper">
+        <div className="content-container">
+          <div className="loading-container">
+            <div className="loading-spinner">
+              <div className="spinner-ring"></div>
+            </div>
+            <p className="loading-text">Loading your tour details...</p>
+          </div>
+        </div>
       </div>
     </main>
   );

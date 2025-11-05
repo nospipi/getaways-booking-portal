@@ -37,7 +37,7 @@
     "mongoose-unique-validator": "^4.0.1",
     "motion": "^11.13.1",
     "nanoid": "^5.0.9",
-    "next": "15.0.3",
+    "next": "^16.0.1",
     "react": "^19.0.0",
     "react-countdown": "^2.3.6",
     "react-device-detect": "^2.2.3",
