@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import placeholder from "@/public/elementor-placeholder-image.webp";
 import { FaCheckCircle } from "react-icons/fa";
 import { IoTime } from "react-icons/io5";
@@ -13,6 +14,17 @@ const NEXT_PUBLIC_FILE_SERVE_BASE_URL =
 
 const ProductCard = ({ product }: { product: IProduct }) => {
   const { triggerUserAction } = useAddUserAction();
+
+  // Re-initialize Bokun buttons when product changes
+  useEffect(() => {
+    // Check if Bokun is loaded and trigger button initialization
+    if (typeof window !== "undefined" && (window as any).BokunWidget) {
+      const bokunWidget = (window as any).BokunWidget;
+      if (bokunWidget.init) {
+        bokunWidget.init();
+      }
+    }
+  }, [product.bokun_product_code]);
   const hasImage = product.product_pictures[0] ? true : false;
   const image_url = hasImage
     ? `${NEXT_PUBLIC_FILE_SERVE_BASE_URL}${product.product_pictures[0].file_id}`
@@ -78,7 +90,7 @@ const ProductCard = ({ product }: { product: IProduct }) => {
         
         <button
           className="promo-product-button bokunButton"
-          data-src={`data-src="https://widgets.bokun.io/online-sales/db6fd107-983c-4e5e-8d51-b37b123ddd0d/experience/${product.bokun_product_code}?partialView=1"`}
+          data-src={`https://widgets.bokun.io/online-sales/db6fd107-983c-4e5e-8d51-b37b123ddd0d/experience/${product.bokun_product_code}?partialView=1`}
           onClick={async () => {
             await triggerUserAction("PROMO_PRODUCT_CLICK", {
               clickedPromoProductId: product._id,

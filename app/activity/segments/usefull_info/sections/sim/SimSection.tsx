@@ -18,7 +18,10 @@ const SimSection = () => {
           </div>
           <div style={{ flex: 1 }}>
             <div className="modern-info-label">Stay Connected</div>
-            <div className="modern-info-value" style={{ fontSize: "14px", color: "#4a4a4a" }}>
+            <div
+              className="modern-info-value"
+              style={{ fontSize: "14px", color: "#4a4a4a" }}
+            >
               Buy an international virtual eSIM card with unlimited data, stay
               connected wherever you go, and avoid expensive phone bills
             </div>
@@ -26,7 +29,7 @@ const SimSection = () => {
         </div>
         <div style={{ marginTop: "8px" }}>
           <Link
-            href={"https://connectphone.eu/product/greece-e-sim-100-data/"}
+            href={"https://connectphone.eu/"}
             target="_blank"
             style={{
               width: "100%",
