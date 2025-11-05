@@ -3,7 +3,6 @@
 import { FaViber } from "react-icons/fa6";
 import getPhoneNumberOnDuty from "@/app/server/server_actions/getPhoneNumberOnDuty";
 import toast from "react-hot-toast";
-import { FiExternalLink } from "react-icons/fi";
 import useAddUserAction from "@/app/useAddUserAction";
 
 //---------------------------------------------------------
@@ -68,7 +67,6 @@ const ViberButton = ({
         <FaViber size={18} color="#ffffff" />
       </div>
       <span className="contact-button-text">Viber</span>
-      <FiExternalLink size={14} color="#ffffff" style={{ opacity: 0.8 }} />
     </button>
   );
 };

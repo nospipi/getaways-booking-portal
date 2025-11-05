@@ -41,7 +41,7 @@ const MeetingPoint = async ({ uniqueId }: { uniqueId: string }) => {
             <div
               className="modern-info-value"
               style={{
-                color: hasPickupLocation ? "#ffffff" : "#ff6b6b",
+                color: hasPickupLocation ? "#1a1a1a" : "#ff6b6b",
                 fontWeight: hasPickupLocation ? "500" : "600",
               }}
             >
@@ -61,7 +61,7 @@ const MeetingPoint = async ({ uniqueId }: { uniqueId: string }) => {
             <div
               className="modern-info-value"
               style={{
-                color: hasPickupTime ? "#ffffff" : "#ff6b6b",
+                color: hasPickupTime ? "#1a1a1a" : "#ff6b6b",
                 fontWeight: hasPickupTime ? "500" : "600",
               }}
             >
@@ -91,7 +91,7 @@ const MeetingPoint = async ({ uniqueId }: { uniqueId: string }) => {
                 </div>
                 <div style={{ flex: 1 }}>
                   <div className="modern-info-label">Instructions</div>
-                  <div className="modern-info-value" style={{ fontSize: "14px", lineHeight: "1.6", color: "#e5e5e5" }}>
+                  <div className="modern-info-value" style={{ fontSize: "14px", lineHeight: "1.6", color: "#4a4a4a" }}>
                     {booking.pickup_location.instructions}
                   </div>
                 </div>
@@ -117,7 +117,7 @@ const MeetingPoint = async ({ uniqueId }: { uniqueId: string }) => {
                       <div className="modern-info-label">Meeting Point Image</div>
                     </div>
                   </div>
-                  <div style={{ marginTop: "16px", borderTop: "1px solid #252525", paddingTop: "16px" }}>
+                  <div style={{ marginTop: "16px", borderTop: "1px solid #e0e0e0", paddingTop: "16px" }}>
                     <Image
                       src={img_url}
                       style={{

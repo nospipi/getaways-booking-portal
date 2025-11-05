@@ -61,8 +61,8 @@ const BusTrackingSection = ({ uniqueId }: { uniqueId: string }) => {
                 flexDirection: "column",
                 gap: "12px",
                 padding: "16px",
-                background: "#1a1a1a",
-                border: "1px solid #252525",
+                background: "#f8f9fa",
+                border: "1px solid #e0e0e0",
               }}
             >
               <div className="modern-info-label" style={{ marginBottom: "4px" }}>
@@ -75,11 +75,11 @@ const BusTrackingSection = ({ uniqueId }: { uniqueId: string }) => {
                   justifyContent: "center",
                   gap: "8px",
                   padding: "12px",
-                  background: "#0a0a0a",
-                  border: "1px solid #252525",
+                  background: "#ffffff",
+                  border: "1px solid #e0e0e0",
                   fontSize: "15px",
                   fontWeight: "600",
-                  color: "#ffffff",
+                  color: "#1a1a1a",
                 }}
               >
                 <PiClockCountdownFill size={18} />
@@ -149,7 +149,7 @@ const BusTrackingSection = ({ uniqueId }: { uniqueId: string }) => {
                 display: "flex",
                 alignItems: "center",
                 gap: "10px",
-                color: "#ffffff",
+                color: "#1a1a1a",
               }}
             >
               <span>Tracking active</span>

@@ -21,9 +21,9 @@ const TravellerDetailItem: React.FC<TravellerDetailsProps> = ({
         display: "flex",
         flexDirection: "column",
         width: "100%",
-        backgroundColor: "#1a1a1a",
+        backgroundColor: "#f8f9fa",
         padding: "16px",
-        border: "1px solid #252525",
+        border: "1px solid #e0e0e0",
         gap: "12px",
       }}
     >
@@ -36,8 +36,9 @@ const TravellerDetailItem: React.FC<TravellerDetailsProps> = ({
       >
         <div
           style={{
-            background: "#252525",
-            color: "#ffffff",
+            background: "#ffffff",
+            color: "#1a1a1a",
+            border: "1px solid #e0e0e0",
             padding: "6px 12px",
             fontSize: "11px",
             fontWeight: "600",

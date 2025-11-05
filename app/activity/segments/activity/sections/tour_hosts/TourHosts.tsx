@@ -21,7 +21,7 @@ const TourHosts = async ({ uniqueId }: { uniqueId: string }) => {
             <div
               className="modern-info-value"
               style={{
-                color: hasCrew ? "#ffffff" : "#ff6b6b",
+                color: hasCrew ? "#1a1a1a" : "#ff6b6b",
                 fontWeight: hasCrew ? "500" : "600",
               }}
             >

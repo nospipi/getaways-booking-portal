@@ -3,7 +3,6 @@
 import { IoLogoWhatsapp } from "react-icons/io";
 import getPhoneNumberOnDuty from "@/app/server/server_actions/getPhoneNumberOnDuty";
 import toast from "react-hot-toast";
-import { FiExternalLink } from "react-icons/fi";
 import useAddUserAction from "@/app/useAddUserAction";
 
 //---------------------------------------------------------
@@ -64,7 +63,6 @@ const WhatsAppButton = ({
         <IoLogoWhatsapp size={18} color="#ffffff" />
       </div>
       <span className="contact-button-text">WhatsApp</span>
-      <FiExternalLink size={14} color="#ffffff" style={{ opacity: 0.8 }} />
     </button>
   );
 };

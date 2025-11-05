@@ -23,21 +23,13 @@ const ContactSection = async ({ id }: { id: string }) => {
           </div>
           <div style={{ flex: 1 }}>
             <div className="modern-info-label">Contact us</div>
-            <div className="modern-info-value" style={{ fontSize: "14px", color: "#e5e5e5" }}>
+            <div className="modern-info-value" style={{ fontSize: "14px", color: "#4a4a4a" }}>
               Send us a message using one of the platforms below
             </div>
           </div>
         </div>
 
-        <div
-          className="contact-buttons-grid"
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(2, 1fr)",
-            gap: "12px",
-            marginTop: "8px",
-          }}
-        >
+        <div className="contact-buttons-container">
           <Suspense>
             <IMessageButton
               booking_ref={booking.ref}

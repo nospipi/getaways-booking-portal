@@ -25,19 +25,19 @@ const InterchangableConfirmSection = ({
           exit={{ y: 10, opacity: 0 }}
           style={{
             padding: "16px",
-            background: "#1a1a1a",
-            border: "1px solid #252525",
+            background: "#f8f9fa",
+            border: "1px solid #e0e0e0",
           }}
         >
           <div className="modern-info-icon">
-            <FaThumbsUp style={{ color: "#ffffff" }} size={20} />
+            <FaThumbsUp style={{ color: "#667eea" }} size={20} />
           </div>
           <div style={{ flex: 1 }}>
             <div className="modern-info-label">Status</div>
             <div
               style={{
                 fontSize: "15px",
-                color: "#ffffff",
+                color: "#1a1a1a",
                 fontWeight: "500",
                 display: "flex",
                 alignItems: "center",
@@ -58,12 +58,12 @@ const InterchangableConfirmSection = ({
           exit={{ y: 10, opacity: 0 }}
           style={{
             padding: "16px",
-            background: "#1a1a1a",
-            border: "1px solid #252525",
+            background: "#f8f9fa",
+            border: "1px solid #e0e0e0",
           }}
         >
           <div className="modern-info-icon">
-            <FaHourglassStart style={{ color: "#ffffff" }} size={20} />
+            <FaHourglassStart style={{ color: "#667eea" }} size={20} />
           </div>
           <div style={{ flex: 1 }}>
             <div className="modern-info-label">Status</div>

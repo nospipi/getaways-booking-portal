@@ -95,14 +95,14 @@ const TourInfoSection = async ({ uniqueId }: { uniqueId: string }) => {
               gap: "10px",
               fontSize: "15px",
               padding: "16px 0 0 0",
-              borderTop: "1px solid #252525",
-              color: "#e5e5e5",
+              borderTop: "1px solid #e0e0e0",
+              color: "#4a4a4a",
             }}
           >
             {booking?.product.highlights.map((highlight) => {
               return (
                 <div key={highlight} style={{ display: "flex", alignItems: "flex-start", gap: "10px", padding: "8px 0" }}>
-                  <IoCaretForwardOutline size={14} style={{ color: "#ffffff", flexShrink: 0, marginTop: "2px" }} /> 
+                  <IoCaretForwardOutline size={14} style={{ color: "#667eea", flexShrink: 0, marginTop: "2px" }} /> 
                   <span>{highlight}</span>
                 </div>
               );
@@ -135,14 +135,14 @@ const TourInfoSection = async ({ uniqueId }: { uniqueId: string }) => {
               gap: "10px",
               fontSize: "15px",
               padding: "16px 0 0 0",
-              borderTop: "1px solid #252525",
-              color: "#e5e5e5",
+              borderTop: "1px solid #e0e0e0",
+              color: "#4a4a4a",
             }}
           >
             {booking?.product?.additional_info?.map((additional_info) => {
               return (
                 <div key={additional_info} style={{ display: "flex", alignItems: "flex-start", gap: "10px", padding: "8px 0" }}>
-                  <IoCaretForwardOutline size={14} style={{ color: "#ffffff", flexShrink: 0, marginTop: "2px" }} />{" "}
+                  <IoCaretForwardOutline size={14} style={{ color: "#667eea", flexShrink: 0, marginTop: "2px" }} />{" "}
                   <span>{additional_info}</span>
                 </div>
               );
@@ -175,15 +175,15 @@ const TourInfoSection = async ({ uniqueId }: { uniqueId: string }) => {
               gap: "10px",
               fontSize: "15px",
               padding: "16px 0 0 0",
-              borderTop: "1px solid #252525",
-              color: "#e5e5e5",
+              borderTop: "1px solid #e0e0e0",
+              color: "#4a4a4a",
             }}
           >
             {booking?.product?.special_instructions?.map(
               (special_instruction) => {
                 return (
                   <div key={special_instruction} style={{ display: "flex", alignItems: "flex-start", gap: "10px", padding: "8px 0" }}>
-                    <IoCaretForwardOutline size={14} style={{ color: "#ffffff", flexShrink: 0, marginTop: "2px" }} />{" "}
+                    <IoCaretForwardOutline size={14} style={{ color: "#667eea", flexShrink: 0, marginTop: "2px" }} />{" "}
                     <span>{special_instruction}</span>
                   </div>
                 );

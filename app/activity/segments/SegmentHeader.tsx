@@ -1,23 +1,23 @@
-import Button from "@mui/material/Button";
 import { ReactNode } from "react";
 
 const SegmentHeader = ({ children }: { children: ReactNode }) => {
   return (
     <div
+      className="segment-header-sticky"
       style={{
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
-        padding: "0 0 24px 0",
-        borderBottom: "1px solid #252525",
-        marginBottom: "8px",
+        padding: "16px 0 24px 0",
+        borderBottom: "1px solid #e0e0e0",
+        marginBottom: "0",
       }}
     >
       <h2
         style={{
           fontSize: "24px",
           fontWeight: "700",
-          color: "#ffffff",
+          color: "#1a1a1a",
           letterSpacing: "-0.02em",
           margin: 0,
         }}

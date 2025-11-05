@@ -1,7 +1,6 @@
 "use client";
 
 import { MdEmail } from "react-icons/md";
-import { FiExternalLink } from "react-icons/fi";
 import useAddUserAction from "@/app/useAddUserAction";
 const BUSINESS_MAIN_EMAIL = process.env
   .NEXT_PUBLIC_BUSINESS_MAIN_EMAIL as string;
@@ -34,7 +33,6 @@ const EmailButton = ({
         <MdEmail size={18} color="#ffffff" />
       </div>
       <span className="contact-button-text">Email</span>
-      <FiExternalLink size={14} color="#ffffff" style={{ opacity: 0.8 }} />
     </button>
   );
 };

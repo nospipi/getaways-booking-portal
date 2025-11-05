@@ -13,8 +13,8 @@ body {
   overflow: hidden;
   margin: 0;
   display: flex;
-  background: #242424;
-  color: #f5f5f5;
+  background: #f8f9fa;
+  color: #1a1a1a;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -29,7 +29,7 @@ a {
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  background: linear-gradient(180deg, #242424 0%, #2a2a2a 100%);
+  background: linear-gradient(180deg, #f8f9fa 0%, #ffffff 100%);
 }
 
 .content-wrapper {
@@ -48,23 +48,8 @@ a {
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
   max-width: 1200px;
   width: 100%;
-}
-
-.content-container::-webkit-scrollbar {
-  width: 6px;
-}
-
-.content-container::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.content-container::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: 3px;
 }
 
 .content-container-wrapper {
@@ -93,8 +78,14 @@ a {
     gap: 24px;
   }
   
-  .contact-buttons-grid {
-    grid-template-columns: 1fr !important;
+  .contact-buttons-container {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
+  }
+  
+  .contact-button {
+    width: 100%;
+    max-width: 100%;
   }
 }
 
@@ -109,14 +100,31 @@ a {
   gap: 24px;
 }
 
+.segment-header-sticky {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: linear-gradient(180deg, #f8f9fa 0%, #ffffff 100%);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding-top: 16px !important;
+  margin-top: -16px;
+  padding-bottom: 24px !important;
+  margin-bottom: 0 !important;
+  border-bottom: 1px solid #e0e0e0;
+}
+
 /* Modern Card Styles */
 .modern-card {
-  background: #2d2d2d;
-  border: 1px solid #404040;
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
   padding: 24px;
   display: flex;
   flex-direction: column;
   gap: 20px;
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
 }
 
 @media (max-width: 768px) {
@@ -131,7 +139,7 @@ a {
   align-items: center;
   justify-content: space-between;
   padding-bottom: 16px;
-  border-bottom: 1px solid #404040;
+  border-bottom: 1px solid #e0e0e0;
 }
 
 .modern-card-title {
@@ -139,17 +147,15 @@ a {
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #ffffff;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #667eea;
 }
 
 .modern-card-content {
   display: flex;
   flex-direction: column;
   gap: 16px;
+  min-width: 0;
+  overflow: hidden;
 }
 
 @media (max-width: 768px) {
@@ -194,7 +200,7 @@ a {
   flex: 1;
   font-size: 15px;
   line-height: 1.5;
-  color: #e5e5e5;
+  color: #1a1a1a;
 }
 
 .modern-info-label {
@@ -202,13 +208,13 @@ a {
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #aaaaaa;
+  color: #666666;
   margin-bottom: 4px;
 }
 
 .modern-info-value {
   font-size: 15px;
-  color: #ffffff;
+  color: #1a1a1a;
   font-weight: 500;
 }
 
@@ -232,7 +238,7 @@ a {
 }
 
 .section-title-container {
-  color: #ffffff;
+  color: #667eea;
   padding: 0 0 12px 0;
   font-size: 11px;
   font-weight: 600;
@@ -316,7 +322,7 @@ a {
   align-items: center;
   text-align: left;
   gap: 8px;
-  color: #f5f5f5;
+  color: #1a1a1a;
   flex: 1;
   min-width: 0;
   padding-left: 0;
@@ -389,6 +395,7 @@ a {
   position: relative;
   overflow: hidden;
   width: 100%;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.2);
 }
 
 .confirm-button span {
@@ -410,8 +417,8 @@ a {
   justify-content: center;
   align-items: center;
   background: transparent;
-  border: 1px solid #555555;
-  color: #f5f5f5;
+  border: 1px solid #d0d0d0;
+  color: #1a1a1a;
   cursor: pointer;
   font-size: 14px;
   font-weight: 600;
@@ -434,19 +441,34 @@ a {
   }
 }
 
+.contact-buttons-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-top: 8px;
+}
+
 .contact-button {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 10px;
+  justify-content: flex-start;
+  gap: 14px;
   padding: 12px 16px;
   border: none;
   cursor: pointer;
   color: #ffffff;
   font-size: 14px;
   font-weight: 600;
-  width: 100%;
   min-height: 52px;
+  border-radius: 0;
+  transition: transform 0.1s ease, opacity 0.1s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-button:active {
+  transform: scale(0.98);
+  opacity: 0.9;
 }
 
 .contact-button-icon {
@@ -456,6 +478,7 @@ a {
   width: 32px;
   height: 32px;
   background: rgba(255, 255, 255, 0.2);
+  border-radius: 0;
   flex-shrink: 0;
 }
 
@@ -463,18 +486,45 @@ a {
   flex: 1;
   text-align: left;
   white-space: nowrap;
+  font-weight: 600;
 }
 
 @media (max-width: 768px) {
+  .contact-buttons-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  
   .contact-button {
     min-height: 48px;
     font-size: 13px;
-    padding: 10px 14px;
+    padding: 10px 12px;
+    gap: 12px;
   }
   
   .contact-button-icon {
     width: 28px;
     height: 28px;
+  }
+  
+  .contact-button-text {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-buttons-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+  
+  .contact-button {
+    padding: 10px 8px;
+    min-height: 44px;
+  }
+  
+  .contact-button-text {
+    font-size: 12px;
   }
 }
 
@@ -629,7 +679,7 @@ a {
   flex-direction: column;
   gap: 12px;
   padding: 10px 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid #e0e0e0;
 }
 
 .traveler-item:last-child {
@@ -639,7 +689,7 @@ a {
 .traveler-header {
   font-size: 12px;
   font-weight: 800;
-  color: #ffffff;
+  color: #667eea;
   letter-spacing: 0.15em;
   text-transform: uppercase;
 }
@@ -671,12 +721,12 @@ a {
 .disclaimer-container {
   background-color: transparent;
   padding: 18px;
-  border-left: 2px solid #ffffff;
+  border-left: 2px solid #667eea;
   margin: 0;
   font-size: 14px;
-  color: #f5f5f5;
-  border-top: 2px solid #252525;
-  border-bottom: 2px solid #252525;
+  color: #1a1a1a;
+  border-top: 2px solid #e0e0e0;
+  border-bottom: 2px solid #e0e0e0;
   border-right: none;
   line-height: 1.7;
 }
@@ -734,8 +784,8 @@ a {
 
 /* Tour Product Card Styles */
 .tour-product-card {
-  background: #252525;
-  border: 1px solid #404040;
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -765,7 +815,7 @@ a {
 .tour-product-name {
   font-size: 18px;
   font-weight: 700;
-  color: #ffffff;
+  color: #1a1a1a;
   margin: 0;
   line-height: 1.4;
   flex: 1;
@@ -773,7 +823,7 @@ a {
 
 .tour-product-description {
   font-size: 14px;
-  color: #d0d0d0;
+  color: #4a4a4a;
   line-height: 1.6;
   margin: 0;
 }
@@ -802,23 +852,43 @@ a {
   flex-direction: column;
   gap: 16px;
   width: 100%;
+  min-width: 0;
+  max-width: 100%;
+}
+
+/* Promo Section Card - spans 2 columns on larger screens */
+.promo-section-card {
+  grid-column: span 2;
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+@media (max-width: 1024px) {
+  .promo-section-card {
+    grid-column: span 1;
+  }
 }
 
 /* Promo Product Card Styles */
 .promo-product-card {
-  background: #2d2d2d;
-  border: 1px solid #404040;
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
   display: flex;
   flex-direction: column;
   overflow: hidden;
   width: 100%;
+  min-width: 0;
+  max-width: 100%;
 }
 
 .promo-product-image-container {
   position: relative;
   width: 100%;
-  height: 200px;
+  height: 280px;
   overflow: hidden;
+  min-width: 0;
+  flex-shrink: 0;
 }
 
 .promo-product-badge {
@@ -845,14 +915,14 @@ a {
 .promo-product-title {
   font-size: 16px;
   font-weight: 700;
-  color: #ffffff;
+  color: #1a1a1a;
   margin: 0;
   line-height: 1.4;
 }
 
 .promo-product-description {
   font-size: 14px;
-  color: #d0d0d0;
+  color: #4a4a4a;
   line-height: 1.5;
   margin: 0;
   display: -webkit-box;
@@ -878,7 +948,7 @@ a {
   display: flex;
   align-items: center;
   gap: 6px;
-  color: #aaaaaa;
+  color: #666666;
   font-size: 13px;
 }
 
@@ -906,11 +976,7 @@ a {
 .promo-product-price-discounted {
   font-size: 18px;
   font-weight: 700;
-  color: #ffffff;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #667eea;
 }
 
 .promo-product-button {
@@ -930,23 +996,31 @@ a {
 
 @media (max-width: 768px) {
   .promo-product-card {
-    min-width: 100%;
+    min-width: 0;
+    width: 100%;
   }
   
   .promo-product-image-container {
-    height: 180px;
+    height: 240px;
+    min-width: 0;
   }
   
   .promo-product-content {
     padding: 16px;
+    min-width: 0;
+    overflow: hidden;
   }
   
   .promo-product-title {
     font-size: 15px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
   }
   
   .promo-product-description {
     font-size: 13px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
   }
 }
 
@@ -961,7 +1035,7 @@ a {
 .product-navigation-indicator {
   text-align: center;
   font-size: 12px;
-  color: #aaaaaa;
+  color: #666666;
   font-weight: 600;
   letter-spacing: 0.05em;
 }
@@ -973,8 +1047,8 @@ a {
   gap: 12px;
   padding: 14px 16px;
   background: transparent;
-  border: 1px solid #555555;
-  color: #f5f5f5;
+  border: 1px solid #d0d0d0;
+  color: #1a1a1a;
   cursor: pointer;
   font-size: 14px;
   font-weight: 600;
@@ -984,7 +1058,7 @@ a {
 .product-navigation-title {
   flex: 1;
   text-align: left;
-  color: #ffffff;
+  color: #1a1a1a;
   font-weight: 700;
   overflow: hidden;
   text-overflow: ellipsis;

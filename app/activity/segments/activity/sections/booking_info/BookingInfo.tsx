@@ -59,7 +59,7 @@ const BookingInfo = async ({ uniqueId }: { uniqueId: string }) => {
             <div className="modern-info-label">Seats</div>
             <div className="modern-info-value">
               <span style={{ fontWeight: "600" }}>{seats}</span>
-              <span style={{ color: "#888888", marginLeft: "8px" }}>
+              <span style={{ color: "#666666", marginLeft: "8px" }}>
                 ({tickets.join(", ")})
               </span>
             </div>
@@ -91,7 +91,7 @@ const BookingInfo = async ({ uniqueId }: { uniqueId: string }) => {
                           display: "flex",
                           alignItems: "center",
                           gap: "8px",
-                          color: "#ffffff",
+                          color: "#1a1a1a",
                           fontSize: "15px",
                         }}
                       >
@@ -107,7 +107,7 @@ const BookingInfo = async ({ uniqueId }: { uniqueId: string }) => {
                       width: "100%",
                       gap: "12px",
                       padding: "16px 0 0 0",
-                      borderTop: "1px solid #252525",
+                      borderTop: "1px solid #e0e0e0",
                     }}
                   >
                     {booking?.traveller_details_form?.map(

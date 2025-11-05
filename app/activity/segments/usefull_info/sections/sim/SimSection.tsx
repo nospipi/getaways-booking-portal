@@ -18,7 +18,7 @@ const SimSection = () => {
           </div>
           <div style={{ flex: 1 }}>
             <div className="modern-info-label">Stay Connected</div>
-            <div className="modern-info-value" style={{ fontSize: "14px", color: "#e5e5e5" }}>
+            <div className="modern-info-value" style={{ fontSize: "14px", color: "#4a4a4a" }}>
               Buy an international virtual eSIM card with unlimited data, stay
               connected wherever you go, and avoid expensive phone bills
             </div>

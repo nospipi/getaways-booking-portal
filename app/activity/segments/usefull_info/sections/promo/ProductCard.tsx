@@ -30,7 +30,7 @@ const ProductCard = ({ product }: { product: IProduct }) => {
           style={{
             objectFit: "cover",
           }}
-          sizes="(max-width: 800px) 100vw, 400px"
+          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
           alt={
             hasImage
               ? product?.product_pictures[0]?.alt

@@ -23,7 +23,7 @@ const ReviewSection = async ({ id }: { id: string }) => {
           </div>
           <div style={{ flex: 1 }}>
             <div className="modern-info-label">Share Your Experience</div>
-            <div className="modern-info-value" style={{ fontSize: "14px", color: "#e5e5e5" }}>
+            <div className="modern-info-value" style={{ fontSize: "14px", color: "#4a4a4a" }}>
               Write an honest review about your experience with Getaways Greece.
               We would love to hear your feedback
             </div>

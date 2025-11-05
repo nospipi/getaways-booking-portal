@@ -33,7 +33,7 @@ const ProductCarousel = ({ products }: { products: string }) => {
 
       {parsedProducts.length > 1 && (
         <ProductNavigation
-          nextProductTitle={nextProduct.platform_product_name}
+          nextProductTitle={nextProduct.platform_product_name || "Next Tour"}
           onNext={handleNext}
           currentIndex={currentIndex}
           totalProducts={parsedProducts.length}

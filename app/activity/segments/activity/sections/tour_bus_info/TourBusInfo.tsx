@@ -22,7 +22,7 @@ const TourBusInfo = async ({ uniqueId }: { uniqueId: string }) => {
             <div
               className="modern-info-value"
               style={{
-                color: hasVehicle ? "#ffffff" : "#ff6b6b",
+                color: hasVehicle ? "#1a1a1a" : "#ff6b6b",
                 fontWeight: hasVehicle ? "500" : "600",
               }}
             >
