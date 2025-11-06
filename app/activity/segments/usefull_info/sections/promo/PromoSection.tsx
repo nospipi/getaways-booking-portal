@@ -27,7 +27,6 @@ const PromoSection = async ({ id }: { id: string }) => {
               <div className="modern-info-value" style={{ fontSize: "14px", color: "#4a4a4a" }}>
                 Use the code <b style={{ color: "#1E90FF", fontWeight: "600" }}>PROMO_APP</b> during checkout to get a <b style={{ color: "#1E90FF" }}>15%</b> discount
               </div>
-              <CopyPromoCodeButton promoCode="PROMO_APP" />
             </div>
           </div>
         </div>
