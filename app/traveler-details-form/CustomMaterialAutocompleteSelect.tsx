@@ -39,16 +39,31 @@ const CustomMaterialAutocompleteSelect = ({
     <Autocomplete
       sx={{
         flex: 1,
-        "& .MuiFilledInput-root": {
-          // Target the FilledInput root
-          backgroundColor: "white",
-          "&:hover": {
-            backgroundColor: "white", // Ensure white on hover
+        "& .MuiOutlinedInput-root": {
+          backgroundColor: "#ffffff",
+          fontSize: "clamp(14px, 3.5vw, 15px)",
+          "& fieldset": {
+            borderColor: "#e0e0e0",
+            borderWidth: "1.5px",
           },
+          "&:hover fieldset": {
+            borderColor: "#1E90FF",
+          },
+          "&.Mui-focused fieldset": {
+            borderColor: "#1E90FF",
+            borderWidth: "2px",
+          },
+        },
+        "& .MuiInputLabel-root": {
+          fontSize: "clamp(13px, 3.5vw, 14px)",
+          color: "#666666",
           "&.Mui-focused": {
-            // Style when focused (optional)
-            backgroundColor: "white",
+            color: "#1E90FF",
           },
+        },
+        "& .MuiOutlinedInput-input": {
+          padding: "clamp(14px, 4vw, 16px) clamp(12px, 3.5vw, 14px)",
+          color: "#1a1a1a",
         },
       }}
       autoComplete
@@ -56,17 +71,12 @@ const CustomMaterialAutocompleteSelect = ({
       renderInput={(params) => {
         return (
           <TextField
-            variant="filled"
+            variant="outlined"
             {...params}
             label={label}
             error={error}
             required={required}
             name={name}
-            slotProps={{
-              inputLabel: {
-                //shrink: true,
-              },
-            }}
           />
         );
       }}

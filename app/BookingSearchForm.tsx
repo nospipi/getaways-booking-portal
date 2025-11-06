@@ -3,8 +3,8 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
 import { RotatingLines } from "react-loader-spinner";
+import { FaArrowRight } from "react-icons/fa";
 
 //---------------------------------------------------------
 
@@ -32,13 +32,14 @@ const BookingSearchForm = () => {
         style={{
           display: "flex",
           flexDirection: "column",
-          gap: "10px",
+          gap: "20px",
+          width: "100%",
         }}
       >
         <TextField
           name="booking_ref"
           required
-          variant="filled"
+          variant="outlined"
           onKeyDown={(e: React.KeyboardEvent<HTMLDivElement>) => {
             if (e.key === " ") {
               e.preventDefault(); // Prevent space from being entered
@@ -49,32 +50,82 @@ const BookingSearchForm = () => {
           autoCorrect="off"
           autoComplete="off"
           label="Booking Number"
-        />
-        <Button
-          type="submit"
-          //type="button"
-          // onClick={() => {
-          //   // service worker call
-          //   //window.dispatchEvent(new CustomEvent("custom_event"));
-          //   //test("test");
-          //   console.log("test");
-          //   navigator.sendBeacon(
-          //     `http://localhost:3000/api/modify/page_leave/dsfsdfds/dsfgdfg`
-          //   );
-          // }}
-          fullWidth
-          variant="contained"
+          placeholder="Enter your booking reference"
           sx={{
-            backgroundColor: "#627a96",
-            minHeight: "40px",
+            "& .MuiOutlinedInput-root": {
+              backgroundColor: "#ffffff",
+              borderRadius: "12px",
+              fontSize: "clamp(14px, 3.5vw, 15px)",
+              "& fieldset": {
+                borderColor: "#e0e0e0",
+                borderWidth: "1.5px",
+              },
+              "&:hover fieldset": {
+                borderColor: "#1E90FF",
+              },
+              "&.Mui-focused fieldset": {
+                borderColor: "#1E90FF",
+                borderWidth: "2px",
+              },
+            },
+            "& .MuiInputLabel-root": {
+              fontSize: "clamp(13px, 3.5vw, 14px)",
+              color: "#666666",
+              "&.Mui-focused": {
+                color: "#1E90FF",
+              },
+            },
+            "& .MuiOutlinedInput-input": {
+              padding: "clamp(14px, 4vw, 16px) clamp(12px, 3.5vw, 14px)",
+              color: "#1a1a1a",
+            },
+          }}
+        />
+        <button
+          type="submit"
+          disabled={isLoading}
+          className="confirm-button"
+          style={{
+            minHeight: "clamp(52px, 8vw, 56px)",
+            borderRadius: "12px",
+            fontSize: "clamp(14px, 3.5vw, 15px)",
+            fontWeight: 600,
+            letterSpacing: "0.02em",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "10px",
+            cursor: isLoading ? "wait" : "pointer",
+            transition: "transform 0.1s ease, opacity 0.1s ease, box-shadow 0.2s ease",
+            marginTop: "4px",
+          }}
+          onMouseDown={(e) => {
+            if (!isLoading) {
+              e.currentTarget.style.transform = "scale(0.98)";
+              e.currentTarget.style.opacity = "0.9";
+            }
+          }}
+          onMouseUp={(e) => {
+            e.currentTarget.style.transform = "scale(1)";
+            e.currentTarget.style.opacity = "1";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.transform = "scale(1)";
+            e.currentTarget.style.opacity = "1";
           }}
         >
           {isLoading ? (
-            <RotatingLines width="15" strokeColor="white" />
+            <>
+              <RotatingLines width="18" strokeColor="white" strokeWidth="3" />
+              <span>Searching...</span>
+            </>
           ) : (
-            <span>SEARCH BOOKING</span>
+            <>
+              <span>Search Booking</span>
+              <FaArrowRight size={16} />
+            </>
           )}
-        </Button>
+        </button>
       </form>
     </search>
   );

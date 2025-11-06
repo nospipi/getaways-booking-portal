@@ -1274,3 +1274,104 @@ background: #f8f9fa;
     height: 2px;
   }
 }
+
+/* Home Page Styles */
+.home-page-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  padding: 24px 20px;
+  background: linear-gradient(180deg, #f8f9fa 0%, #ffffff 100%);
+  min-height: 100dvh;
+}
+
+.home-page-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 480px;
+  gap: 32px;
+}
+
+.home-page-card {
+  width: 100%;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e0e0e0;
+  border-radius: 16px;
+  padding: 32px;
+  gap: 24px;
+}
+
+@media (max-width: 768px) {
+  .home-page-container {
+    padding: 20px 16px;
+  }
+  
+  .home-page-content {
+    gap: 24px;
+    max-width: 100%;
+  }
+  
+  .home-page-card {
+    padding: 24px 20px;
+    gap: 20px;
+    border-radius: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .home-page-container {
+    padding: 16px 12px;
+  }
+  
+  .home-page-content {
+    gap: 20px;
+  }
+  
+  .home-page-card {
+    padding: 20px 16px;
+    gap: 16px;
+  }
+}
+
+/* Traveller Details Form Styles */
+details[class*="modern-card"] summary {
+  list-style: none;
+}
+
+details[class*="modern-card"] summary::-webkit-details-marker {
+  display: none;
+}
+
+details[class*="modern-card"] summary::marker {
+  display: none;
+}
+
+details[class*="modern-card"][open] summary span:last-child {
+  transform: rotate(180deg);
+  transition: transform 0.2s ease;
+}
+
+details[class*="modern-card"] summary span:last-child {
+  transition: transform 0.2s ease;
+  display: inline-block;
+}
+
+.traveler-item {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 20px;
+  border: 1px solid #e0e0e0;
+  background-color: #fafafa;
+}
+
+@media (max-width: 768px) {
+  .traveler-item {
+    padding: 16px;
+    gap: 14px;
+  }
+}
