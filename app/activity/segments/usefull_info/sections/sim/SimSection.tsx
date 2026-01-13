@@ -29,7 +29,7 @@ const SimSection = () => {
         </div>
         <div style={{ marginTop: "8px" }}>
           <Link
-            href={"https://connectphone.eu/"}
+            href={"https://www.connectphone-esim.com/download-our-app"}
             target="_blank"
             style={{
               width: "100%",
